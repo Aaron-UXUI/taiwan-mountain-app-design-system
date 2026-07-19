@@ -1,0 +1,39 @@
+.tmads-crowdedness {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s);
+  padding: var(--spacing-xs) 0;
+}
+
+.tmads-crowdedness__label {
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-body-l);
+  line-height: var(--line-height-body-l);
+  color: var(--color-gray-800);
+  white-space: nowrap;
+}
+
+.tmads-crowdedness__badge {
+  flex-shrink: 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-xs);
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-body-l);
+  line-height: var(--line-height-body-l);
+  color: var(--color-gray-white);
+  white-space: nowrap;
+}
+
+.tmads-crowdedness__badge--comfortable {
+  background-color: var(--color-semantic-success-700);
+}
+
+.tmads-crowdedness__badge--partial-crowded {
+  background-color: var(--color-accent-yellow-700);
+}
+
+.tmads-crowdedness__badge--crowded {
+  background-color: var(--color-semantic-destruct-700);
+}

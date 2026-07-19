@@ -1,0 +1,56 @@
+.tmads-location-pin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 144px;
+  height: 72px;
+}
+
+.tmads-location-pin--focused {
+  height: auto;
+  justify-content: flex-start;
+}
+
+.tmads-location-pin__label {
+  margin: 0;
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--type-scale-headline-4);
+  line-height: var(--line-height-h4);
+  text-align: center;
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.tmads-location-pin--default .tmads-location-pin__label {
+  color: var(--color-primary-green-800);
+}
+
+.tmads-location-pin--info .tmads-location-pin__label {
+  color: var(--color-semantic-info-700);
+}
+
+.tmads-location-pin__badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-rounded);
+  border: 2px solid var(--color-gray-white);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.tmads-location-pin--focused .tmads-location-pin__badge {
+  width: 48px;
+  height: 48px;
+}
+
+.tmads-location-pin--default .tmads-location-pin__badge {
+  background-color: var(--color-primary-green-800);
+}
+
+.tmads-location-pin--info .tmads-location-pin__badge {
+  background-color: var(--color-semantic-info-600);
+}

@@ -1,0 +1,17 @@
+.tmads-link-further-info {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-s);
+  border: 1px solid var(--color-primary-green-800);
+  background-color: var(--color-gray-white);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12), 0 2px 0.5px rgba(0, 0, 0, 0.12);
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--type-scale-body-l);
+  line-height: var(--line-height-body-l);
+  color: var(--color-primary-green-800);
+  text-decoration: none;
+  cursor: pointer;
+}

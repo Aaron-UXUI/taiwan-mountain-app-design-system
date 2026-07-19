@@ -1,0 +1,28 @@
+.tmads-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-xxs);
+  opacity: 0.95;
+  backdrop-filter: blur(12px);
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
+  color: var(--color-gray-white);
+  white-space: nowrap;
+}
+
+.tmads-label--open,
+.tmads-label--partial {
+  background-color: var(--color-primary-green-900);
+}
+
+.tmads-label--close {
+  background-color: var(--color-semantic-destruct-700);
+}
+
+.tmads-label--family {
+  background-color: var(--color-accent-yellow-900);
+}

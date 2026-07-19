@@ -1,0 +1,36 @@
+.tmads-carousel-indicators {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s);
+  width: 36px;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-xs);
+}
+
+.tmads-carousel-indicators--white {
+  background-color: var(--color-gray-white);
+  opacity: 0.6;
+}
+
+.tmads-carousel-indicators__dot {
+  flex-shrink: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: var(--radius-rounded);
+}
+
+.tmads-carousel-indicators--white .tmads-carousel-indicators__dot {
+  background-color: var(--color-gray-200);
+}
+
+.tmads-carousel-indicators--white .tmads-carousel-indicators__dot[data-active="true"] {
+  background-color: var(--color-gray-black);
+}
+
+.tmads-carousel-indicators--dark .tmads-carousel-indicators__dot {
+  background-color: var(--color-gray-400);
+}
+
+.tmads-carousel-indicators--dark .tmads-carousel-indicators__dot[data-active="true"] {
+  background-color: var(--color-gray-white);
+}

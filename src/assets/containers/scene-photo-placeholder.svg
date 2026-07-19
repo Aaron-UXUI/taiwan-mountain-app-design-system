@@ -1,0 +1,6 @@
+<svg width="327" height="236" viewBox="0 0 327 236" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="景點照片佔位圖">
+  <rect width="327" height="236" fill="#DBDED5" />
+  <circle cx="256" cy="60" r="24" fill="#FFD966" />
+  <path d="M0 190L80 110L140 165L200 95L327 200V236H0V190Z" fill="#5C6647" />
+  <path d="M0 210L110 150L190 200L260 160L327 210V236H0V210Z" fill="#464F34" />
+</svg>

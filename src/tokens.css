@@ -16,4 +16,25 @@
 
   --type-scale-body-l: 14px;
   --line-height-body-l: 20px;
+
+  /* Added while building Clickable/* components (Chips, Stepper, TextField, RadioButton, IconButtons)
+   * Source: get_design_context on nodes 10125:9787, 12554:9489, 12190:23425, 12190:16599, 816:4968
+   * — body/M text style (12/18) and Label/L text style (16/24, shares Line Height/H4). */
+  --type-scale-body-m: 12px;
+  --line-height-body-m: 18px;
+
+  --type-scale-label-l: 16px;
+
+  /* Source: Stepper (node 12190:23425) "Number/Mono Bold" style + TextField (node 12190:16599) Input Number. */
+  --typeface-sf-mono: "SF Mono", ui-monospace, "Menlo", monospace;
+
+  /* Added while building Content Container/* components (Cards/Scene, Cards/Description)
+   * Source: get_design_context on nodes 374:3819, 11441:11209 — Headline/3 text style (20/30). */
+  --type-scale-headline-3: 20px;
+  --line-height-h3: 30px;
+
+  /* Added while building Indicators/PaymentInfo (get_design_context on node 12561:16649)
+   * — headline/1 text style (40/56) used for the price display. */
+  --type-scale-headline-1: 40px;
+  --line-height-h1: 56px;
 }

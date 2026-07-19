@@ -1,0 +1,92 @@
+.tmads-list-weather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-sm) 0;
+  background-color: var(--color-gray-white);
+  border-radius: var(--radius-xs);
+  font-family: var(--typeface-pingfang-tc);
+}
+
+.tmads-list-weather__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tmads-list-weather__icon-svg {
+  width: 24px;
+  height: 24px;
+}
+
+.tmads-list-weather__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-s);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-xs);
+}
+
+.tmads-list-weather__date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-s) 0;
+  width: 100%;
+  color: var(--color-gray-black);
+  text-align: center;
+}
+
+.tmads-list-weather__date-day {
+  margin: 0;
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-label-l);
+  line-height: var(--line-height-h4);
+}
+
+.tmads-list-weather__date-week {
+  margin: 0;
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
+}
+
+.tmads-list-weather__value {
+  margin: 0;
+  padding: var(--spacing-s) 0;
+  width: 100%;
+  color: var(--color-gray-black);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-label-l);
+  line-height: var(--line-height-h4);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.tmads-list-weather__value--small {
+  padding: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
+}
+
+.tmads-list-weather__uv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  color: var(--color-gray-black);
+  text-align: center;
+}
+
+.tmads-list-weather__uv-label {
+  margin: 0;
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
+}

@@ -1,0 +1,6 @@
+<svg width="240" height="180" viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="步道照片佔位圖">
+  <rect width="240" height="180" fill="#DBDED5" />
+  <circle cx="185" cy="42" r="18" fill="#FFD966" />
+  <path d="M0 140L60 90L105 125L150 70L240 150V180H0V140Z" fill="#5C6647" />
+  <path d="M0 160L80 115L140 150L190 120L240 160V180H0V160Z" fill="#464F34" />
+</svg>

@@ -1,0 +1,118 @@
+.tmads-card-tickets {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+  width: 100%;
+  max-width: 360px;
+  padding: var(--spacing-m);
+  padding-left: calc(var(--spacing-m) + 6px);
+  background-color: var(--color-gray-white);
+  border: 1px solid var(--color-primary-green-700);
+  border-top-left-radius: var(--radius-xxs);
+  border-bottom-left-radius: var(--radius-xxs);
+  border-top-right-radius: var(--radius-m);
+  border-bottom-right-radius: var(--radius-m);
+  overflow: hidden;
+  font-family: var(--typeface-pingfang-tc);
+}
+
+.tmads-card-tickets::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6%;
+  bottom: 6%;
+  width: 6px;
+  background-color: var(--color-primary-green-700);
+}
+
+.tmads-card-tickets[data-state="disabled"] {
+  border-color: var(--color-gray-400);
+}
+
+.tmads-card-tickets[data-state="disabled"]::before {
+  background-color: var(--color-gray-400);
+}
+
+.tmads-card-tickets__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-gray-black);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
+}
+
+.tmads-card-tickets[data-state="disabled"] .tmads-card-tickets__header {
+  color: var(--color-gray-400);
+}
+
+.tmads-card-tickets__used {
+  flex-shrink: 0;
+}
+
+.tmads-card-tickets__divider {
+  height: 1px;
+  width: 100%;
+  background-color: var(--color-primary-green-700);
+}
+
+.tmads-card-tickets[data-state="disabled"] .tmads-card-tickets__divider {
+  background-color: var(--color-gray-400);
+}
+
+.tmads-card-tickets__body {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+.tmads-card-tickets__info {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.tmads-card-tickets__scene {
+  margin: 0;
+  color: var(--color-primary-green-800);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--type-scale-body-l);
+  line-height: var(--line-height-body-l);
+}
+
+.tmads-card-tickets[data-state="disabled"] .tmads-card-tickets__scene {
+  color: var(--color-gray-400);
+}
+
+.tmads-card-tickets__ticket-type,
+.tmads-card-tickets__additional {
+  margin: 0;
+  color: var(--color-gray-black);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
+}
+
+.tmads-card-tickets[data-state="disabled"] .tmads-card-tickets__ticket-type {
+  color: var(--color-gray-400);
+}
+
+.tmads-card-tickets__price {
+  flex-shrink: 0;
+  color: var(--color-gray-800);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.tmads-card-tickets[data-state="disabled"] .tmads-card-tickets__price {
+  color: var(--color-gray-400);
+}

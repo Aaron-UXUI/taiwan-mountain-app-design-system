@@ -1,0 +1,28 @@
+.tmads-list-setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-s);
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-lm);
+  background-color: var(--color-gray-white);
+  border: none;
+  cursor: pointer;
+  font-family: var(--typeface-pingfang-tc);
+  text-align: left;
+}
+
+.tmads-list-setting__text {
+  flex: 1 1 0;
+  min-width: 0;
+  color: var(--color-gray-black);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-label-l);
+  line-height: var(--line-height-h4);
+}
+
+.tmads-list-setting__chevron {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}

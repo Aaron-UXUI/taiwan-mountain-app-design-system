@@ -9,20 +9,20 @@
 | Figma 元件 | 變體 | node id | 對應程式碼元件 | 檔案路徑 |
 |---|---|---|---|---|
 | CheckBox | State=Off/On | 7813:28478 | `CheckBox` | `src/components/clickable/CheckBox/CheckBox.tsx` |
-| Chips / Small | Active=No/Yes | 10125:9787 | | |
-| Chips / Salient | Type=General/Special/Warning | 12554:9489 | | |
-| Toggles | Active=Yes/No | 10291:14552 | | |
-| Chips / Large | state=no/yes | 812:5259 | | |
-| Radio button | click=no/Yes × Style=Default/expanded | 816:4968 | | |
-| Location Pin | State=Default/Focused × Type=Default/Info | 11129:12159 | | |
-| Segmented Controls | Click=Left/Right | 598:6408 | | |
-| Stepper | State=0/Default/Error/Disabled | 12190:23425 | | |
-| Text Field | State=Default/Typing/Typed/Error | 12190:16599 | | |
+| Chips / Small | Active=No/Yes | 10125:9787 | `ChipsSmall` | `src/components/clickable/ChipsSmall/ChipsSmall.tsx` |
+| Chips / Salient | Type=General/Special/Warning | 12554:9489 | `ChipsSalient` | `src/components/clickable/ChipsSalient/ChipsSalient.tsx` |
+| Toggles | Active=Yes/No | 10291:14552 | `Toggle` | `src/components/clickable/Toggle/Toggle.tsx` |
+| Chips / Large | state=no/yes | 812:5259 | `ChipsLarge` | `src/components/clickable/ChipsLarge/ChipsLarge.tsx` |
+| Radio button | click=no/Yes × Style=Default/expanded | 816:4968 | `RadioButton` | `src/components/clickable/RadioButton/RadioButton.tsx` |
+| Location Pin | State=Default/Focused × Type=Default/Info | 11129:12159 | `LocationPin` | `src/components/clickable/LocationPin/LocationPin.tsx` |
+| Segmented Controls | Click=Left/Right | 598:6408 | `SegmentedControls` | `src/components/clickable/SegmentedControls/SegmentedControls.tsx` |
+| Stepper | State=0/Default/Error/Disabled | 12190:23425 | `Stepper` | `src/components/clickable/Stepper/Stepper.tsx` |
+| Text Field | State=Default/Typing/Typed/Error | 12190:16599 | `TextField` | `src/components/clickable/TextField/TextField.tsx` |
 | Buttons | Type=Primary/Secondary/Tertiary × Size=Large/Small × State=Default/Disabled/Pressing/Loading | 425:5337 | `Button` | `src/components/clickable/Button/Button.tsx` |
-| Icon Buttons | State × For=Location/Save/OfflineMap × Type | 7297:15056 | | |
-| User Location | 單一元件 | 12846:34701 | | |
-| Link / Further Info | 單一元件 | 11167:23076 | | |
-| Link | 單一元件 | 12469:18515 | | |
+| Icon Buttons | State × For=Location/Save/OfflineMap × Type | 7297:15056 | `IconButton` | `src/components/clickable/IconButton/IconButton.tsx` |
+| User Location | 單一元件 | 12846:34701 | `UserLocation` | `src/components/clickable/UserLocation/UserLocation.tsx` |
+| Link / Further Info | 單一元件 | 11167:23076 | `LinkFurtherInfo` | `src/components/clickable/LinkFurtherInfo/LinkFurtherInfo.tsx` |
+| Link | 單一元件 | 12469:18515 | `Link` | `src/components/clickable/Link/Link.tsx` |
 
 ## Icons / 圖示
 
@@ -41,15 +41,15 @@
 
 | Figma 元件 | 變體 | node id | 對應程式碼元件 | 檔案路徑 |
 |---|---|---|---|---|
-| Cards / Scene | 單一元件 | 374:3819 | | |
-| Cards / Description | 單一元件 | 11441:11209 | | |
-| Cards / Tickets | state=default/disable | 1373:16817 | | |
-| List / weather | 單一元件 | 778:9646 | | |
-| List / Setting | 單一元件 | 493:1903 | | |
-| Cards / Notification | 單一元件 | 459:1657 | | |
-| Cards / Saved Items | 單一元件 | 473:4929 | | |
-| List / DownloadMap | 單一元件 | 13452:15899 | | |
-| List / Notification | 單一元件 | 13452:15906 | | |
+| Cards / Scene | 單一元件 | 374:3819 | `CardScene` | `src/components/containers/CardScene/CardScene.tsx` |
+| Cards / Description | 單一元件 | 11441:11209 | `CardDescription` | `src/components/containers/CardDescription/CardDescription.tsx` |
+| Cards / Tickets | state=default/disable | 1373:16817 | `CardTickets` | `src/components/containers/CardTickets/CardTickets.tsx` |
+| List / weather | 單一元件 | 778:9646 | `ListWeather` | `src/components/containers/ListWeather/ListWeather.tsx` |
+| List / Setting | 單一元件 | 493:1903 | `ListSetting` | `src/components/containers/ListSetting/ListSetting.tsx` |
+| Cards / Notification | 單一元件 | 459:1657 | `CardNotification` | `src/components/containers/CardNotification/CardNotification.tsx` |
+| Cards / Saved Items | 單一元件 | 473:4929 | `CardSavedItems` | `src/components/containers/CardSavedItems/CardSavedItems.tsx` |
+| List / DownloadMap | 單一元件 | 13452:15899 | `ListDownloadMap` | `src/components/containers/ListDownloadMap/ListDownloadMap.tsx` |
+| List / Notification | 單一元件 | 13452:15906 | `ListNotification` | `src/components/containers/ListNotification/ListNotification.tsx` |
 
 ## Progressive Disclosure / 漸進式揭露
 
@@ -94,15 +94,15 @@
 
 | Figma 元件 | 變體 | node id | 對應程式碼元件 | 檔案路徑 |
 |---|---|---|---|---|
-| Progress Indicator | 進度=Choice/Method/Info | 1274:20052 | | |
-| Badge | Attribute=Small/Large/Maximum × For=Accordion/Notification | 8233:6131 | | |
-| Label | State=Open/Partial/Close/family | 9037:15126 | | |
-| Payment Info | State=Selected/Unselected | 12561:16649 | | |
-| Carousel Indicators | Background=White/Dark | 7297:14580 | | |
-| Banner | Type=Default | 15301:14557 | | |
-| Crowdedness | State=Comfortable/Partial Crowded/Crowded | 15975:7322 | | |
-| Snackbar | 單一元件 | 16014:7927 | | |
-| OfflineMap | Signal Missing=Some/Most × Expanded?=No/Yes | 16343:7890 | | |
+| Progress Indicator | 進度=Choice/Method/Info | 1274:20052 | `ProgressIndicator` | `src/components/indicators/ProgressIndicator/ProgressIndicator.tsx` |
+| Badge | Attribute=Small/Large/Maximum × For=Accordion/Notification | 8233:6131 | `Badge` | `src/components/indicators/Badge/Badge.tsx` |
+| Label | State=Open/Partial/Close/family | 9037:15126 | `Label` | `src/components/indicators/Label/Label.tsx` |
+| Payment Info | State=Selected/Unselected | 12561:16649 | `PaymentInfo` | `src/components/indicators/PaymentInfo/PaymentInfo.tsx` |
+| Carousel Indicators | Background=White/Dark | 7297:14580 | `CarouselIndicators` | `src/components/indicators/CarouselIndicators/CarouselIndicators.tsx` |
+| Banner | Type=Default | 15301:14557 | `Banner` | `src/components/indicators/Banner/Banner.tsx` |
+| Crowdedness | State=Comfortable/Partial Crowded/Crowded | 15975:7322 | `Crowdedness` | `src/components/indicators/Crowdedness/Crowdedness.tsx` |
+| Snackbar | 單一元件 | 16014:7927 | `Snackbar` | `src/components/indicators/Snackbar/Snackbar.tsx` |
+| OfflineMap | Signal Missing=Some/Most × Expanded?=No/Yes | 16343:7890 | `OfflineMap` | `src/components/indicators/OfflineMap/OfflineMap.tsx` |
 
 ## 沒有列進來的東西
 

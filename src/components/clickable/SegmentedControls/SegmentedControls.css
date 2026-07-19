@@ -1,0 +1,49 @@
+.tmads-segmented-controls {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 327px;
+  max-width: 480px;
+  overflow: hidden;
+  border-radius: var(--radius-xs);
+  background-color: var(--color-gray-50);
+}
+
+.tmads-segmented-controls__indicator {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  width: calc(50% - 2px);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-primary-green-800);
+  box-shadow: 0 1px 2px var(--color-gray-100);
+  transition: left 0.15s ease;
+}
+
+.tmads-segmented-controls__indicator[data-position="left"] {
+  left: 2px;
+}
+
+.tmads-segmented-controls__indicator[data-position="right"] {
+  left: calc(50% + 0px);
+}
+
+.tmads-segmented-controls__option {
+  position: relative;
+  flex: 1 0 0;
+  padding: var(--spacing-s) var(--spacing-lm);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-body-l);
+  line-height: var(--line-height-body-l);
+  text-align: center;
+  white-space: nowrap;
+  color: var(--color-gray-800);
+}
+
+.tmads-segmented-controls__option[data-selected="true"] {
+  color: var(--color-gray-white);
+}

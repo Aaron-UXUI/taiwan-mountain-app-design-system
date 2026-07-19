@@ -1,0 +1,70 @@
+.tmads-list-notification {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: var(--spacing-s) 0;
+  cursor: pointer;
+  font-family: var(--typeface-pingfang-tc);
+}
+
+.tmads-list-notification__label {
+  flex: 1 1 0;
+  min-width: 0;
+  color: var(--color-gray-black);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-label-l);
+  line-height: var(--line-height-h4);
+}
+
+.tmads-list-notification__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.tmads-list-notification__switch {
+  flex-shrink: 0;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 52px;
+  height: 32px;
+  border-radius: var(--radius-rounded);
+  background-color: var(--color-primary-green-100);
+  border: 2px solid var(--color-primary-green-800);
+  box-sizing: border-box;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.tmads-list-notification__handle {
+  position: absolute;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-rounded);
+  background-color: var(--color-primary-green-800);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.tmads-list-notification__input:checked ~ .tmads-list-notification__switch {
+  background-color: var(--color-primary-green-800);
+  border-color: var(--color-primary-green-800);
+}
+
+.tmads-list-notification__input:checked ~ .tmads-list-notification__switch .tmads-list-notification__handle {
+  background-color: var(--color-gray-white);
+  transform: translateX(20px);
+}
+
+.tmads-list-notification__input:disabled ~ * {
+  opacity: 0.4;
+}
+
+.tmads-list-notification:has(.tmads-list-notification__input:disabled) {
+  cursor: not-allowed;
+}
