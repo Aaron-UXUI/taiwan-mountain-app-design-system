@@ -1,0 +1,63 @@
+.tmads-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-s);
+  padding: var(--spacing-m);
+  background-color: var(--color-gray-white);
+  cursor: pointer;
+}
+
+.tmads-checkbox__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.tmads-checkbox__box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-xxs);
+  border: 1px solid var(--color-gray-800);
+}
+
+.tmads-checkbox__box svg {
+  opacity: 0;
+  width: 12px;
+  height: 12px;
+}
+
+.tmads-checkbox__input:checked + .tmads-checkbox__box {
+  background-color: var(--color-primary-green-800);
+  border-color: var(--color-primary-green-800);
+}
+
+.tmads-checkbox__input:checked + .tmads-checkbox__box svg {
+  opacity: 1;
+}
+
+.tmads-checkbox__label {
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-body-l);
+  line-height: var(--line-height-body-l);
+  color: var(--color-gray-800);
+}
+
+.tmads-checkbox__input:checked ~ .tmads-checkbox__label {
+  color: var(--color-primary-green-800);
+}
+
+.tmads-checkbox__input:disabled ~ * {
+  opacity: 0.4;
+}
+
+.tmads-checkbox:has(.tmads-checkbox__input:disabled) {
+  cursor: not-allowed;
+}

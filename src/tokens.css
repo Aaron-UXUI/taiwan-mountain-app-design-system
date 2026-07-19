@@ -1,0 +1,19 @@
+@import "../tokens/design-tokens.css";
+
+/*
+ * Typography tokens — not yet exported from the Figma "Number"/color collections,
+ * so these are collected incrementally as components are pulled from get_design_context.
+ * Source: Buttons (node 425:5337) → Headline/4, body/L text styles.
+ */
+:root {
+  --typeface-pingfang-tc: "PingFang TC", "Noto Sans TC", sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+
+  --type-scale-headline-4: 16px;
+  --line-height-h4: 24px;
+
+  --type-scale-body-l: 14px;
+  --line-height-body-l: 20px;
+}

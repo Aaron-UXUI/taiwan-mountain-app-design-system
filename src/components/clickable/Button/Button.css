@@ -1,0 +1,77 @@
+.tmads-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-s);
+  border-radius: var(--radius-s);
+  border: 1px solid transparent;
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.1s ease, border-color 0.1s ease, color 0.1s ease;
+}
+
+.tmads-button--large {
+  min-height: 44px;
+  padding: var(--spacing-sm) var(--spacing-m);
+  font-size: var(--type-scale-headline-4);
+  line-height: var(--line-height-h4);
+}
+
+.tmads-button--small {
+  min-height: 36px;
+  padding: var(--spacing-s) var(--spacing-sm);
+  font-size: var(--type-scale-body-l);
+  line-height: var(--line-height-body-l);
+}
+
+.tmads-button--primary {
+  background-color: var(--color-primary-green-800);
+  color: var(--color-gray-white);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12), 0 2px 0.5px rgba(0, 0, 0, 0.12);
+}
+.tmads-button--primary:where(:hover, [data-state="pressing"]) {
+  background-color: var(--color-primary-green-900);
+}
+.tmads-button--primary[data-state="disabled"] {
+  background-color: var(--color-primary-green-50);
+  color: var(--color-gray-400);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.tmads-button--secondary {
+  background-color: var(--color-gray-white);
+  border-color: var(--color-primary-green-800);
+  color: var(--color-primary-green-800);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12), 0 2px 0.5px rgba(0, 0, 0, 0.12);
+}
+.tmads-button--secondary:where(:hover, [data-state="pressing"]) {
+  background-color: var(--color-primary-green-50);
+  border-color: var(--color-primary-green-900);
+  color: var(--color-primary-green-900);
+}
+.tmads-button--secondary[data-state="disabled"] {
+  background-color: var(--color-gray-white);
+  border-color: var(--color-primary-green-100);
+  color: var(--color-primary-green-100);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.tmads-button--tertiary {
+  background-color: transparent;
+  color: var(--color-primary-green-800);
+}
+.tmads-button--tertiary:where(:hover, [data-state="pressing"]) {
+  color: var(--color-primary-green-900);
+}
+.tmads-button--tertiary[data-state="disabled"] {
+  color: var(--color-primary-green-100);
+  cursor: not-allowed;
+}
+
+.tmads-button[data-state="loading"] {
+  cursor: default;
+}

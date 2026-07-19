@@ -1,0 +1,27 @@
+.tmads-spinner {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.tmads-spinner__dot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 16.6%;
+  height: 16.6%;
+  margin-left: -8.3%;
+  border-radius: var(--radius-rounded);
+  transform-origin: 50% 300%;
+  animation: tmads-spinner-fade 1s linear infinite;
+}
+
+@keyframes tmads-spinner-fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.15;
+  }
+}

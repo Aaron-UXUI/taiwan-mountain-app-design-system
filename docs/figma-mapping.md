@@ -8,7 +8,7 @@
 
 | Figma 元件 | 變體 | node id | 對應程式碼元件 | 檔案路徑 |
 |---|---|---|---|---|
-| CheckBox | State=Off/On | 7813:28478 | | |
+| CheckBox | State=Off/On | 7813:28478 | `CheckBox` | `src/components/clickable/CheckBox/CheckBox.tsx` |
 | Chips / Small | Active=No/Yes | 10125:9787 | | |
 | Chips / Salient | Type=General/Special/Warning | 12554:9489 | | |
 | Toggles | Active=Yes/No | 10291:14552 | | |
@@ -18,7 +18,7 @@
 | Segmented Controls | Click=Left/Right | 598:6408 | | |
 | Stepper | State=0/Default/Error/Disabled | 12190:23425 | | |
 | Text Field | State=Default/Typing/Typed/Error | 12190:16599 | | |
-| Buttons | Type=Primary/Secondary/Tertiary × Size=Large/Small × State=Default/Disabled/Pressing/Loading | 425:5337 | | |
+| Buttons | Type=Primary/Secondary/Tertiary × Size=Large/Small × State=Default/Disabled/Pressing/Loading | 425:5337 | `Button` | `src/components/clickable/Button/Button.tsx` |
 | Icon Buttons | State × For=Location/Save/OfflineMap × Type | 7297:15056 | | |
 | User Location | 單一元件 | 12846:34701 | | |
 | Link / Further Info | 單一元件 | 11167:23076 | | |
@@ -68,8 +68,8 @@
 |---|---|---|---|---|
 | Motion / Transaction | 10 格 storyboard | 8512:7478 | | |
 | Motion / Success | 3 格 storyboard | 4188:21162 | | |
-| Spinner / On White | 8 格 storyboard | 12469:18532 | | |
-| Spinner / On Dark | 8 格 storyboard | 12469:18955 | | |
+| Spinner / On White | 8 格 storyboard | 12469:18532 | `SpinnerOnWhite` | `src/components/motion/SpinnerOnWhite/SpinnerOnWhite.tsx` |
+| Spinner / On Dark | 8 格 storyboard | 12469:18955 | `SpinnerOnDark` | `src/components/motion/SpinnerOnDark/SpinnerOnDark.tsx` |
 
 ## Navigation / 導覽
 

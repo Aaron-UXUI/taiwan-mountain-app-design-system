@@ -12,12 +12,14 @@
   --spacing-3xl: 56px;
   --spacing-4xl: 64px;
 
-  /* Radius — 同樣來自 Number collection／Radius 系列 */
+  /* Radius — 同樣來自 Number collection／Radius 系列
+     (修正：先前 xs/s/m 級距跟 tokens/design-tokens.json 對不上，
+     已用實際 Figma get_design_context 回傳的 "Radius/s(12)" 校正過) */
   --radius-none: 0px;
   --radius-xxs: 4px;
-  --radius-s: 8px;
-  --radius-m: 12px;
-  --radius-l: 16px;
+  --radius-xs: 8px;
+  --radius-s: 12px;
+  --radius-m: 16px;
   --radius-rounded: 9999px; /* pill，實際數值請在 Figma 確認 */
 
   /* Color — Mode 1，數值來自使用者匯出的 Figma tokens json */
