@@ -1,0 +1,32 @@
+.tmads-motion-success {
+  display: inline-flex;
+  width: 96px;
+  height: 96px;
+}
+
+.tmads-motion-success__circle {
+  width: 100%;
+  height: 100%;
+}
+
+.tmads-motion-success__check {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: tmads-motion-success-draw 2.4s ease-in-out infinite;
+}
+
+@keyframes tmads-motion-success-draw {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  30% {
+    stroke-dashoffset: 0.4;
+  }
+  50%,
+  85% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 1;
+  }
+}

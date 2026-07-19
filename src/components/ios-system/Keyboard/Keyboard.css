@@ -1,0 +1,79 @@
+.tmads-keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  align-items: center;
+  width: 375px;
+  padding: var(--spacing-xs) var(--spacing-xs) 0;
+  background-color: rgba(209, 213, 219, 0.9);
+  box-sizing: border-box;
+}
+
+.tmads-keyboard__row {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+}
+
+.tmads-keyboard__row--offset {
+  padding: 0 16px;
+}
+
+.tmads-keyboard__letters {
+  display: flex;
+  flex: 1 0 0;
+  gap: 6px;
+  min-width: 0;
+}
+
+.tmads-keyboard__key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 0 0;
+  height: 42px;
+  min-width: 0;
+  border-radius: 5px;
+  background-color: var(--color-gray-white);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+  font-family: var(--typeface-pingfang-tc);
+  font-size: 20px;
+  color: var(--color-gray-black);
+}
+
+.tmads-keyboard__key--square {
+  flex: none;
+  width: 42px;
+}
+
+.tmads-keyboard__key--secondary {
+  background-color: var(--color-gray-200);
+}
+
+.tmads-keyboard__key--123 {
+  flex: 1 0 0;
+  font-size: var(--type-scale-body-l);
+}
+
+.tmads-keyboard__key--wide {
+  flex: 3 0 0;
+  font-size: var(--type-scale-body-l);
+}
+
+.tmads-keyboard__key--return {
+  flex: 2 0 0;
+  background-color: var(--color-semantic-info-600);
+  color: var(--color-gray-white);
+  font-size: var(--type-scale-body-l);
+}
+
+.tmads-keyboard__control-strip {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+  padding-bottom: var(--spacing-xs);
+}
+
+.tmads-keyboard__home-indicator {
+  background-color: transparent;
+}

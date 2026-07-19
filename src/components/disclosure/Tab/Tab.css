@@ -1,0 +1,92 @@
+.tmads-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  background-color: var(--color-gray-white);
+  border: none;
+  cursor: pointer;
+  box-shadow: inset 0 -1px 0 0 var(--color-gray-200);
+}
+
+.tmads-tab[data-active="true"] {
+  box-shadow: inset 0 -2px 0 0 var(--color-primary-green-800), inset 0 -1px 0 0 var(--color-gray-200);
+}
+
+.tmads-tab__label {
+  font-family: var(--typeface-pingfang-tc);
+}
+
+.tmads-tab__badge {
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 17.88px);
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 var(--spacing-xs);
+  border-radius: var(--radius-rounded);
+  background-color: var(--color-semantic-destruct-700);
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
+  color: var(--color-gray-white);
+}
+
+.tmads-tab--small {
+  min-width: 75px;
+  padding: 0 var(--spacing-xs);
+}
+
+.tmads-tab--small .tmads-tab__label {
+  font-size: var(--type-scale-body-l);
+  line-height: var(--line-height-body-l);
+  color: var(--color-gray-800);
+  font-weight: var(--font-weight-regular);
+}
+
+.tmads-tab--small[data-active="true"] .tmads-tab__label {
+  color: var(--color-primary-green-900);
+  font-weight: var(--font-weight-semibold);
+}
+
+.tmads-tab--medium {
+  min-width: 94px;
+  padding: 0 var(--spacing-m);
+}
+
+.tmads-tab--medium .tmads-tab__label {
+  font-size: var(--type-scale-body-l);
+  line-height: var(--line-height-body-l);
+  color: var(--color-gray-800);
+  font-weight: var(--font-weight-regular);
+}
+
+.tmads-tab--medium[data-active="true"] .tmads-tab__label {
+  color: var(--color-primary-green-900);
+  font-weight: var(--font-weight-semibold);
+}
+
+.tmads-tab--large {
+  min-width: 188px;
+  padding: 0 var(--spacing-m);
+}
+
+.tmads-tab--large .tmads-tab__label {
+  flex: 1 0 0;
+  font-size: var(--type-scale-label-l);
+  line-height: var(--line-height-h4);
+  color: var(--color-gray-800);
+  font-weight: var(--font-weight-regular);
+}
+
+.tmads-tab--large[data-active="true"] .tmads-tab__label {
+  font-size: var(--type-scale-headline-4);
+  color: var(--color-primary-green-900);
+  font-weight: var(--font-weight-semibold);
+}

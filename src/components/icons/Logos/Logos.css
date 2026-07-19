@@ -1,0 +1,17 @@
+.tmads-logo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 24px;
+  padding: 0 var(--spacing-s);
+  border-radius: var(--radius-xxs);
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-800);
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-semibold);
+  font-size: 11px;
+  line-height: 1;
+  white-space: nowrap;
+  user-select: none;
+}

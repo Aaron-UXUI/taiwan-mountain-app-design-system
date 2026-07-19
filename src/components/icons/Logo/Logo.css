@@ -1,0 +1,27 @@
+.tmads-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary-green-800);
+  color: var(--color-gray-white);
+  border-radius: var(--radius-xxs);
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.tmads-logo--large {
+  width: 127px;
+  height: 31px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+.tmads-logo--small {
+  width: 48px;
+  height: 12px;
+  font-size: 7px;
+  letter-spacing: 0.2px;
+  border-radius: 2px;
+}

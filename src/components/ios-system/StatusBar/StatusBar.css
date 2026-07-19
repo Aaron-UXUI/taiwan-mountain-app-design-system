@@ -1,0 +1,26 @@
+.tmads-status-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  height: 44px;
+  padding: 0 var(--spacing-sm) var(--spacing-m);
+  background-color: var(--color-gray-white);
+  box-sizing: border-box;
+}
+
+.tmads-status-bar__time {
+  margin: 0;
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--type-scale-body-l);
+  line-height: 14px;
+  letter-spacing: -0.24px;
+  color: var(--color-gray-black);
+}
+
+.tmads-status-bar__icons {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}

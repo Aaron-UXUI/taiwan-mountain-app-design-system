@@ -1,0 +1,16 @@
+.tmads-home-indicator {
+  position: relative;
+  width: 100%;
+  height: 21px;
+}
+
+.tmads-home-indicator__bar {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
+  width: 139px;
+  height: 5px;
+  border-radius: var(--radius-rounded);
+  background-color: var(--color-gray-black);
+}

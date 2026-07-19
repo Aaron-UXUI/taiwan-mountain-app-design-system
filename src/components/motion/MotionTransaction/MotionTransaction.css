@@ -1,0 +1,94 @@
+.tmads-motion-transaction {
+  position: relative;
+  width: 180px;
+  height: 236px;
+}
+
+.tmads-motion-transaction__terminal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100px;
+  height: 150px;
+  transform: translate(-50%, -50%);
+}
+
+.tmads-motion-transaction__screen {
+  animation: tmads-motion-transaction-screen 4s ease-in-out infinite;
+}
+
+.tmads-motion-transaction__check {
+  stroke-dasharray: 1;
+  animation: tmads-motion-transaction-check 4s ease-in-out infinite;
+}
+
+.tmads-motion-transaction__card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 84px;
+  height: 54px;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+  animation: tmads-motion-transaction-card 4s ease-in-out infinite;
+}
+
+@keyframes tmads-motion-transaction-screen {
+  0%,
+  22% {
+    fill: var(--color-gray-400);
+  }
+  30%,
+  55% {
+    fill: var(--color-semantic-success-600);
+  }
+  63%,
+  100% {
+    fill: var(--color-gray-400);
+  }
+}
+
+@keyframes tmads-motion-transaction-check {
+  0%,
+  22% {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+  30%,
+  55% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+  63%,
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+}
+
+@keyframes tmads-motion-transaction-card {
+  0% {
+    transform: translate(-50%, 92px) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    transform: translate(-50%, 10px) rotate(0deg);
+    opacity: 1;
+  }
+  25%,
+  55% {
+    transform: translate(-50%, 8px) rotate(0deg);
+    opacity: 1;
+  }
+  70% {
+    transform: translate(-50%, 92px) rotate(10deg);
+    opacity: 1;
+  }
+  85% {
+    transform: translate(130px, 110px) rotate(25deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, 92px) rotate(0deg);
+    opacity: 0;
+  }
+}

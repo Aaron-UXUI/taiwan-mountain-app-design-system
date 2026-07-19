@@ -1,0 +1,97 @@
+.tmads-bottom-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-top: var(--spacing-s);
+  background-color: var(--color-gray-white);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+.tmads-bottom-bar__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+  width: 100%;
+}
+
+.tmads-bottom-bar--button .tmads-bottom-bar__content,
+.tmads-bottom-bar--2-buttons .tmads-bottom-bar__content,
+.tmads-bottom-bar--place-order .tmads-bottom-bar__content {
+  padding: 0 var(--spacing-lm);
+}
+
+.tmads-bottom-bar__content--row {
+  flex-direction: row;
+  align-items: center;
+}
+
+.tmads-bottom-bar__button {
+  width: 100%;
+}
+
+.tmads-bottom-bar__secondary {
+  flex: none;
+  width: 64px;
+}
+
+.tmads-bottom-bar__order {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: var(--spacing-sm) 0 var(--spacing-m);
+}
+
+.tmads-bottom-bar__ticket-info {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  min-width: 0;
+}
+
+.tmads-bottom-bar__ticket-title {
+  margin: 0;
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--type-scale-body-l);
+  color: var(--color-gray-black);
+}
+
+.tmads-bottom-bar__ticket-lines {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.tmads-bottom-bar__ticket-line {
+  margin: 0;
+  font-family: var(--typeface-pingfang-tc);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
+  color: var(--color-gray-800);
+}
+
+.tmads-bottom-bar__price {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-xs);
+  flex-shrink: 0;
+  color: var(--color-gray-black);
+  white-space: nowrap;
+}
+
+.tmads-bottom-bar__price-currency {
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--type-scale-headline-3);
+  line-height: var(--line-height-h3);
+}
+
+.tmads-bottom-bar__price-amount {
+  font-family: var(--typeface-pingfang-tc);
+  font-size: var(--type-scale-headline-1);
+  line-height: var(--line-height-h1);
+}

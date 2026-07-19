@@ -1,0 +1,73 @@
+.tmads-accordion-chips {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+  width: 100%;
+  max-width: 327px;
+}
+
+.tmads-accordion-chips__title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s);
+  width: 100%;
+  height: 48px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.tmads-accordion-chips__title-text {
+  flex: 1 0 0;
+  min-width: 0;
+  text-align: left;
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-body-l);
+  line-height: var(--line-height-body-l);
+  color: var(--color-gray-black);
+}
+
+.tmads-accordion-chips__chevron {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  color: var(--color-gray-black);
+  transition: transform 0.15s ease;
+}
+
+.tmads-accordion-chips__chevron[data-expanded="true"] {
+  transform: rotate(180deg);
+}
+
+.tmads-accordion-chips__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--spacing-s);
+  width: 100%;
+}
+
+.tmads-accordion-chips__chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-s) var(--spacing-m);
+  border: 1px solid var(--color-gray-100);
+  border-radius: var(--radius-xs);
+  background-color: var(--color-gray-white);
+  cursor: pointer;
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-body-l);
+  line-height: var(--line-height-body-l);
+  color: var(--color-gray-800);
+  white-space: nowrap;
+}
+
+.tmads-accordion-chips__chip:hover {
+  border-color: var(--color-primary-green-800);
+  color: var(--color-primary-green-800);
+}

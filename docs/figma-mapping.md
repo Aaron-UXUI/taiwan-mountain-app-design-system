@@ -28,14 +28,14 @@
 
 | Figma 元件 | 變體 | node id | 對應程式碼元件 | 檔案路徑 |
 |---|---|---|---|---|
-| icon / 24px | map, search, notify, member, heart, radio, gps, setting, more, filter, back, close, minus, plus 等 21 種 | 486:5205 | | |
-| icon / 20px | search, microphone, check, info, credit-card, close-eye, open-eye | 490:21891 | | |
-| icon / 14px | chevron, secured | 507:4429 | | |
-| icon / 24px / weather | cloud-sun, sunny, rain, lightning-rain, windy, typhoon, cloud-snow | 1743:13737 | | |
-| icon / 16px | exclamation, arrow-up-right, non/notified, heart no/yes | 10787:61593 | | |
-| icon / 24px / Map | tree, camera, walk, info | 11129:12166 | | |
-| Logos | 金流／登入品牌圖示（信用卡、mastercard、JCB、Line Pay、Google Pay、Apple Pay、Apple、Google、Facebook、中華電信、台灣大哥大、遠傳） | 8503:22571 | | |
-| Logo | App Logo，Large/Small | 12649:28641 | | |
+| icon / 24px | map, search, notify, member, heart, radio, gps, setting, more, filter, back, close, minus, plus 等 21 種 | 486:5205 | `Icon24` | `src/components/icons/Icon24/Icon24.tsx` |
+| icon / 20px | search, microphone, check, info, credit-card, close-eye, open-eye | 490:21891 | `Icon20` | `src/components/icons/Icon20/Icon20.tsx` |
+| icon / 14px | chevron, secured | 507:4429 | `Icon14` | `src/components/icons/Icon14/Icon14.tsx` |
+| icon / 24px / weather | cloud-sun, sunny, rain, lightning-rain, windy, typhoon, cloud-snow | 1743:13737 | `IconWeather` | `src/components/icons/IconWeather/IconWeather.tsx` |
+| icon / 16px | exclamation, arrow-up-right, non/notified, heart no/yes | 10787:61593 | `Icon16` | `src/components/icons/Icon16/Icon16.tsx` |
+| icon / 24px / Map | tree, camera, walk, info | 11129:12166 | `IconMap` | `src/components/icons/IconMap/IconMap.tsx` |
+| Logos | 金流／登入品牌圖示（信用卡、mastercard、JCB、Line Pay、Google Pay、Apple Pay、Apple、Google、Facebook、中華電信、台灣大哥大、遠傳） | 8503:22571 | `Logos` | `src/components/icons/Logos/Logos.tsx` |
+| Logo | App Logo，Large/Small | 12649:28641 | `Logo` | `src/components/icons/Logo/Logo.tsx` |
 
 ## Content Container / 內容容器
 
@@ -55,19 +55,19 @@
 
 | Figma 元件 | 變體 | node id | 對應程式碼元件 | 檔案路徑 |
 |---|---|---|---|---|
-| Collapse / Text | Expanded?=No/Yes | 502:1918 | | |
-| Accordion / Chips | expanded × selected | 1242:16464 | | |
-| Bottom Sheets | Style=Filter_Discover/Map_Info/Filter_MapSearch | 495:540 | | |
-| Tooltip | 單一元件 | 8558:23555 | | |
-| Accordion / CheckBox | Expanded × Selected | 7813:29373 | | |
-| Tab | Active?=Yes/No × Size=Small/Medium/Large | 13518:14481 | | |
+| Collapse / Text | Expanded?=No/Yes | 502:1918 | `CollapseText` | `src/components/disclosure/CollapseText/CollapseText.tsx` |
+| Accordion / Chips | expanded × selected | 1242:16464 | `AccordionChips` | `src/components/disclosure/AccordionChips/AccordionChips.tsx` |
+| Bottom Sheets | Style=Filter_Discover/Map_Info/Filter_MapSearch | 495:540 | `BottomSheet` | `src/components/disclosure/BottomSheet/BottomSheet.tsx` |
+| Tooltip | 單一元件 | 8558:23555 | `Tooltip` | `src/components/disclosure/Tooltip/Tooltip.tsx` |
+| Accordion / CheckBox | Expanded × Selected | 7813:29373 | `AccordionCheckBox` | `src/components/disclosure/AccordionCheckBox/AccordionCheckBox.tsx` |
+| Tab | Active?=Yes/No × Size=Small/Medium/Large | 13518:14481 | `Tab` | `src/components/disclosure/Tab/Tab.tsx` |
 
 ## Motion / 動效（storyboard 序列）
 
 | Figma 元件 | 變體 | node id | 對應程式碼元件 | 檔案路徑 |
 |---|---|---|---|---|
-| Motion / Transaction | 10 格 storyboard | 8512:7478 | | |
-| Motion / Success | 3 格 storyboard | 4188:21162 | | |
+| Motion / Transaction | 10 格 storyboard | 8512:7478 | `MotionTransaction` | `src/components/motion/MotionTransaction/MotionTransaction.tsx` |
+| Motion / Success | 3 格 storyboard | 4188:21162 | `MotionSuccess` | `src/components/motion/MotionSuccess/MotionSuccess.tsx` |
 | Spinner / On White | 8 格 storyboard | 12469:18532 | `SpinnerOnWhite` | `src/components/motion/SpinnerOnWhite/SpinnerOnWhite.tsx` |
 | Spinner / On Dark | 8 格 storyboard | 12469:18955 | `SpinnerOnDark` | `src/components/motion/SpinnerOnDark/SpinnerOnDark.tsx` |
 
@@ -75,20 +75,20 @@
 
 | Figma 元件 | 變體 | node id | 對應程式碼元件 | 檔案路徑 |
 |---|---|---|---|---|
-| Navigation Bar | state=activity/map/notify/member | 490:22853 | | |
-| Search Bar | State=Default/Focused/Typing/Typed | 376:456 | | |
-| App Bar | Type=nav/ProfileInfo | 495:426 | | |
-| Bottom Bar | Type=Button/2 Buttons/Navigation/Place Order | 1480:37613 | | |
-| CheckBox / Navigation | 單一元件 | 355:60400 | | |
+| Navigation Bar | state=activity/map/notify/member | 490:22853 | `NavigationBar` | `src/components/navigation/NavigationBar/NavigationBar.tsx` |
+| Search Bar | State=Default/Focused/Typing/Typed | 376:456 | `SearchBar` | `src/components/navigation/SearchBar/SearchBar.tsx` |
+| App Bar | Type=nav/ProfileInfo | 495:426 | `AppBar` | `src/components/navigation/AppBar/AppBar.tsx` |
+| Bottom Bar | Type=Button/2 Buttons/Navigation/Place Order | 1480:37613 | `BottomBar` | `src/components/navigation/BottomBar/BottomBar.tsx` |
+| CheckBox / Navigation | 單一元件 | 355:60400 | `CheckBoxNavigation` | `src/components/navigation/CheckBoxNavigation/CheckBoxNavigation.tsx` |
 
 ## iOS System / 系統元件
 
 | Figma 元件 | 變體 | node id | 對應程式碼元件 | 檔案路徑 |
 |---|---|---|---|---|
-| Keyboard | 單一元件 | 1631:21178 | | |
-| Keyboard - Numbers | 單一元件 | 6272:63852 | | |
-| Home Indicator | 單一元件 | 367:21084 | | |
-| Status bar / Default | 單一元件 | 309:5865 | | |
+| Keyboard | 單一元件 | 1631:21178 | `Keyboard` | `src/components/ios-system/Keyboard/Keyboard.tsx` |
+| Keyboard - Numbers | 單一元件 | 6272:63852 | `KeyboardNumbers` | `src/components/ios-system/KeyboardNumbers/KeyboardNumbers.tsx` |
+| Home Indicator | 單一元件 | 367:21084 | `HomeIndicator` | `src/components/ios-system/HomeIndicator/HomeIndicator.tsx` |
+| Status bar / Default | 單一元件 | 309:5865 | `StatusBar` | `src/components/ios-system/StatusBar/StatusBar.tsx` |
 
 ## Indicators / 指示器
 
