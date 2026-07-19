@@ -1,0 +1,49 @@
+:root {
+  /* Spacing — 從 Figma「Number」collection／Spacing 系列解析，數值完整可信 */
+  --spacing-0: 0px;
+  --spacing-xs: 4px;
+  --spacing-s: 8px;
+  --spacing-sm: 12px;
+  --spacing-m: 16px;
+  --spacing-lm: 24px;
+  --spacing-l: 32px;
+  --spacing-xl: 40px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 56px;
+  --spacing-4xl: 64px;
+
+  /* Radius — 同樣來自 Number collection／Radius 系列 */
+  --radius-none: 0px;
+  --radius-xxs: 4px;
+  --radius-s: 8px;
+  --radius-m: 12px;
+  --radius-l: 16px;
+  --radius-rounded: 9999px; /* pill，實際數值請在 Figma 確認 */
+
+  /* Color — Mode 1，數值來自使用者匯出的 Figma tokens json */
+  --color-primary-green-50: #ECF0E4;
+  --color-primary-green-100: #D6E0C3;
+  --color-primary-green-700: #5C6647;
+  --color-primary-green-800: #464F34;
+  --color-primary-green-900: #343C25;
+
+  --color-accent-yellow-50: #FFF19C;
+  --color-accent-yellow-100: #FFD966;
+  --color-accent-yellow-700: #695400;
+  --color-accent-yellow-900: #493700;
+
+  --color-semantic-info-600: #006AD1;
+  --color-semantic-info-700: #0051B8;
+  --color-semantic-success-600: #467800;
+  --color-semantic-success-700: #396100;
+  --color-semantic-destruct-600: #CF0000;
+  --color-semantic-destruct-700: #B20000;
+
+  --color-gray-black: #1D1F1B;
+  --color-gray-white: #FDFDFC;
+  --color-gray-50: #F3F5EE;
+  --color-gray-100: #DBDED5;
+  --color-gray-200: #C5C8BE;
+  --color-gray-400: #989C91;
+  --color-gray-800: #494C44;
+}

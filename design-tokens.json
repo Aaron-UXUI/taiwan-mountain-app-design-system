@@ -1,0 +1,60 @@
+{
+  "spacing": {
+    "0": { "value": 0 },
+    "xs": { "value": 4 },
+    "s": { "value": 8 },
+    "sm": { "value": 12 },
+    "m": { "value": 16 },
+    "lm": { "value": 24 },
+    "L": { "value": 32 },
+    "XL": { "value": 40 },
+    "2XL": { "value": 48 },
+    "3XL": { "value": 56 },
+    "4XL": { "value": 64 }
+  },
+  "radius": {
+    "none": { "value": 0 },
+    "xxs": { "value": 4 },
+    "xs": { "value": 8 },
+    "s": { "value": 12 },
+    "m": { "value": 16 },
+    "rounded": { "value": 9999, "note": "Figma 裡是「Radius/rounded」，實際數值請在 Figma 裡確認（通常代表 pill / 全圓角）" }
+  },
+  "color": {
+    "primary": {
+      "green-50": { "value": "#ECF0E4", "figmaName": "Primary Color/Green-50" },
+      "green-100": { "value": "#D6E0C3", "figmaName": "Primary Color/Green-100" },
+      "green-700": { "value": "#5C6647", "figmaName": "Primary Color/Green-700" },
+      "green-800": { "value": "#464F34", "figmaName": "Primary Color/Green-800" },
+      "green-900": { "value": "#343C25", "figmaName": "Primary Color/Green-900" }
+    },
+    "accent": {
+      "yellow-50": { "value": "#FFF19C", "figmaName": "Accent Color/Yellow-50" },
+      "yellow-100": { "value": "#FFD966", "figmaName": "Accent Color/Yellow-100" },
+      "yellow-700": { "value": "#695400", "figmaName": "Accent Color/Yellow-700" },
+      "yellow-900": { "value": "#493700", "figmaName": "Accent Color/Yellow-900" }
+    },
+    "semantic": {
+      "info-600": { "value": "#006AD1", "figmaName": "Semantic Color/Info-600" },
+      "info-700": { "value": "#0051B8", "figmaName": "Semantic Color/Info-700" },
+      "success-600": { "value": "#467800", "figmaName": "Semantic Color/Success-600" },
+      "success-700": { "value": "#396100", "figmaName": "Semantic Color/Success-700" },
+      "destruct-600": { "value": "#CF0000", "figmaName": "Semantic Color/Destruct-600" },
+      "destruct-700": { "value": "#B20000", "figmaName": "Semantic Color/Destruct-700" }
+    },
+    "gray": {
+      "black": { "value": "#1D1F1B", "figmaName": "Gray Scale/Black" },
+      "white": { "value": "#FDFDFC", "figmaName": "Gray Scale/White" },
+      "gray-50": { "value": "#F3F5EE", "figmaName": "Gray Scale/Gray-50" },
+      "gray-100": { "value": "#DBDED5", "figmaName": "Gray Scale/Gray-100" },
+      "gray-200": { "value": "#C5C8BE", "figmaName": "Gray Scale/Gray-200" },
+      "gray-400": { "value": "#989C91", "figmaName": "Gray Scale/Gray-400" },
+      "gray-800": { "value": "#494C44", "figmaName": "Gray Scale/Gray-800" }
+    }
+  },
+  "_meta": {
+    "source": "Figma 檔案 nXFkT45U8mDzUK5rUfL0eK，library「【設計】台灣山林 App」",
+    "colorSource": "color 數值來自使用者用 Figma 外掛匯出的 Mode 1.tokens.json（W3C Design Tokens 格式）",
+    "completeness": "spacing、radius、color 三組現在都是完整實際數值。若 Color collection 還有其他 mode（例如 Dark），需要另外匯出該 mode 的 json 再併進來。元件清單仍只是抽樣，見 components-inventory.md。"
+  }
+}
