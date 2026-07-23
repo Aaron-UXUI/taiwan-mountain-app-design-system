@@ -81,9 +81,11 @@ function FilterDiscoverContent() {
             ))}
           </div>
         </div>
+        <div className="tmads-bottom-sheet__blank" aria-hidden="true" />
       </div>
-      <div className="tmads-bottom-sheet__footer">
+      <div className="tmads-bottom-sheet__bottom-bar">
         <Button label="套用" type="Secondary" size="Large" className="tmads-bottom-sheet__apply" />
+        <HomeIndicator className="tmads-bottom-sheet__home-indicator" />
       </div>
     </>
   );
@@ -91,52 +93,58 @@ function FilterDiscoverContent() {
 
 function MapInfoContent() {
   return (
-    <div className="tmads-bottom-sheet__content tmads-bottom-sheet__content--map-info">
-      <p className="tmads-bottom-sheet__title">內洞國家森林遊樂區</p>
-      <div className="tmads-bottom-sheet__tags">
-        <ChipsSalient label="今日開放" />
-        <ChipsSalient label="親子友善" type="Special" />
-      </div>
-      <div className="tmads-bottom-sheet__tags tmads-bottom-sheet__tags--scroll">
-        {TAG_LABELS.map((tag) => (
-          <ChipsSmall key={tag} label={tag} />
-        ))}
-      </div>
-      <Crowdedness />
-      <div className="tmads-bottom-sheet__buttons">
-        <LinkFurtherInfo />
-        <div className="tmads-bottom-sheet__button-group">
-          <button type="button" className="tmads-bottom-sheet__pill-button">
-            <HeartGlyph />
-            收藏
-          </button>
-          <button type="button" className="tmads-bottom-sheet__pill-button">
-            <BellGlyph />
-            追蹤園區動態
-          </button>
-          <button type="button" className="tmads-bottom-sheet__pill-button">
-            <DownloadGlyph />
-            下載離線地圖
-          </button>
+    <>
+      <div className="tmads-bottom-sheet__content tmads-bottom-sheet__content--map-info">
+        <p className="tmads-bottom-sheet__title">內洞國家森林遊樂區</p>
+        <div className="tmads-bottom-sheet__tags">
+          <ChipsSalient label="今日開放" />
+          <ChipsSalient label="親子友善" type="Special" />
         </div>
+        <div className="tmads-bottom-sheet__tags tmads-bottom-sheet__tags--scroll">
+          {TAG_LABELS.map((tag) => (
+            <ChipsSmall key={tag} label={tag} />
+          ))}
+        </div>
+        <Crowdedness />
+        <div className="tmads-bottom-sheet__buttons">
+          <LinkFurtherInfo />
+          <div className="tmads-bottom-sheet__button-group">
+            <button type="button" className="tmads-bottom-sheet__pill-button">
+              <HeartGlyph />
+              收藏
+            </button>
+            <button type="button" className="tmads-bottom-sheet__pill-button">
+              <BellGlyph />
+              追蹤園區動態
+            </button>
+            <button type="button" className="tmads-bottom-sheet__pill-button">
+              <DownloadGlyph />
+              下載離線地圖
+            </button>
+          </div>
+        </div>
+        <div className="tmads-bottom-sheet__hero">
+          <img className="tmads-bottom-sheet__hero-image" src={heroPlaceholder} alt="" />
+          <CarouselIndicators className="tmads-bottom-sheet__hero-indicators" />
+        </div>
+        <Button label="購買票券" size="Large" className="tmads-bottom-sheet__apply" />
       </div>
-      <div className="tmads-bottom-sheet__hero">
-        <img className="tmads-bottom-sheet__hero-image" src={heroPlaceholder} alt="" />
-        <CarouselIndicators className="tmads-bottom-sheet__hero-indicators" />
-      </div>
-      <Button label="購買票券" size="Large" className="tmads-bottom-sheet__apply" />
-    </div>
+      <HomeIndicator className="tmads-bottom-sheet__home-indicator" />
+    </>
   );
 }
 
 function FilterMapSearchContent() {
   return (
-    <div className="tmads-bottom-sheet__content tmads-bottom-sheet__content--map-search">
-      {SCENE_CARDS.map((card) => (
-        <CardScene key={card.siteName} siteName={card.siteName} distance={card.distance} showDistance />
-      ))}
-      <div className="tmads-bottom-sheet__scroll-spacer" aria-hidden="true" />
-    </div>
+    <>
+      <div className="tmads-bottom-sheet__content tmads-bottom-sheet__content--map-search">
+        {SCENE_CARDS.map((card) => (
+          <CardScene key={card.siteName} siteName={card.siteName} distance={card.distance} showDistance />
+        ))}
+        <div className="tmads-bottom-sheet__scroll-spacer" aria-hidden="true" />
+      </div>
+      <HomeIndicator className="tmads-bottom-sheet__home-indicator" />
+    </>
   );
 }
 
@@ -170,7 +178,6 @@ export function BottomSheet({ style = "Filter_Discover", className, children, ..
           {style === "Filter_MapSearch" && <FilterMapSearchContent />}
         </>
       )}
-      <HomeIndicator className="tmads-bottom-sheet__home-indicator" />
     </div>
   );
 }
