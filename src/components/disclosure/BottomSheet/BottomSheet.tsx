@@ -65,23 +65,27 @@ const DownloadGlyph = () => (
 function FilterDiscoverContent() {
   const [sort, setSort] = useState<"Left" | "Right">("Left");
   return (
-    <div className="tmads-bottom-sheet__content">
-      <div className="tmads-bottom-sheet__section">
-        <p className="tmads-bottom-sheet__section-title">排序依據</p>
-        <SegmentedControls selected={sort} onSelectedChange={setSort} />
-      </div>
-      <div className="tmads-bottom-sheet__section">
-        <p className="tmads-bottom-sheet__section-title">篩選</p>
-        <div className="tmads-bottom-sheet__accordions">
-          <AccordionCheckBox />
-          <AccordionChips />
-          {CHIP_ACCORDION_TITLES.map((title) => (
-            <AccordionChips key={title} title={title} />
-          ))}
+    <>
+      <div className="tmads-bottom-sheet__content tmads-bottom-sheet__content--filter-discover">
+        <div className="tmads-bottom-sheet__section">
+          <p className="tmads-bottom-sheet__section-title">排序依據</p>
+          <SegmentedControls selected={sort} onSelectedChange={setSort} />
+        </div>
+        <div className="tmads-bottom-sheet__section">
+          <p className="tmads-bottom-sheet__section-title">篩選</p>
+          <div className="tmads-bottom-sheet__accordions">
+            <AccordionCheckBox />
+            <AccordionChips />
+            {CHIP_ACCORDION_TITLES.map((title) => (
+              <AccordionChips key={title} title={title} />
+            ))}
+          </div>
         </div>
       </div>
-      <Button label="套用" type="Secondary" size="Large" className="tmads-bottom-sheet__apply" />
-    </div>
+      <div className="tmads-bottom-sheet__footer">
+        <Button label="套用" type="Secondary" size="Large" className="tmads-bottom-sheet__apply" />
+      </div>
+    </>
   );
 }
 
