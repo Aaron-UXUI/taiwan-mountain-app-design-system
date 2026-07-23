@@ -50,9 +50,7 @@
 
 .tmads-bottom-sheet__content--map-info {
   align-items: flex-start;
-  padding-left: 0;
-  padding-right: 0;
-  padding-bottom: var(--spacing-lm);
+  padding: 0;
 }
 
 .tmads-bottom-sheet__section {
@@ -130,6 +128,7 @@
 .tmads-bottom-sheet__buttons {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: var(--spacing-s);
   width: 100%;
 }
@@ -137,7 +136,13 @@
 .tmads-bottom-sheet__button-group {
   display: flex;
   gap: var(--spacing-s);
+  max-width: 100%;
+  overflow-x: auto;
   cursor: pointer;
+}
+
+.tmads-bottom-sheet__button-group > * {
+  flex-shrink: 0;
 }
 
 .tmads-bottom-sheet__pill-button {
@@ -195,4 +200,13 @@
 
 .tmads-bottom-sheet__home-indicator {
   flex-shrink: 0;
+}
+
+/* Map_Info's sheet has 24px left/right padding (unlike the other two
+   variants), but Figma's Home Indicator there is still full 375px wide
+   (node 12288:16213, x=0) — it escapes the padding rather than inheriting
+   the TopBar/Content inset. */
+.tmads-bottom-sheet--map-info .tmads-bottom-sheet__home-indicator {
+  width: calc(100% + 2 * var(--spacing-lm));
+  margin: 0 calc(-1 * var(--spacing-lm));
 }
