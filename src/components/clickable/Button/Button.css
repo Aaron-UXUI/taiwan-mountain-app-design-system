@@ -22,8 +22,8 @@
 .tmads-button--small {
   min-height: 36px;
   padding: var(--spacing-s) var(--spacing-sm);
-  font-size: var(--type-scale-body-l);
-  line-height: var(--line-height-body-l);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
 }
 
 .tmads-button--primary {

@@ -42,8 +42,8 @@
   width: 126px;
   text-align: left;
   font-weight: var(--font-weight-regular);
-  font-size: var(--type-scale-body-l);
-  line-height: var(--line-height-body-l);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
   color: var(--color-gray-800);
 }
 
@@ -52,8 +52,8 @@
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: var(--radius-xs);
   font-weight: var(--font-weight-regular);
-  font-size: var(--type-scale-body-l);
-  line-height: var(--line-height-body-l);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
   color: var(--color-gray-white);
   white-space: nowrap;
 }

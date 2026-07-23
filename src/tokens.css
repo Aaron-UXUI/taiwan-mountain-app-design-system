@@ -1,40 +1,72 @@
 @import "../tokens/design-tokens.css";
 
 /*
- * Typography tokens — not yet exported from the Figma "Number"/color collections,
- * so these are collected incrementally as components are pulled from get_design_context.
- * Source: Buttons (node 425:5337) → Headline/4, body/L text styles.
+ * Typography + Elevation tokens — canonical values pulled from the Figma file's
+ * own "🔶 Design System" → Style Guide → Typography / Elevation documentation
+ * frames (nodes 12948:43690 / 12948:43756), not from individual component
+ * instances. This replaces the earlier version of this file, which had these
+ * same categories (body-l/body-m) bound to the wrong Style Guide levels —
+ * they were named after the *variable* a component instance happened to
+ * reference (e.g. "Type Scale/body/L"), not the *text style* it actually
+ * renders (that variable is really used by the "Body/M" style). See
+ * docs/figma-mapping.md history / PR notes for the full component-by-component
+ * audit against this canonical list.
+ *
+ * Known inconsistencies in the source Style Guide itself (kept faithfully
+ * rather than silently "corrected" — verify in Figma before changing):
+ * - Heading/H1 is documented as Weight=Regular, Letter-spacing=2%, unlike
+ *   H2–H4 which are all Semibold/0%. Likely a documentation error, but no
+ *   component here currently renders literal Headline/1 with those exact
+ *   attributes, so it's left undefined until confirmed.
+ * - Number/L and Number/M are both documented as 16/24 — only the weight
+ *   differs (Semibold vs Regular). Kept as-is; may be a copy-paste artifact.
  */
 :root {
   --typeface-pingfang-tc: "PingFang TC", "Noto Sans TC", sans-serif;
+  --typeface-sf-mono: "SF Mono", ui-monospace, "Menlo", monospace;
 
   --font-weight-regular: 400;
   --font-weight-semibold: 600;
 
+  /* Heading (PingFang TC, Semibold, 0% letter-spacing — except H1, see note above) */
+  --type-scale-headline-1: 40px;
+  --line-height-h1: 56px;
+  --type-scale-headline-2: 24px;
+  --line-height-h2: 36px;
+  --type-scale-headline-3: 20px;
+  --line-height-h3: 30px;
   --type-scale-headline-4: 16px;
   --line-height-h4: 24px;
 
-  --type-scale-body-l: 14px;
-  --line-height-body-l: 20px;
+  /* Body (PingFang TC, Regular, 0% letter-spacing) */
+  --type-scale-body-l: 16px;
+  --line-height-body-l: 24px;
+  --type-scale-body-m: 14px;
+  --line-height-body-m: 20px;
+  --type-scale-body-s: 12px;
+  --line-height-body-s: 18px;
 
-  /* Added while building Clickable/* components (Chips, Stepper, TextField, RadioButton, IconButtons)
-   * Source: get_design_context on nodes 10125:9787, 12554:9489, 12190:23425, 12190:16599, 816:4968
-   * — body/M text style (12/18) and Label/L text style (16/24, shares Line Height/H4). */
-  --type-scale-body-m: 12px;
-  --line-height-body-m: 18px;
+  /* Label (PingFang TC, Semibold, 0% letter-spacing) — Style Guide only documents M/S, no L */
+  --type-scale-label-m: 14px;
+  --line-height-label-m: 20px;
+  --type-scale-label-s: 12px;
+  --line-height-label-s: 18px;
 
+  /* NOT in the Style Guide's Typography table (16px/24px, Regular, PingFang TC —
+   * matches no documented Heading/Body/Label/Number level). Kept only because
+   * 9 existing components already render at this size; see the audit report
+   * for which ones. Do not treat this as canonical without confirming in Figma. */
   --type-scale-label-l: 16px;
 
-  /* Source: Stepper (node 12190:23425) "Number/Mono Bold" style + TextField (node 12190:16599) Input Number. */
-  --typeface-sf-mono: "SF Mono", ui-monospace, "Menlo", monospace;
+  /* Number (SF Mono, 0% letter-spacing) — L is Semibold, M is Regular */
+  --type-scale-number-l: 16px;
+  --type-scale-number-m: 16px;
+  --line-height-number: 24px;
 
-  /* Added while building Content Container/* components (Cards/Scene, Cards/Description)
-   * Source: get_design_context on nodes 374:3819, 11441:11209 — Headline/3 text style (20/30). */
-  --type-scale-headline-3: 20px;
-  --line-height-h3: 30px;
-
-  /* Added while building Indicators/PaymentInfo (get_design_context on node 12561:16649)
-   * — headline/1 text style (40/56) used for the price display. */
-  --type-scale-headline-1: 40px;
-  --line-height-h1: 56px;
+  /* Elevation — box-shadow shorthands, straight from the Style Guide swatches */
+  --elevation-1: 0 1px 2px 0 var(--color-gray-100);
+  --elevation-2: 0 1px 4px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.08);
+  --elevation-3: 0 2px 1px rgba(0, 0, 0, 0.12), 0 2px 12px rgba(0, 0, 0, 0.12);
+  --elevation-4: 0 6px 20px rgba(0, 0, 0, 0.12);
+  --elevation-5: 0 8px 32px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.12);
 }

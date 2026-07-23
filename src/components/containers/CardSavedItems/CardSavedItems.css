@@ -51,14 +51,14 @@
   margin: 0;
   color: var(--color-gray-black);
   font-weight: var(--font-weight-semibold);
-  font-size: var(--type-scale-body-l);
-  line-height: var(--line-height-body-l);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
 }
 
 .tmads-card-saved-items__liked {
   margin: 0;
   color: var(--color-gray-800);
   font-weight: var(--font-weight-regular);
-  font-size: var(--type-scale-body-m);
-  line-height: var(--line-height-body-m);
+  font-size: var(--type-scale-body-s);
+  line-height: var(--line-height-body-s);
 }

@@ -52,19 +52,19 @@
 
 .tmads-keyboard__key--123 {
   flex: 1 0 0;
-  font-size: var(--type-scale-body-l);
+  font-size: var(--type-scale-body-m);
 }
 
 .tmads-keyboard__key--wide {
   flex: 3 0 0;
-  font-size: var(--type-scale-body-l);
+  font-size: var(--type-scale-body-m);
 }
 
 .tmads-keyboard__key--return {
   flex: 2 0 0;
   background-color: var(--color-semantic-info-600);
   color: var(--color-gray-white);
-  font-size: var(--type-scale-body-l);
+  font-size: var(--type-scale-body-m);
 }
 
 .tmads-keyboard__control-strip {

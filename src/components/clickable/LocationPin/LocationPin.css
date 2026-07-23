@@ -39,7 +39,7 @@
   height: 24px;
   border-radius: var(--radius-rounded);
   border: 2px solid var(--color-gray-white);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--elevation-4);
 }
 
 .tmads-location-pin--focused .tmads-location-pin__badge {

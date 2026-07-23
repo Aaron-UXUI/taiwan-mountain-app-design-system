@@ -33,8 +33,8 @@
   background-color: var(--color-semantic-destruct-700);
   font-family: var(--typeface-pingfang-tc);
   font-weight: var(--font-weight-regular);
-  font-size: var(--type-scale-body-m);
-  line-height: var(--line-height-body-m);
+  font-size: var(--type-scale-body-s);
+  line-height: var(--line-height-body-s);
   color: var(--color-gray-white);
 }
 
@@ -44,8 +44,8 @@
 }
 
 .tmads-tab--small .tmads-tab__label {
-  font-size: var(--type-scale-body-l);
-  line-height: var(--line-height-body-l);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
   color: var(--color-gray-800);
   font-weight: var(--font-weight-regular);
 }
@@ -61,8 +61,8 @@
 }
 
 .tmads-tab--medium .tmads-tab__label {
-  font-size: var(--type-scale-body-l);
-  line-height: var(--line-height-body-l);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
   color: var(--color-gray-800);
   font-weight: var(--font-weight-regular);
 }

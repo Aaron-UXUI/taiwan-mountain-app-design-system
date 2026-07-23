@@ -29,8 +29,8 @@
   margin: 0;
   color: var(--color-gray-800);
   font-weight: var(--font-weight-regular);
-  font-size: var(--type-scale-body-l);
-  line-height: var(--line-height-body-l);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
 }
 
 .tmads-card-description__image-wrap {

@@ -9,8 +9,8 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12), 0 2px 0.5px rgba(0, 0, 0, 0.12);
   font-family: var(--typeface-pingfang-tc);
   font-weight: var(--font-weight-semibold);
-  font-size: var(--type-scale-body-l);
-  line-height: var(--line-height-body-l);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
   color: var(--color-primary-green-800);
   text-decoration: none;
   cursor: pointer;

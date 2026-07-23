@@ -8,8 +8,8 @@
 .tmads-crowdedness__label {
   font-family: var(--typeface-pingfang-tc);
   font-weight: var(--font-weight-regular);
-  font-size: var(--type-scale-body-l);
-  line-height: var(--line-height-body-l);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
   color: var(--color-gray-800);
   white-space: nowrap;
 }
@@ -20,8 +20,8 @@
   border-radius: var(--radius-xs);
   font-family: var(--typeface-pingfang-tc);
   font-weight: var(--font-weight-regular);
-  font-size: var(--type-scale-body-l);
-  line-height: var(--line-height-body-l);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
   color: var(--color-gray-white);
   white-space: nowrap;
 }

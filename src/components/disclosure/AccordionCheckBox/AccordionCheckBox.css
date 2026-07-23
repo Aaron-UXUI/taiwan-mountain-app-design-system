@@ -25,8 +25,8 @@
   text-align: left;
   font-family: var(--typeface-pingfang-tc);
   font-weight: var(--font-weight-regular);
-  font-size: var(--type-scale-body-l);
-  line-height: var(--line-height-body-l);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
   color: var(--color-gray-black);
 }
 

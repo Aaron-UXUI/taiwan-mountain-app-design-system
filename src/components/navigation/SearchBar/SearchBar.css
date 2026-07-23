@@ -25,8 +25,8 @@
   height: 32px;
   display: flex;
   align-items: center;
-  font-size: var(--type-scale-body-m);
-  line-height: var(--line-height-body-m);
+  font-size: var(--type-scale-body-s);
+  line-height: var(--line-height-body-s);
   color: var(--color-gray-800);
 }
 

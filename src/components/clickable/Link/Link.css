@@ -3,8 +3,8 @@
   align-items: center;
   font-family: var(--typeface-pingfang-tc);
   font-weight: var(--font-weight-semibold);
-  font-size: var(--type-scale-body-l);
-  line-height: var(--line-height-body-l);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
   color: var(--color-accent-yellow-700);
   text-decoration: none;
   cursor: pointer;
