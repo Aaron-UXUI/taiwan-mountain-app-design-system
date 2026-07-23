@@ -76,7 +76,7 @@
 | Figma 元件 | 變體 | node id | 對應程式碼元件 | 檔案路徑 |
 |---|---|---|---|---|
 | Navigation Bar | state=activity/map/notify/member | 490:22853 | `NavigationBar` | `src/components/navigation/NavigationBar/NavigationBar.tsx` |
-| Search Bar | State=Default/Focused/Typing/Typed | 376:456 | `SearchBar` | `src/components/navigation/SearchBar/SearchBar.tsx` |
+| Search Bar | State=Default/Focused/Typing（Typed 已依需求移除） | 376:456 | `SearchBar` | `src/components/navigation/SearchBar/SearchBar.tsx` |
 | App Bar | Type=nav/ProfileInfo | 495:426 | `AppBar` | `src/components/navigation/AppBar/AppBar.tsx` |
 | Bottom Bar | Type=Button/2 Buttons/Navigation/Place Order | 1480:37613 | `BottomBar` | `src/components/navigation/BottomBar/BottomBar.tsx` |
 | CheckBox / Navigation | 單一元件 | 355:60400 | `CheckBoxNavigation` | `src/components/navigation/CheckBoxNavigation/CheckBoxNavigation.tsx` |

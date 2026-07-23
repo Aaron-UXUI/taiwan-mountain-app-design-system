@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from "react";
 import "./SearchBar.css";
 
-export type SearchBarState = "Default" | "Focused" | "Typing" | "Typed";
+export type SearchBarState = "Default" | "Focused" | "Typing";
 
 export type SearchBarProps = {
   placeholder?: string;
@@ -41,8 +41,8 @@ const CloseGlyph = () => (
 );
 
 /**
- * Figma: Search Bar (node 376:456) — State=Default/Focused/Typing/Typed.
- * Default/Typed render the standalone search input row; Focused/Typing additionally
+ * Figma: Search Bar (node 376:456) — State=Default/Focused/Typing (Typed removed per request).
+ * Default renders the standalone search input row; Focused/Typing additionally
  * render a suggestions/history menu above a compact input row with a cancel button.
  */
 export function SearchBar({
@@ -56,7 +56,7 @@ export function SearchBar({
   className,
   ...rest
 }: SearchBarProps) {
-  const resolvedValue = value ?? (state === "Typed" ? "烏來" : state === "Typing" ? "烏" : "");
+  const resolvedValue = value ?? (state === "Typing" ? "烏" : "");
   const showMenu = state === "Focused" || state === "Typing";
   const menuItems = state === "Typing" ? suggestionItems : historyItems;
   const showCursor = state === "Focused" || state === "Typing";
@@ -77,7 +77,6 @@ export function SearchBar({
         <div
           className={[
             "tmads-search-bar__field",
-            state === "Typed" && "tmads-search-bar__field--typed",
             (state === "Focused" || state === "Typing") && "tmads-search-bar__field--compact",
           ]
             .filter(Boolean)

@@ -8,7 +8,7 @@ const meta: Meta<typeof SearchBar> = {
   argTypes: {
     placeholder: { control: "text" },
     value: { control: "text" },
-    state: { control: "radio", options: ["Default", "Focused", "Typing", "Typed"] },
+    state: { control: "radio", options: ["Default", "Focused", "Typing"] },
   },
   args: {
     placeholder: "搜尋",
@@ -34,8 +34,4 @@ export const Focused: Story = {
 
 export const Typing: Story = {
   args: { state: "Typing" },
-};
-
-export const Typed: Story = {
-  args: { state: "Typed" },
 };

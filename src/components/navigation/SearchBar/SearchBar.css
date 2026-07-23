@@ -64,7 +64,6 @@
   box-sizing: border-box;
 }
 
-.tmads-search-bar__field--typed,
 .tmads-search-bar__field--compact {
   padding-right: var(--spacing-sm);
   box-shadow: var(--elevation-5);
@@ -76,7 +75,6 @@
   color: var(--color-gray-400);
 }
 
-.tmads-search-bar__field--typed .tmads-search-bar__icon,
 .tmads-search-bar__field--compact .tmads-search-bar__icon {
   color: var(--color-gray-black);
 }

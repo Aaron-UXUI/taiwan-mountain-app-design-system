@@ -14,11 +14,7 @@
   flex-direction: column;
   gap: var(--spacing-s);
   width: 100%;
-}
-
-.tmads-bottom-bar--button .tmads-bottom-bar__content,
-.tmads-bottom-bar--2-buttons .tmads-bottom-bar__content,
-.tmads-bottom-bar--place-order .tmads-bottom-bar__content {
+  box-sizing: border-box;
   padding: 0 var(--spacing-lm);
 }
 
