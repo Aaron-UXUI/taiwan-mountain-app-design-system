@@ -9,6 +9,11 @@
   border-radius: var(--radius-m) var(--radius-m) 0 0;
   box-shadow: var(--elevation-3);
   font-family: var(--typeface-pingfang-tc);
+  box-sizing: border-box;
+}
+
+.tmads-bottom-sheet--map-info {
+  padding: 0 var(--spacing-lm);
 }
 
 .tmads-bottom-sheet__top-bar {
@@ -41,6 +46,8 @@
 
 .tmads-bottom-sheet__content--map-info {
   align-items: flex-start;
+  padding-left: 0;
+  padding-right: 0;
   padding-bottom: var(--spacing-lm);
 }
 
@@ -144,6 +151,12 @@
   gap: var(--spacing-lm);
   padding-top: var(--spacing-lm);
   padding-bottom: var(--spacing-lm);
+}
+
+.tmads-bottom-sheet__scroll-spacer {
+  flex-shrink: 0;
+  width: 100%;
+  height: 60px;
 }
 
 .tmads-bottom-sheet__home-indicator {

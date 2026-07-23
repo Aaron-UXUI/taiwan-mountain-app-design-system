@@ -80,7 +80,7 @@ function FilterDiscoverContent() {
           ))}
         </div>
       </div>
-      <Button label="套用" size="Large" className="tmads-bottom-sheet__apply" />
+      <Button label="套用" type="Secondary" size="Large" className="tmads-bottom-sheet__apply" />
     </div>
   );
 }
@@ -131,6 +131,7 @@ function FilterMapSearchContent() {
       {SCENE_CARDS.map((card) => (
         <CardScene key={card.siteName} siteName={card.siteName} distance={card.distance} showDistance />
       ))}
+      <div className="tmads-bottom-sheet__scroll-spacer" aria-hidden="true" />
     </div>
   );
 }
