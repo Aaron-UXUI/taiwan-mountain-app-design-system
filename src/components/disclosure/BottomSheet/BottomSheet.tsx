@@ -97,7 +97,7 @@ function MapInfoContent() {
         <ChipsSalient label="今日開放" />
         <ChipsSalient label="親子友善" type="Special" />
       </div>
-      <div className="tmads-bottom-sheet__tags">
+      <div className="tmads-bottom-sheet__tags tmads-bottom-sheet__tags--scroll">
         {TAG_LABELS.map((tag) => (
           <ChipsSmall key={tag} label={tag} />
         ))}

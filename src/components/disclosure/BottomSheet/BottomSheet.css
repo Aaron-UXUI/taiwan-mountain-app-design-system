@@ -106,6 +106,15 @@
   width: 100%;
 }
 
+.tmads-bottom-sheet__tags--scroll {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.tmads-bottom-sheet__tags--scroll > * {
+  flex-shrink: 0;
+}
+
 .tmads-bottom-sheet__buttons {
   display: flex;
   flex-direction: column;
