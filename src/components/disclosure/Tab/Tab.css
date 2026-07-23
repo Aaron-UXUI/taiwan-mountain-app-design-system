@@ -79,8 +79,8 @@
 
 .tmads-tab--large .tmads-tab__label {
   flex: 1 0 0;
-  font-size: var(--type-scale-label-l);
-  line-height: var(--line-height-h4);
+  font-size: var(--type-scale-body-l);
+  line-height: var(--line-height-body-l);
   color: var(--color-gray-800);
   font-weight: var(--font-weight-regular);
 }

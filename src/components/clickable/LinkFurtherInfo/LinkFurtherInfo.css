@@ -6,7 +6,7 @@
   border-radius: var(--radius-s);
   border: 1px solid var(--color-primary-green-800);
   background-color: var(--color-gray-white);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12), 0 2px 0.5px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--elevation-3);
   font-family: var(--typeface-pingfang-tc);
   font-weight: var(--font-weight-semibold);
   font-size: var(--type-scale-body-m);

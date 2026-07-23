@@ -42,8 +42,8 @@
 .tmads-list-weather__date-day {
   margin: 0;
   font-weight: var(--font-weight-regular);
-  font-size: var(--type-scale-label-l);
-  line-height: var(--line-height-h4);
+  font-size: var(--type-scale-body-l);
+  line-height: var(--line-height-body-l);
 }
 
 .tmads-list-weather__date-week {
@@ -59,8 +59,8 @@
   width: 100%;
   color: var(--color-gray-black);
   font-weight: var(--font-weight-regular);
-  font-size: var(--type-scale-label-l);
-  line-height: var(--line-height-h4);
+  font-size: var(--type-scale-body-l);
+  line-height: var(--line-height-body-l);
   text-align: center;
   white-space: nowrap;
 }

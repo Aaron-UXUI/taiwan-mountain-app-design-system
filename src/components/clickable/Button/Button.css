@@ -29,7 +29,7 @@
 .tmads-button--primary {
   background-color: var(--color-primary-green-800);
   color: var(--color-gray-white);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12), 0 2px 0.5px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--elevation-3);
 }
 .tmads-button--primary:where(:hover, [data-state="pressing"]) {
   background-color: var(--color-primary-green-900);
@@ -45,7 +45,7 @@
   background-color: var(--color-gray-white);
   border-color: var(--color-primary-green-800);
   color: var(--color-primary-green-800);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12), 0 2px 0.5px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--elevation-3);
 }
 .tmads-button--secondary:where(:hover, [data-state="pressing"]) {
   background-color: var(--color-primary-green-50);

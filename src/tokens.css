@@ -52,12 +52,6 @@
   --type-scale-label-s: 12px;
   --line-height-label-s: 18px;
 
-  /* NOT in the Style Guide's Typography table (16px/24px, Regular, PingFang TC —
-   * matches no documented Heading/Body/Label/Number level). Kept only because
-   * 9 existing components already render at this size; see the audit report
-   * for which ones. Do not treat this as canonical without confirming in Figma. */
-  --type-scale-label-l: 16px;
-
   /* Number (SF Mono, 0% letter-spacing) — L is Semibold, M is Regular */
   --type-scale-number-l: 16px;
   --type-scale-number-m: 16px;
