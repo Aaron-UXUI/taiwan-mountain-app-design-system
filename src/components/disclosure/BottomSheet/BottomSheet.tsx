@@ -43,25 +43,6 @@ const HeartGlyph = () => (
   </svg>
 );
 
-const BellGlyph = () => (
-  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
-    <path
-      d="M4 6.5C4 4 5.8 2.5 8 2.5C10.2 2.5 12 4 12 6.5C12 9.5 13 10.5 13 10.5H3S4 9.5 4 6.5Z"
-      stroke="var(--color-primary-green-800)"
-      strokeWidth="1.4"
-      strokeLinejoin="round"
-    />
-    <path d="M6.5 12.5C6.5 13.3 7.2 14 8 14C8.8 14 9.5 13.3 9.5 12.5" stroke="var(--color-primary-green-800)" strokeWidth="1.4" />
-  </svg>
-);
-
-const DownloadGlyph = () => (
-  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true">
-    <path d="M8 2.5V10M8 10L5 7M8 10L11 7" stroke="var(--color-primary-green-800)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M3 12.5H13" stroke="var(--color-primary-green-800)" strokeWidth="1.4" strokeLinecap="round" />
-  </svg>
-);
-
 function FilterDiscoverContent() {
   const [sort, setSort] = useState<"Left" | "Right">("Left");
   return (
@@ -114,11 +95,9 @@ function MapInfoContent() {
               收藏
             </button>
             <button type="button" className="tmads-bottom-sheet__pill-button">
-              <BellGlyph />
               追蹤園區動態
             </button>
             <button type="button" className="tmads-bottom-sheet__pill-button">
-              <DownloadGlyph />
               下載離線地圖
             </button>
           </div>
