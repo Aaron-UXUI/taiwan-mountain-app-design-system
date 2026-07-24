@@ -131,6 +131,13 @@
   align-items: flex-start;
   gap: var(--spacing-s);
   width: 100%;
+  /* The 12px gap before the hero photo is narrower than the buttons'
+     elevation-3 shadow reach, so without a higher stacking order the
+     opaque photo (next in normal flow) paints over the bottom of the
+     shadow. Raising it above the photo lets the shadow render fully,
+     same as any elevated surface floating over the content below it. */
+  position: relative;
+  z-index: 1;
 }
 
 .tmads-bottom-sheet__button-group {
