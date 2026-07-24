@@ -40,6 +40,7 @@ export function CardScene({
     <div className={["tmads-card-scene", className].filter(Boolean).join(" ")} {...rest}>
       <div className="tmads-card-scene__picture">
         <img className="tmads-card-scene__image" src={resolvedImageSrc} alt={imageAlt} />
+        <div className="tmads-card-scene__scrim" aria-hidden="true" />
         <div className="tmads-card-scene__status">{statusLabel}</div>
         {showFamilyFriendlyLabel && (
           <div className="tmads-card-scene__family-label">親子友善</div>
@@ -64,7 +65,7 @@ export function CardScene({
             aria-pressed={saved}
             onClick={onToggleSave}
           >
-            <svg viewBox="0 0 24 24" fill={saved ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.5">
+            <svg viewBox="0 0 24 24" fill={saved ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">
               <path
                 d="M12 21s-7.5-4.6-10-9.3C.4 8.7 2 5 5.6 4.2 8 3.7 10.3 5 12 7.3 13.7 5 16 3.7 18.4 4.2 22 5 23.6 8.7 22 11.7 19.5 16.4 12 21 12 21z"
                 strokeLinejoin="round"
