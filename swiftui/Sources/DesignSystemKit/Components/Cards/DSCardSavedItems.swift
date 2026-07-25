@@ -4,12 +4,12 @@ import SwiftUI
 /// `AsyncImage` thumbnails.
 public struct DSCardSavedItems: View {
     private let title: String
-    private let isLiked: Bool
+    private let savedCount: Int
     private let photoURLs: [URL]
 
-    public init(title: String, isLiked: Bool = false, photoURLs: [URL]) {
+    public init(title: String, savedCount: Int, photoURLs: [URL]) {
         self.title = title
-        self.isLiked = isLiked
+        self.savedCount = savedCount
         self.photoURLs = photoURLs
     }
 
@@ -35,19 +35,19 @@ public struct DSCardSavedItems: View {
             .clipShape(RoundedRectangle(cornerRadius: DSRadius.s, style: .continuous))
             .accessibilityHidden(true)
 
-            HStack(spacing: DSSpacing.xs) {
+            // Figma pairs the title with a "N 個收藏" count line — there is no
+            // heart on this card (the earlier version invented one).
+            VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .dsFont(.bodyM)
                     .fontWeight(.semibold)
                     .foregroundStyle(DSColor.black)
-                if isLiked {
-                    Image(systemName: "heart.fill")
-                        .foregroundStyle(DSColor.destruct600)
-                        .accessibilityHidden(true)
-                }
+                Text("\(savedCount) 個收藏")
+                    .dsFont(.bodyS)
+                    .foregroundStyle(DSColor.gray800)
             }
             .accessibilityElement(children: .combine)
-            .accessibilityLabel(isLiked ? "\(title), 已收藏" : title)
+            .accessibilityLabel("\(title), \(savedCount) 個收藏")
         }
     }
 }

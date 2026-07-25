@@ -35,13 +35,54 @@ public struct DSRadioSelectionList: View {
     }
 
     public var body: some View {
-        Picker("", selection: $selectedID) {
+        // Figma draws an actual radio control: a leading ring that fills with
+        // a brand-green dot when chosen, an optional trailing accessory, and a
+        // rule under each row. This previously used `Picker(.inline)`, which
+        // renders as a trailing checkmark list — the HIG idiom, but visibly
+        // not the designed control, so it is drawn here instead. The rows keep
+        // real radio semantics via `.isSelected` inside an
+        // `accessibilityElement(children: .contain)` group.
+        VStack(spacing: 0) {
             ForEach(options) { option in
-                Text(option.label).tag(option.id)
+                Button {
+                    selectedID = option.id
+                } label: {
+                    HStack(spacing: DSSpacing.sm) {
+                        DSRadioMark(isOn: selectedID == option.id)
+                        Text(option.label)
+                            .dsFont(.bodyL)
+                            .foregroundStyle(DSColor.black)
+                        Spacer(minLength: 0)
+                    }
+                    .padding(.vertical, DSSpacing.sm)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityAddTraits(selectedID == option.id ? [.isSelected, .isButton] : .isButton)
+
+                Divider()
             }
         }
-        .pickerStyle(.inline)
-        .labelsHidden()
+        .accessibilityElement(children: .contain)
+    }
+}
+
+/// The radio ring itself — Figma uses a 20pt ring with a filled centre.
+struct DSRadioMark: View {
+    let isOn: Bool
+
+    var body: some View {
+        ZStack {
+            Circle()
+                .strokeBorder(isOn ? DSColor.primaryGreen800 : DSColor.gray400, lineWidth: 1.5)
+                .frame(width: 20, height: 20)
+            if isOn {
+                Circle()
+                    .fill(DSColor.primaryGreen800)
+                    .frame(width: 10, height: 10)
+            }
+        }
+        .accessibilityHidden(true)
     }
 }
 
@@ -76,15 +117,12 @@ public struct DSExpandableRadioSelectionList: View {
                 Button {
                     selectedID = option.id
                 } label: {
-                    HStack {
+                    HStack(spacing: DSSpacing.sm) {
+                        DSRadioMark(isOn: selectedID == option.id)
                         Text(option.label)
                             .dsFont(.bodyL)
                             .foregroundStyle(DSColor.black)
-                        Spacer()
-                        if selectedID == option.id {
-                            Image(systemName: "checkmark")
-                                .foregroundStyle(DSColor.primaryGreen800)
-                        }
+                        Spacer(minLength: 0)
                     }
                     .contentShape(Rectangle())
                 }

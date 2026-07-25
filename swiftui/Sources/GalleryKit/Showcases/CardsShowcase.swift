@@ -23,13 +23,20 @@ struct CardsShowcase: View {
                     DSCardDescription(title: "關於步道", body: "本步道全長 4.2 公里,沿途設有休息座椅與觀景平台。")
                 }
                 GallerySection(title: "CardTickets") {
-                    DSCardTickets(scene: "陽明山國家公園", ticketType: "全票 x2", additionalItem: "接駁券 x2", due: "2026/08/01 前有效", price: "NT$300")
+                    VStack(spacing: 12) {
+                        DSCardTickets(scene: "阿里山國家森林遊樂區",
+                                      ticketLines: ["全票 x 1", "烏來臺車來回搭乘券 x 1"],
+                                      due: "2026/09/10", price: "NT$ 425")
+                        DSCardTickets(scene: "阿里山國家森林遊樂區",
+                                      ticketLines: ["全票 x 1"],
+                                      due: "2026/09/10", price: "NT$ 425", isDisabled: true)
+                    }
                 }
                 GallerySection(title: "CardNotification") {
                     DSCardNotification(headline: "步道即將關閉維護", body: "受颱風影響,本步道將於明日休園一天。", time: "10 分鐘前", isUnread: true)
                 }
                 GallerySection(title: "CardSavedItems") {
-                    DSCardSavedItems(title: "我的收藏 · 北部步道", isLiked: true, photoURLs: [])
+                    DSCardSavedItems(title: "台灣北部", savedCount: 3, photoURLs: [])
                         .frame(height: 160)
                 }
                 GallerySection(title: "List Rows") {

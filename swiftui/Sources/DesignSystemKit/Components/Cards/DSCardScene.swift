@@ -1,11 +1,12 @@
 import SwiftUI
 
-/// Native port of `card-scene.md`. Uses `AsyncImage` (native networked image
-/// loading, with a built-in placeholder phase) instead of a bundled
-/// placeholder illustration. The save affordance uses a native
-/// `.symbolEffect(.bounce)` on toggle — SF Symbol effects already minimize
-/// automatically under Reduce Motion, so no extra guarding is needed the way
-/// plain `.animation()` calls require elsewhere in this kit.
+/// Native port of `card-scene.md` — Figma `Cards / Scene` (node 374:3819).
+///
+/// Uses `AsyncImage` (native networked image loading, with a built-in
+/// placeholder phase) instead of a bundled placeholder illustration. The save
+/// affordance uses a native `.symbolEffect(.bounce)` on toggle — SF Symbol
+/// effects already minimize automatically under Reduce Motion, so no extra
+/// guarding is needed the way plain `.animation()` calls require elsewhere.
 public struct DSCardScene: View {
     private let imageURL: URL?
     private let siteName: String
@@ -40,30 +41,24 @@ public struct DSCardScene: View {
         ZStack(alignment: .bottom) {
             photo
 
-            LinearGradient(
-                colors: [.clear, .black],
-                startPoint: .init(x: 0.5, y: 0.67),
-                endPoint: .init(x: 0.5, y: 1)
-            )
-            .accessibilityHidden(true)
-
-            VStack {
-                HStack(alignment: .top) {
-                    Spacer()
-                    VStack(alignment: .trailing, spacing: DSSpacing.xs) {
-                        tag(statusLabel, fill: DSColor.primaryGreen900)
-                        if isFamilyFriendly {
-                            tag("親子友善", fill: DSColor.accentYellow900)
-                        }
-                    }
+            // Status tags float over the photo, top-trailing.
+            VStack(alignment: .trailing, spacing: DSSpacing.xs) {
+                tag(statusLabel, fill: DSColor.primaryGreen900)
+                if isFamilyFriendly {
+                    tag("親子友善", fill: DSColor.accentYellow900)
                 }
-                Spacer()
-                footer
+                Spacer(minLength: 0)
             }
+            .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(DSSpacing.s)
+
+            // Figma runs the caption bar edge to edge across the bottom of the
+            // card — it is not an inset, separately-rounded panel, and there is
+            // no gradient scrim above it.
+            footer
         }
-        .clipShape(RoundedRectangle(cornerRadius: DSRadius.m, style: .continuous))
         .aspectRatio(327.0 / 236.0, contentMode: .fit)
+        .clipShape(RoundedRectangle(cornerRadius: DSRadius.m, style: .continuous))
     }
 
     private var photo: some View {
@@ -84,15 +79,14 @@ public struct DSCardScene: View {
             .foregroundStyle(DSColor.white)
             .padding(DSSpacing.xs)
             .background(fill.opacity(0.95))
-            .background(.ultraThinMaterial)
             .clipShape(RoundedRectangle(cornerRadius: DSRadius.xxs, style: .continuous))
     }
 
     private var footer: some View {
         HStack(spacing: DSSpacing.s) {
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 2) {
                 Text(siteName)
-                    .dsFont(.headline3)
+                    .dsFont(.headline4)
                     .foregroundStyle(DSColor.white)
                     .lineLimit(1)
                 HStack(spacing: DSSpacing.s) {
@@ -111,18 +105,17 @@ public struct DSCardScene: View {
                 isSaved.toggle()
                 onToggleSave()
             } label: {
-                Image(systemName: isSaved ? "heart.fill" : "heart")
+                DSIconView(isSaved ? .heartFill : .heart)
                     .symbolEffect(.bounce, value: isSaved)
-                    .imageScale(.large)
                     .foregroundStyle(DSColor.white)
-                    .frame(width: 48, height: 48)
+                    .frame(width: 24, height: 24)
             }
             .accessibilityLabel(isSaved ? "取消收藏" : "加入收藏")
             .accessibilityAddTraits(isSaved ? .isSelected : [])
         }
-        .padding(DSSpacing.s)
-        .background(.black.opacity(0.5))
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: DSRadius.s, style: .continuous))
+        .padding(.horizontal, DSSpacing.m)
+        .padding(.vertical, DSSpacing.sm)
+        .frame(maxWidth: .infinity)
+        .background(DSColor.black.opacity(0.55))
     }
 }

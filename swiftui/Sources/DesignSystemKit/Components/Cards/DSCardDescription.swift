@@ -15,19 +15,9 @@ public struct DSCardDescription: View {
     }
 
     public var body: some View {
+        // Figma order is title -> body -> image. The image was being rendered
+        // first here, which put the photo above the text it illustrates.
         VStack(alignment: .leading, spacing: DSSpacing.sm) {
-            if let imageURL {
-                AsyncImage(url: imageURL) { phase in
-                    if case .success(let image) = phase {
-                        image.resizable().scaledToFill()
-                    } else {
-                        Rectangle().fill(DSColor.gray100)
-                    }
-                }
-                .frame(height: 160)
-                .clipShape(RoundedRectangle(cornerRadius: DSRadius.s, style: .continuous))
-                .accessibilityHidden(true)
-            }
             if let title {
                 Text(title)
                     .dsFont(.headline3)
@@ -37,6 +27,19 @@ public struct DSCardDescription: View {
             Text(body_)
                 .dsFont(.bodyM)
                 .foregroundStyle(DSColor.gray800)
+
+            if let imageURL {
+                AsyncImage(url: imageURL) { phase in
+                    if case .success(let image) = phase {
+                        image.resizable().scaledToFill()
+                    } else {
+                        Rectangle().fill(DSColor.gray100)
+                    }
+                }
+                .frame(height: 160)
+                .clipShape(RoundedRectangle(cornerRadius: DSRadius.xs, style: .continuous))
+                .accessibilityHidden(true)
+            }
         }
         .padding(DSSpacing.s)
     }

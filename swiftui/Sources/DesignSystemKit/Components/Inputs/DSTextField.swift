@@ -61,7 +61,10 @@ public struct DSTextField: View {
     }
 
     private var borderColor: Color {
+        // Figma: Default/Typed sit on a light grey rule, Typing darkens to
+        // near-black, Error is red. The focus ring was brand green here, which
+        // is not a colour this component uses in the design.
         if errorMessage != nil { return DSColor.destruct600 }
-        return isFocused ? DSColor.primaryGreen800 : DSColor.gray400
+        return isFocused ? DSColor.black : DSColor.gray400
     }
 }

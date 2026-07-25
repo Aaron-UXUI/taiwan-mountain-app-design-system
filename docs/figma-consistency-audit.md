@@ -206,6 +206,31 @@ Figma 每個分頁都有底線:未選取是淺色細線,選取是較粗的 green
 
 ---
 
+## G. 第三輪:版面結構稽核(2026-07-25)
+
+前兩輪都只查**顏色 token**,沒有比對版面結構,所以漏掉了下面這些——這也是
+實際畫面看起來仍與原稿差距明顯的主因。這輪改為逐元件把 Figma 原稿截圖與
+模擬器實際畫面並排比較。
+
+| # | 元件 | 落差 | 處置 |
+|---|---|---|---|
+| G1 | `Cards / Scene` | 底部說明列在 Figma 是**整條齊邊貼底**(只有卡片本身的圓角),原本做成內縮、自帶圓角的小卡,還多加了一層漸層遮罩;標題級距也過大 | 改為齊邊、移除漸層、標題改 headline-4 |
+| G2 | `Cards / Description` | Figma 順序是**標題 → 內文 → 圖片**,原本把圖片放在最上面 | 改回正確順序 |
+| G3 | `Cards / Tickets` | 缺少 Figma 左緣的**綠色票根色條**;內容順序整個相反(Figma 是 使用期限 → 分隔線 → 景點 → 票種 → 金額);停用態缺少「已使用」標記 | 全部補上並重排 |
+| G4 | `Cards / Saved Items` | Figma 是「標題 + **N 個收藏**」,原本做成標題 + 一顆愛心(設計裡沒有這顆愛心) | 改為收藏數量 |
+| G5 | `Text Field` | 輸入中的外框在 Figma 是**近黑色**,原本用品牌綠——這個元件在設計裡根本沒用到綠色 | 改為 black |
+| G6 | `Radio button` | Figma 畫的是**真正的圓形 radio**(左側圓圈 + 選中填綠點 + 每列分隔線),原本用 `Picker(.inline)`,iOS 會渲染成「右側打勾清單」——是 HIG 慣例,但明顯不是設計稿的控制項 | 改為依照設計繪製,並保留 radio 的無障礙語意 |
+
+### 尚未逐項比對的元件
+
+這輪聚焦在 Cards 與 Inputs。以下仍**只做過顏色比對、尚未做結構比對**,可能還有
+類似落差:`BottomSheet`、`Accordion / CheckBox`、`Accordion / Chips`、
+`Collapse / Text`、`List / weather`、`List / Setting`、`List / DownloadMap`、
+`Chips`、`CheckBox`、`Segmented Controls`、`Toggle`、`Stepper`、`Location Pin`、
+`Navigation Bar`、`Search Bar`、`App Bar`、`Bottom Bar`。
+
+---
+
 ## E. 補充說明:刻意的偏離(非落差)
 
 以下項目與 Figma 不同,但都是有記錄的平台決策,不列為落差:
