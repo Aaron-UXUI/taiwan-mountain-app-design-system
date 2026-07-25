@@ -221,13 +221,36 @@ Figma 每個分頁都有底線:未選取是淺色細線,選取是較粗的 green
 | G5 | `Text Field` | 輸入中的外框在 Figma 是**近黑色**,原本用品牌綠——這個元件在設計裡根本沒用到綠色 | 改為 black |
 | G6 | `Radio button` | Figma 畫的是**真正的圓形 radio**(左側圓圈 + 選中填綠點 + 每列分隔線),原本用 `Picker(.inline)`,iOS 會渲染成「右側打勾清單」——是 HIG 慣例,但明顯不是設計稿的控制項 | 改為依照設計繪製,並保留 radio 的無障礙語意 |
 
+---
+
+## H. 第四輪:細節稽核(圓角 / 線寬 / 間距 / 字重 / 陰影)
+
+這輪改用 `get_design_context` 取得 Figma 的**精確 CSS**(padding、radius、
+border-width、font-weight、shadow),而不是從截圖推測。
+
+| # | 元件 | 落差 | 處置 |
+|---|---|---|---|
+| H1 | `Chips` | **外框與填色形狀不一致**——外框畫成 `Capsule`,底色卻裁成 8pt 圓角矩形,等於框線沒有貼合它要框的形狀 | 統一成同一個 8pt 圓角矩形 |
+| H2 | `Chips` | 選取時外框應為 **green-100**,原本用 green-900 | 改正 |
+| H3 | `Chips` | 選取時文字應轉 **Semibold**,原本不變 | 改正 |
+| H4 | `Chips / Salient` | Figma 是**固定 32pt 高 + 只有左右 padding**,原本四邊都給 16;字重應為 Semibold(Label/S) | 改正 |
+| H5 | `CheckBox` | 用 SF Symbol `checkmark.square.fill` 代替設計稿的控制項。Figma 是 **20pt 方框、4pt 圓角**,未選時 1pt gray-800 外框,選取時填 green-800 + 白色勾 | 依設計重繪 |
+| H6 | `CheckBox` | 選取時**標籤文字要轉 green-800**,原本恆為 gray-800;整列缺少 16pt padding 與 8pt gap | 改正 |
+| H7 | `Tooltip` | Figma 掛了 **Elevation/4** 陰影,實作完全沒有陰影 | 補上 |
+| H8 | `Accordion`(兩個) | 標題列 Figma 固定 **48pt 高**;展開箭頭用系統 accent 色而非設計的墨色 | 補上高度並改用品牌墨色 |
+
+### 一個值得記錄的來源陷阱
+
+Figma 的字級變數命名會誤導:Chips 與 CheckBox 的標籤引用的是
+`type-scale/body/L`,但它的**實際值是 14/20**,也就是我們的 `body-m` token
+(`body-l` 是 16/24)。原本的對應是對的,這輪等於再次向來源確認。
+
 ### 尚未逐項比對的元件
 
-這輪聚焦在 Cards 與 Inputs。以下仍**只做過顏色比對、尚未做結構比對**,可能還有
-類似落差:`BottomSheet`、`Accordion / CheckBox`、`Accordion / Chips`、
-`Collapse / Text`、`List / weather`、`List / Setting`、`List / DownloadMap`、
-`Chips`、`CheckBox`、`Segmented Controls`、`Toggle`、`Stepper`、`Location Pin`、
-`Navigation Bar`、`Search Bar`、`App Bar`、`Bottom Bar`。
+以下仍**只做過顏色比對、尚未做細節比對**:`BottomSheet`、`Collapse / Text`、
+`List / weather`、`List / Setting`、`List / DownloadMap`、`Segmented Controls`、
+`Toggle`、`Stepper`、`Location Pin`、`Navigation Bar`、`Search Bar`、`App Bar`、
+`Bottom Bar`、`Banner`、`Snackbar`、`Carousel Indicators`、`Crowdedness`。
 
 ---
 

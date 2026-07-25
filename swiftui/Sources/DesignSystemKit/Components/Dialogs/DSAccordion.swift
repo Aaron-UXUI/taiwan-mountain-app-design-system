@@ -32,15 +32,21 @@ public struct DSAccordionCheckBox: View {
         } label: {
             header
         }
+        // The system disclosure chevron defaults to the accent colour; Figma
+        // draws it in the same ink as the title.
+        .tint(DSColor.black)
     }
 
     private var header: some View {
+        // Figma fixes the title row height at 48pt.
         HStack(spacing: DSSpacing.s) {
             Text(title).dsFont(.bodyM).foregroundStyle(DSColor.black)
             if !checkedOptions.isEmpty {
                 DSBadge(count: checkedOptions.count)
             }
+            Spacer(minLength: 0)
         }
+        .frame(height: 48)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(checkedOptions.isEmpty ? title : "\(title), 已選 \(checkedOptions.count) 項")
     }
@@ -78,10 +84,13 @@ public struct DSAccordionChips: View {
                 if !selectedOptions.isEmpty {
                     DSBadge(count: selectedOptions.count)
                 }
+                Spacer(minLength: 0)
             }
+            .frame(height: 48)
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(selectedOptions.isEmpty ? title : "\(title), 已選 \(selectedOptions.count) 項")
         }
+        .tint(DSColor.black)
     }
 }
 

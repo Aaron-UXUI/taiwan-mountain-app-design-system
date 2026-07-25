@@ -13,6 +13,9 @@ public extension View {
                 .foregroundStyle(DSColor.white)
                 .padding(DSSpacing.s)
                 .background(DSColor.black)
+                .clipShape(RoundedRectangle(cornerRadius: DSRadius.xxs, style: .continuous))
+                // Figma attaches Elevation/4 to the tooltip; this had none.
+                .dsElevation(.level4)
                 .presentationCompactAdaptation(.popover)
         }
     }
