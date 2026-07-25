@@ -13,7 +13,7 @@ struct IconsShowcase: View {
             .map, .mapFill, .search, .searchFill, .notify, .notifyFill,
             .member, .memberFill, .heart, .heartFill, .radio, .radioFill,
             .gps, .gpsFill, .setting, .more, .filter, .back, .close,
-            .minus, .plus, .placeholder,
+            .minus, .plus, .download,
         ]),
         IconSet(id: "weather", title: "icon / 24px / weather", icons: [
             .cloudSun, .sunny, .rain, .lightningRain, .windy, .typhoon, .cloudSnow,

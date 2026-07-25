@@ -17,9 +17,15 @@ A numeric quantity control with decrement and increment actions flanking a numer
 ## State
 | State | Description |
 |---|---|
+| 0 | At the minimum. Still interactive, but with nothing left to remove, so **decrement is disabled** while increment stays available. Authored in Figma literally as `State=0`. |
 | Default | Fully interactive. |
 | Error | Inline error message shown. |
 | Disabled | Not operable. |
+
+A platform whose native stepper takes a value range (e.g. SwiftUI's
+`Stepper(value:in:)`) gets the `0` state for free — the control disables
+decrement at the lower bound itself — and does not need it as a separate
+named state.
 
 ## Variant
 No variant axis beyond state — one visual style.

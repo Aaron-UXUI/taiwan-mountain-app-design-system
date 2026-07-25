@@ -26,6 +26,10 @@ struct IndicatorsShowcase: View {
                     }
                 }
                 GallerySection(title: "OfflineMap") {
+                    VStack(spacing: 8) {
+                        DSOfflineMapCard(coverage: .noneMissing, carriers: [], isExpanded: .constant(false))
+                        DSOfflineMapCard(coverage: .mostMissing, carriers: [], isExpanded: .constant(false))
+                    }
                     DSOfflineMapCard(
                         coverage: .someMissing,
                         carriers: [

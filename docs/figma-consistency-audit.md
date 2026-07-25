@@ -54,7 +54,24 @@ Location 維持實心圓,Save / OfflineMap 改為無底色。
 
 ---
 
-## C. 尚未處理的落差(需要你決定)
+## C. 後續處理結果
+
+以下項目在稽核後依設計端指示處理完畢(2026-07-25):
+
+| 項目 | 處置 |
+|---|---|
+| C1 `Stepper` `State=0` | React 補上 `"0"` 狀態(減號停用);SwiftUI 用原生 range 下界即可,不另設具名狀態 |
+| C2 `Search Bar` `Typed` | **忽略**,不實作 |
+| C3 `Icon Buttons` `Type` / `Enabled` / `Loading...` | Type 與 State 全部補齊;`Loading` 與 `Loading...` 只實作 `Loading`;並修正**深綠底必須搭配白色圖示** |
+| C4 `App Bar` `Color=black` | **忽略** |
+| C5 `Buttons` 矩陣不完整 | 依 Figma 為準,未定義的組合不實作,已在 spec/JSDoc/story 標明實際 19 種 |
+| C6 `Badge` 組合 | 維持現狀(實作較寬鬆,不影響正確性) |
+| D1 `OfflineMap` variant 命名 | **設計端已修正**,且新增 `Signal Missing=None`;已同步 React / SwiftUI / Storybook / spec |
+| D2 `List / weather` `state=other` | **設計端已改名**為 `Property 1=Default`;React 本來就沒有這個 prop,無需變更 |
+
+---
+
+## C-原始. 稽核當下尚未處理的落差
 
 ### C1. `Stepper` 缺少 `State=0`
 

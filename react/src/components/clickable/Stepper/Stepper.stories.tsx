@@ -7,7 +7,7 @@ const meta: Meta<typeof Stepper> = {
   tags: ["autodocs"],
   argTypes: {
     amount: { control: "number" },
-    state: { control: "radio", options: ["Default", "Error", "Disabled"] },
+    state: { control: "radio", options: ["0", "Default", "Error", "Disabled"] },
     errorMessage: { control: "text" },
   },
   args: {
@@ -32,7 +32,8 @@ export const Disabled: Story = {
 export const AllVariants: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      <Stepper state="Default" amount={0} />
+      <Stepper state="0" amount={0} />
+      <Stepper state="Default" amount={1} />
       <Stepper state="Error" amount={11} />
       <Stepper state="Disabled" amount={0} />
     </div>

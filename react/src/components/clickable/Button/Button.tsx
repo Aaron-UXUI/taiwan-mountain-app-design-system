@@ -14,7 +14,15 @@ export type ButtonProps = {
   state?: ButtonState;
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type">;
 
-/** Figma: Buttons (node 425:5337) — Type × Size × State variants. */
+/**
+ * Figma: Buttons (node 425:5337) — Type × Size × State.
+ *
+ * Figma defines 19 of the 24 combinations; the others are unused in the
+ * product and intentionally not built. Small has no Loading state at any
+ * emphasis, and Tertiary/Small exists only as Default. The props stay
+ * orthogonal for ergonomics, but combinations outside that set have no
+ * design behind them.
+ */
 export function Button({
   label = "按鈕",
   type = "Primary",

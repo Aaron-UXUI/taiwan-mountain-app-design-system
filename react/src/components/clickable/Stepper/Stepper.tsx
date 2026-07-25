@@ -1,7 +1,8 @@
 import type { HTMLAttributes } from "react";
 import "./Stepper.css";
 
-export type StepperState = "Default" | "Error" | "Disabled";
+/** Figma authors the zero state literally as `State=0`, so the value is kept as-is. */
+export type StepperState = "0" | "Default" | "Error" | "Disabled";
 
 export type StepperProps = {
   amount?: number;
@@ -23,6 +24,9 @@ export function Stepper({
 }: StepperProps) {
   const isDisabled = state === "Disabled";
   const isError = state === "Error";
+  // `State=0` is the at-minimum state: the control is still interactive, but
+  // there is nothing left to remove, so only decrement is greyed out.
+  const isAtZero = state === "0";
 
   return (
     <div
@@ -34,7 +38,7 @@ export function Stepper({
         <button
           type="button"
           className="tmads-stepper__button"
-          disabled={isDisabled}
+          disabled={isDisabled || isAtZero}
           aria-label="減少"
           onClick={onDecrement}
         >

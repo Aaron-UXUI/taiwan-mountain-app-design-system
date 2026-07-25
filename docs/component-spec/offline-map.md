@@ -13,14 +13,14 @@ A collapsible status card reporting offline-map signal coverage, broken down by 
 - Each carrier's icon inside the expanded detail is decorative; the carrier name must be present as text alongside it.
 
 ## State
-| State | Description |
-|---|---|
-| Collapsed | Summary only. |
-| Expanded | Per-carrier detail rows visible. |
-| Signal: Some missing | Partial coverage gap. |
-| Signal: Most missing | Widespread coverage gap. |
+| Axis | Values | Description |
+|---|---|---|
+| `signalMissing` | **None** / Some / Most | How much coverage is unstable. `None` = nothing missing, every area stable (green); `Some` = partial gap (amber); `Most` = widespread gap (red). |
+| `expanded` | No / Yes | Whether the per-carrier detail rows are visible. |
 
-`expanded` and `signalMissing` are independent axes.
+Figma authors the expanded view only for `signalMissing=Some`, and it always
+shows the same three-carrier breakdown, so the expanded content does not vary
+with the signal value.
 
 ## Variant
 No separate variant axis beyond the states above.
@@ -32,9 +32,10 @@ None defined — expand/collapse is an instant show/hide.
 | Role | Token |
 |---|---|
 | Fill | `color.gray-white` |
-| Warning tone | `color.accent.yellow-700` |
-| Success tone | `color.semantic.success-700` |
-| Alert tone | `color.semantic.destruct-700` |
+| `None` summary fill | `color.semantic.success-700` |
+| `Some` summary fill | `color.accent.yellow-700` |
+| `Most` summary fill | `color.semantic.destruct-700` |
+| Summary text | `color.gray-white` |
 | Divider/detail bg | `color.gray-100` |
 | Text | `color.gray-800` |
 | Corner radius | `radius.xs` / `radius.xxs` |

@@ -31,6 +31,17 @@ A single-action trigger control carrying one short text label. It represents the
 | Emphasis (`type`) | Primary / Secondary / Tertiary | Communicates the relative importance of the action among others on screen — Primary for the one recommended action, Secondary for an alternative, Tertiary for the least prominent. |
 | Size | Large / Small | Matches control prominence to the density of the surrounding layout. |
 
+Figma defines **19** of the 24 possible combinations — the rest are simply not
+used in the product, so they are not built:
+
+| Size | Type | States defined |
+|---|---|---|
+| Large | Primary / Secondary / Tertiary | Default · Disabled · Pressing · Loading (complete) |
+| Small | Primary | Default · Disabled · Pressing (**no Loading**) |
+| Small | Secondary | Default · Disabled · Pressing (**no Loading**) |
+| Small | Tertiary | Default only |
+
+
 ## Animation
 - Hover/press color transition: **0.1s, ease** — near-instant feedback so pressing feels responsive rather than animated.
 - Loading indicator: continuous rotation, **1s, linear, infinite**, running only while the Loading state is active.

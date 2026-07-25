@@ -15,14 +15,15 @@ A compact, icon-only action control dedicated to one of three specific purposes:
 - Loading and Downloaded sub-states of the Offline-Map purpose are both exposed as non-operable once the action is no longer available to repeat.
 
 ## State
-| State | Applies to | Description |
+Each purpose has its own state set — the axes are not a free cross-product.
+
+| Purpose (`for`) | `type` | States |
 |---|---|---|
-| Default | All purposes | Resting, interactive. |
-| Pressing | All purposes | Transient press feedback. |
-| Clicked | Save | Toggled-on confirmation appearance. |
-| Loading | Offline-Map | Download in progress; shows progress. |
-| Downloaded | Offline-Map | Terminal, non-operable "already downloaded" appearance. |
-| Disabled | All purposes | Not operable. |
+| Location | Primary | Default · Pressing · **Enabled** (actively locating, filled GPS glyph) |
+| Save | Tertiary | Default · Clicked (filled heart) |
+| OfflineMap | Tertiary | Default · Loading (shows progress) · Downloaded (terminal, non-operable) |
+
+`Disabled` is not a Figma state; use the platform's own disabled mechanism.
 
 ## Variant
 | Axis | Values | Purpose |
@@ -30,12 +31,8 @@ A compact, icon-only action control dedicated to one of three specific purposes:
 | `for` | Location / Save / OfflineMap | Selects the fixed icon, accessible label, and behavior set — this is a purpose selector, not a free-form icon picker. |
 | `type` (emphasis) | Primary / Tertiary | Primary is a filled brand-green circle with elevation; Tertiary is the bare glyph on no background. In Figma this is not freely combinable — Location is authored Primary, Save and OfflineMap are Tertiary — so it is derived from `for` rather than set independently. |
 
-**Figma states not yet covered** (see `docs/figma-consistency-audit.md` C3): the
-source component also defines `State=Enabled` (Location, actively locating) and
-a `State=Loading...` distinct from `State=Loading` (OfflineMap). Both render
-identically to their neighbours in the exported frame, so their intended
-difference could not be determined from the file alone and they are
-deliberately not guessed at here.
+Figma also defines a `State=Loading...` alongside `State=Loading`. The two are
+byte-identical in the exported frame, so only `Loading` is implemented.
 
 ## Animation
 Uses the same rapid hover/press transition timing as Button; the Offline-Map purpose's progress indicator updates continuously while Loading (no fixed easing curve — driven by the actual download percentage).
@@ -43,8 +40,10 @@ Uses the same rapid hover/press transition timing as Button; the Offline-Map pur
 ## Token Mapping
 | Role | Token |
 |---|---|
-| Fill | `color.primary.green-800` / pressed `color.primary.green-900` |
-| Icon color | `color.gray-black` or `color.gray-white` depending on purpose/fill |
+| Primary fill | `color.primary.green-800` / pressed `color.primary.green-900` |
+| **Primary icon** | `color.gray-white` — a dark-green button always pairs with a **white** glyph |
+| Tertiary icon | `color.gray-black` (no background) |
+| Tertiary icon, Save `Clicked` | `color.gray-white` — the filled heart sits over a scene photo |
 | Corner radius | `radius.rounded` (circular) |
 | Padding | `spacing.sm` |
 | Elevation | `elevation.4` |

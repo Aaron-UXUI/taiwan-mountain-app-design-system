@@ -25,9 +25,13 @@ struct ButtonsShowcase: View {
                 }
                 GallerySection(title: "IconButton") {
                     HStack(spacing: 16) {
-                        DSIconButton(.location) {}
+                        // Figma Icon Buttons: Location is Type=Primary
+                        // (green circle, white glyph); Save and OfflineMap
+                        // are Type=Tertiary (bare glyph).
+                        DSIconButton(.location()) {}
+                        DSIconButton(.location(isLocating: true)) {}
                         DSIconButton(.save(isSaved: false)) {}
-                        DSIconButton(.save(isSaved: true)) {}
+                        DSIconButton(.offlineMap(.idle)) {}
                         DSIconButton(.offlineMap(.downloading(progress: 0.6))) {}
                         DSIconButton(.offlineMap(.downloaded)) {}
                     }

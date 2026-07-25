@@ -11,13 +11,24 @@ public struct DSCarrierCoverage: Identifiable {
     }
 }
 
-public enum DSSignalCoverage {
-    case someMissing, mostMissing
+/// Figma `Signal Missing=None | Some | Most` (node 16343:7890).
+/// `none` means nothing is missing — every area is stable.
+public enum DSSignalCoverage: CaseIterable {
+    case noneMissing, someMissing, mostMissing
 
     var summary: String {
         switch self {
-        case .someMissing: return "部分電信商無訊號"
-        case .mostMissing: return "大部分電信商無訊號"
+        case .noneMissing: return "全部區域皆穩定"
+        case .someMissing: return "部分區域不穩定"
+        case .mostMissing: return "多數區域不穩定"
+        }
+    }
+
+    var tint: Color {
+        switch self {
+        case .noneMissing: return DSColor.success700
+        case .someMissing: return DSColor.accentYellow700
+        case .mostMissing: return DSColor.destruct700
         }
     }
 }
@@ -56,7 +67,11 @@ public struct DSOfflineMapCard: View {
             Text(coverage.summary)
                 .dsFont(.bodyM)
                 .fontWeight(.semibold)
-                .foregroundStyle(DSColor.gray800)
+                .foregroundStyle(DSColor.white)
+                .padding(.horizontal, DSSpacing.s)
+                .padding(.vertical, DSSpacing.xs)
+                .background(coverage.tint)
+                .clipShape(RoundedRectangle(cornerRadius: DSRadius.xxs, style: .continuous))
         }
         .padding(DSSpacing.s)
         .background(DSColor.white)

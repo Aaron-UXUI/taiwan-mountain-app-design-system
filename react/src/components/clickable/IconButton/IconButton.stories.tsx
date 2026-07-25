@@ -9,7 +9,7 @@ const meta: Meta<typeof IconButton> = {
     for: { control: "radio", options: ["Location", "Save", "OfflineMap"] },
     state: {
       control: "radio",
-      options: ["Default", "Pressing", "Clicked", "Loading", "Downloaded"],
+      options: ["Default", "Pressing", "Enabled", "Clicked", "Loading", "Downloaded"],
     },
     progress: { control: "number" },
   },
@@ -26,6 +26,11 @@ export const Location: Story = {};
 
 export const LocationPressing: Story = {
   args: { for: "Location", state: "Pressing" },
+};
+
+/** `State=Enabled` — actively locating; the GPS glyph is filled. */
+export const LocationEnabled: Story = {
+  args: { for: "Location", state: "Enabled" },
 };
 
 export const Save: Story = {
@@ -53,8 +58,13 @@ export const AllVariants: Story = {
     <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
       <IconButton for="Location" state="Default" />
       <IconButton for="Location" state="Pressing" />
+      <IconButton for="Location" state="Enabled" />
       <IconButton for="Save" state="Default" />
-      <IconButton for="Save" state="Clicked" />
+      {/* Clicked is white in Figma — it sits over a photo, so it needs a
+          dark backing to be visible in isolation here. */}
+      <span style={{ background: "var(--color-gray-800)", borderRadius: 8, display: "inline-flex" }}>
+        <IconButton for="Save" state="Clicked" />
+      </span>
       <IconButton for="OfflineMap" state="Default" />
       <IconButton for="OfflineMap" state="Loading" progress={42} />
       <IconButton for="OfflineMap" state="Downloaded" />

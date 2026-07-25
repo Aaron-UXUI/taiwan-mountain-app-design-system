@@ -64,7 +64,7 @@ public enum DSIcon: String, CaseIterable, Sendable {
     case close
     case minus
     case plus
-    case placeholder
+    case download
 
     // MARK: icon / 24px / Map
     case tree
@@ -131,7 +131,7 @@ public enum DSIcon: String, CaseIterable, Sendable {
         case .close: return "ds-24-close"
         case .minus: return "ds-24-minus"
         case .plus: return "ds-24-plus"
-        case .placeholder: return "ds-24-placeholder"
+        case .download: return "ds-24-download"
 
         case .tree: return "ds-map-tree"
         case .camera: return "ds-map-camera"

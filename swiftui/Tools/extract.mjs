@@ -59,7 +59,7 @@ const FRAMES = {
     ["Type=close, Filled?=default", "close", 284, 64, 24, 24],
     ["Type=minus, Filled?=default", "minus", 328, 64, 24, 24],
     ["Type=plus, Filled?=default", "plus", 372, 64, 24, 24],
-    ["Type=icon, Filled?=24px", "placeholder", 416, 64, 24, 24],
+    ["Type=icon, Filled?=24px", "download", 416, 64, 24, 24],
   ],
   "frame-map.svg": [
     ["Type=tree", "tree", 20, 20, 24, 24],

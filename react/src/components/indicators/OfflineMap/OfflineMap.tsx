@@ -1,6 +1,6 @@
 import "./OfflineMap.css";
 
-export type OfflineMapSignalMissing = "Some" | "Most";
+export type OfflineMapSignalMissing = "None" | "Some" | "Most";
 
 type CarrierRow = {
   key: string;
@@ -16,6 +16,7 @@ const EXPANDED_ROWS: CarrierRow[] = [
 ];
 
 const COLLAPSED_STATUS: Record<OfflineMapSignalMissing, { text: string; level: CarrierRow["level"] }> = {
+  None: { text: "全部區域皆穩定", level: "stable" },
   Some: { text: "部分區域不穩定", level: "partial" },
   Most: { text: "多數區域不穩定", level: "unstable" },
 };
@@ -56,10 +57,11 @@ export type OfflineMapProps = {
 };
 
 /**
- * Figma: OfflineMap (node 16343:7890) — Signal Missing=Some/Most × Expanded?=No/Yes.
- * Figma only defines an expanded view for one combination (a variant literally named
- * "Signal Missing3") which always renders the same 3-carrier breakdown regardless of the
- * collapsed signalMissing value — so `expanded` intentionally ignores `signalMissing` here.
+ * Figma: OfflineMap (node 16343:7890) — Signal Missing=None/Some/Most × Expanded?=No/Yes.
+ *
+ * `None` means nothing is missing, i.e. every area is stable. Figma defines the
+ * expanded view only for `Some`, and it always renders the same 3-carrier
+ * breakdown, so `expanded` intentionally ignores `signalMissing` here.
  */
 export function OfflineMap({ signalMissing = "Some", expanded = false, onToggle, className }: OfflineMapProps) {
   if (expanded) {
