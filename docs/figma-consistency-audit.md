@@ -245,12 +245,29 @@ Figma 的字級變數命名會誤導:Chips 與 CheckBox 的標籤引用的是
 `type-scale/body/L`,但它的**實際值是 14/20**,也就是我們的 `body-m` token
 (`body-l` 是 16/24)。原本的對應是對的,這輪等於再次向來源確認。
 
-### 尚未逐項比對的元件
+### H 續:第二批細節修正
 
-以下仍**只做過顏色比對、尚未做細節比對**:`BottomSheet`、`Collapse / Text`、
-`List / weather`、`List / Setting`、`List / DownloadMap`、`Segmented Controls`、
-`Toggle`、`Stepper`、`Location Pin`、`Navigation Bar`、`Search Bar`、`App Bar`、
-`Bottom Bar`、`Banner`、`Snackbar`、`Carousel Indicators`、`Crowdedness`。
+| # | 元件 | 落差 | 處置 |
+|---|---|---|---|
+| H9 | `Crowdedness` | **本輪差最多的一個**。Figma 是「說明文字 + **實心**色票」(白字、色底、8pt 圓角、12/4 padding);實作卻是白底 + 彩色外框 + 灰字,而且完全沒有前面的說明文字 | 依設計重建 |
+| H10 | `Snackbar` | padding 應為 **左 16 / 上下 10**(關閉鈕自帶 12),原本四邊 16/8;關閉圖示用 SF Symbol 而非品牌 24pt close | 改正 |
+| H11 | `List / Setting` | Figma 是白底 + **左右 24 / 上下 12** padding,原本完全沒有 padding(靠外層 List);箭頭用灰色 SF Symbol 而非品牌 14pt chevron | 改正 |
+| H12 | `Collapse / Text` | 展開鈕在 Figma 是**整列滿版置中**、文案為「閱讀全文」、上下 8pt padding,並與內文**零間距**,容器左右 24pt;原本是靠左的小連結、文案「顯示更多」、有間距、無內縮 | 改正 |
+| H13 | `Location Pin` | **結構完全不同**。Figma 是「地點名稱在**上**(green-800 Semibold Headline/4 + Elevation/4 文字陰影)+ 下方 **24pt 圓形圖釘**(實心色底、**2pt 白色外環**、Elevation/4、內含 Map 圖示)」;原本畫成一顆裝著數字的膠囊 | 依設計重建 |
+
+`Banner` 已比對,**完全正確**(gray-800 底、左右 24 / 上下 4、白字 body/S 12/18、置中),未改動。
+
+### 仍未做細節比對的元件
+
+以下**只做過顏色比對**,尚未逐項核對圓角/間距/字重/陰影:
+
+`BottomSheet`、`List / weather`、`List / DownloadMap`、`Carousel Indicators`、
+`Segmented Controls`、`Toggle`、`Stepper`、`Navigation Bar`、`Search Bar`、
+`App Bar`、`Bottom Bar`
+
+其中 `Segmented Controls`、`Toggle`、`Stepper`、`Navigation Bar`、`Search Bar`、
+`App Bar` 六個是**刻意改用原生控制項**(見 `swiftui/README.md` 對照表),外觀由
+系統繪製,本來就不會與 Figma 逐像素相同——這是已記錄的平台決策,不是落差。
 
 ---
 
