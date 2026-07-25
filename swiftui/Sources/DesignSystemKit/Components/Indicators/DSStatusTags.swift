@@ -25,22 +25,36 @@ public enum DSCrowdednessLevel {
     }
 }
 
+/// Figma `Crowdedness` (node 15975:7322) is a caption followed by a **solid**
+/// status pill — white label on the level's own fill, 8pt radius, 12/4
+/// padding. The earlier version drew a white pill with a coloured border and
+/// grey text, and omitted the caption entirely.
 public struct DSCrowdednessTag: View {
     private let level: DSCrowdednessLevel
+    private let caption: String?
 
-    public init(level: DSCrowdednessLevel) {
+    public init(level: DSCrowdednessLevel, caption: String? = "即時人潮狀況") {
         self.level = level
+        self.caption = caption
     }
 
     public var body: some View {
-        Text(level.text)
-            .dsFont(.bodyM)
-            .foregroundStyle(DSColor.gray800)
-            .padding(.vertical, DSSpacing.xs)
-            .padding(.horizontal, DSSpacing.sm)
-            .background(DSColor.white)
-            .overlay(Capsule().strokeBorder(level.tint, lineWidth: 1))
-            .clipShape(Capsule())
+        HStack(spacing: DSSpacing.s) {
+            if let caption {
+                Text(caption)
+                    .dsFont(.bodyM)
+                    .foregroundStyle(DSColor.gray800)
+            }
+            Text(level.text)
+                .dsFont(.bodyM)
+                .foregroundStyle(DSColor.white)
+                .padding(.horizontal, DSSpacing.sm)
+                .padding(.vertical, DSSpacing.xs)
+                .background(level.tint)
+                .clipShape(RoundedRectangle(cornerRadius: DSRadius.xs, style: .continuous))
+        }
+        .padding(.vertical, DSSpacing.xs)
+        .accessibilityElement(children: .combine)
     }
 }
 

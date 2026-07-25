@@ -55,15 +55,22 @@ public struct DSSettingRowLabel: View {
     }
 
     public var body: some View {
+        // Figma: 24pt horizontal / 12pt vertical padding, black bodyL label,
+        // and the brand 14pt chevron rotated to point trailing — not an SF
+        // Symbol in grey.
         HStack {
             Text(text).dsFont(.bodyL).foregroundStyle(DSColor.black)
-            Spacer()
+            Spacer(minLength: DSSpacing.s)
             if showsChevron {
-                Image(systemName: "chevron.forward")
-                    .foregroundStyle(DSColor.gray400)
+                DSIconView(.chevron)
+                    .rotationEffect(.degrees(-90))
+                    .foregroundStyle(DSColor.black)
                     .accessibilityHidden(true)
             }
         }
+        .padding(.horizontal, DSSpacing.lm)
+        .padding(.vertical, DSSpacing.sm)
+        .background(DSColor.white)
         .contentShape(Rectangle())
     }
 }

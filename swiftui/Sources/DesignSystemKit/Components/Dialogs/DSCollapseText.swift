@@ -15,26 +15,34 @@ public struct DSCollapseText: View {
     }
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: DSSpacing.xs) {
+        // Figma: 24pt horizontal insets, no gap between the copy and the
+        // affordance, and the affordance is a full-width centred row labelled
+        // 閱讀全文 with the brand 14pt chevron.
+        VStack(spacing: DSSpacing.none) {
             Text(text)
                 .dsFont(.bodyM)
                 .foregroundStyle(DSColor.gray800)
                 .lineLimit(isExpanded ? nil : collapsedLineLimit)
+                .frame(maxWidth: .infinity, alignment: .leading)
 
             Button {
                 isExpanded.toggle()
             } label: {
                 HStack(spacing: DSSpacing.xs) {
-                    Text(isExpanded ? "顯示較少" : "顯示更多")
-                    Image(systemName: "chevron.down")
+                    Text(isExpanded ? "收合" : "閱讀全文")
+                    DSIconView(.chevron)
                         .rotationEffect(.degrees(isExpanded ? 180 : 0))
                 }
                 .dsFont(.bodyM)
                 .fontWeight(.semibold)
                 .foregroundStyle(DSColor.primaryGreen800)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, DSSpacing.s)
+                .background(DSColor.white)
             }
             .dsAnimation(DSMotion.standard, value: isExpanded)
-            .accessibilityLabel(isExpanded ? "顯示較少" : "顯示更多")
+            .accessibilityLabel(isExpanded ? "收合" : "閱讀全文")
         }
+        .padding(.horizontal, DSSpacing.lm)
     }
 }

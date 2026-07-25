@@ -39,14 +39,17 @@ private struct DSSnackbarView: View {
             if showsCloseButton {
                 Spacer(minLength: 0)
                 Button(action: onClose) {
-                    Image(systemName: "xmark")
+                    DSIconView(.close)
                         .foregroundStyle(DSColor.white)
+                        .padding(DSSpacing.sm)
                 }
                 .accessibilityLabel("關閉")
             }
         }
-        .padding(.vertical, DSSpacing.s)
-        .padding(.horizontal, DSSpacing.m)
+        // Figma: 16pt leading, 10pt vertical; the close button supplies its
+        // own 12pt trailing padding.
+        .padding(.leading, DSSpacing.m)
+        .padding(.vertical, 10)
         .background(DSColor.gray800)
         .clipShape(RoundedRectangle(cornerRadius: DSRadius.xxs, style: .continuous))
         .dsElevation(.level3)
