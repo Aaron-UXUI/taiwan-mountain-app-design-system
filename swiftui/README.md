@@ -74,6 +74,8 @@ swiftui/
 │   │   ├── GalleryRootView.swift   NavigationSplitView catalog
 │   │   └── Showcases/              one live, interactive showcase per category
 │   └── ComponentGallery/        ← 4-line @main entry point that just shows GalleryRootView()
+├── PreviewApp/                  ← local-only Xcode project for visually verifying in Simulator (see PreviewApp/README.md)
+└── .gitignore
 ```
 
 ## Design decisions worth knowing
@@ -95,20 +97,25 @@ swiftui/
 
 ## Running it
 
-**This environment has no Xcode / iOS SDK installed** (command-line tools
-only), so the iOS Simulator could not be used to visually verify this app.
-What *was* verified here:
-1. `swift build --target DesignSystemKit` / `GalleryKit` / `ComponentGallery`
-   all compile cleanly (targeting macOS, since that's the only SDK present).
-2. `swift run ComponentGallery` was actually launched as a live macOS app
-   and stayed running for several seconds with no crash — real runtime
-   verification of the view hierarchy and state wiring, not just a syntax
-   check. (No screenshot could be taken — this sandbox has no display server.)
+**Visually verified in iOS Simulator** (once Xcode became available in this
+environment): `PreviewApp/` is a small helper Xcode project — see
+[`PreviewApp/README.md`](PreviewApp/README.md) — that compiles the exact same
+source under `Sources/DesignSystemKit` + `Sources/GalleryKit` into one app
+target and installs it as a real `.app` on Simulator. Confirmed working via
+`xcodebuild` + `simctl`/the Simulator directly: the sidebar lists all 8
+categories with correct SF Symbols, every showcase renders with correct
+colors/spacing/radius from the generated tokens, live interactions work
+(tapping a chip toggles it, navigating between categories pushes/pops
+correctly via NavigationSplitView), and Chinese labels render correctly.
 
-To run it as the intended **iOS app** in Simulator:
-1. Open `swiftui/Package.swift` directly in Xcode, **or** create a new iOS
-   App project and add this folder as a local Swift Package dependency.
-2. Add `import GalleryKit` and `GalleryRootView()` to your app's
-   `WindowGroup` (already done for you in `ComponentGalleryApp.swift` if you
-   open the package directly — pick the `ComponentGallery` scheme and Run).
-3. Build & run on any iOS 17+ Simulator.
+Plain `swift build --target DesignSystemKit` / `GalleryKit` / `ComponentGallery`
+also compile cleanly on their own (including against a real iOS Simulator SDK
+target, not just macOS) — useful for a quick CLI sanity check without opening
+Xcode at all.
+
+**To depend on this in a real app** (the actual deliverable — `PreviewApp` is
+only a local QA convenience): create an iOS App project in Xcode, add this
+`swiftui/` folder as a local Swift Package dependency (File → Add Package
+Dependencies → Add Local), then `import GalleryKit` and put `GalleryRootView()`
+in your `WindowGroup` — or `import DesignSystemKit` and use the individual
+`DS*` components directly, without the Gallery at all.
