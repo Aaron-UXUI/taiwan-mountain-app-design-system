@@ -14,6 +14,10 @@ import SwiftUI
 /// base size becomes cramped or overlapping at larger accessibility sizes;
 /// the system font's own built-in leading already scales correctly, so
 /// components rely on that instead.
+///
+/// This struct is the hand-written *mechanism*; the actual token values
+/// (`.headline1`, `.bodyM`, etc.) are generated from `tokens/design-tokens.json`
+/// into `Tokens/Generated/DSTypography+Tokens.swift` — see the root README.
 public struct DSTypeStyle {
     public let baseSize: CGFloat
     public let relativeTo: Font.TextStyle
@@ -26,28 +30,6 @@ public struct DSTypeStyle {
         self.weight = weight
         self.design = design
     }
-
-    // Heading
-    /// Known Style Guide inconsistency (also flagged in the spec): H1 is
-    /// documented as Regular weight while H2–H4 are Semibold. Reproduced
-    /// faithfully per the spec rather than silently "fixed".
-    public static let headline1 = DSTypeStyle(baseSize: 40, relativeTo: .largeTitle, weight: .regular)
-    public static let headline2 = DSTypeStyle(baseSize: 24, relativeTo: .title, weight: .semibold)
-    public static let headline3 = DSTypeStyle(baseSize: 20, relativeTo: .title2, weight: .semibold)
-    public static let headline4 = DSTypeStyle(baseSize: 16, relativeTo: .headline, weight: .semibold)
-
-    // Body
-    public static let bodyL = DSTypeStyle(baseSize: 16, relativeTo: .body, weight: .regular)
-    public static let bodyM = DSTypeStyle(baseSize: 14, relativeTo: .subheadline, weight: .regular)
-    public static let bodyS = DSTypeStyle(baseSize: 12, relativeTo: .footnote, weight: .regular)
-
-    // Label
-    public static let labelM = DSTypeStyle(baseSize: 14, relativeTo: .subheadline, weight: .semibold)
-    public static let labelS = DSTypeStyle(baseSize: 12, relativeTo: .caption, weight: .semibold)
-
-    // Number (SF Mono equivalent: .monospaced design)
-    public static let numberL = DSTypeStyle(baseSize: 16, relativeTo: .body, weight: .semibold, design: .monospaced)
-    public static let numberM = DSTypeStyle(baseSize: 16, relativeTo: .body, weight: .regular, design: .monospaced)
 }
 
 private struct DSTypeStyleModifier: ViewModifier {

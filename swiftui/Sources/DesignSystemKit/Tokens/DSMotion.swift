@@ -5,14 +5,12 @@ import SwiftUI
 /// Every animation in this kit is applied through `View.dsAnimation(_:)`,
 /// which automatically drops to no animation when the user has enabled
 /// Reduce Motion — SwiftUI does not do this for you, and HIG requires it.
-public enum DSMotion {
-    /// Button press / hover feedback — 0.1s ease.
-    public static let quick = Animation.easeInOut(duration: 0.1)
-    /// Selection / expand-collapse transitions — 0.15s ease (the value used
-    /// by six different components in the spec; centralized here as the
-    /// de-facto "standard" transition).
-    public static let standard = Animation.easeInOut(duration: 0.15)
-}
+///
+/// This enum is just the hand-written namespace; the actual duration
+/// constants (`.quick`, `.standard`) are generated from
+/// `tokens/design-tokens.json` into `Tokens/Generated/DSMotion+Tokens.swift`
+/// — see the root README.
+public enum DSMotion {}
 
 public extension View {
     /// Applies `animation` to changes in `value`, unless the user has

@@ -6,7 +6,9 @@
 
 ## 1. Design Tokens
 
-Token 分兩處定義:`tokens/design-tokens.css`(spacing / radius / color,來自 Figma Variables 匯出)與 `src/tokens.css`(typography / elevation,來自 Figma Style Guide 頁面,並 `@import` 前者)。`tokens/design-tokens.json` 是 spacing/radius/color 的 JSON 版本,供非 CSS 環境參考,但**與 `.css` 檔的數值有落差**(見下方 Radius 小節)。
+**（本節分析於 tokens pipeline 重整前完成，folder 路徑已更新為現況，但下述「JSON 只涵蓋 spacing/radius/color」已是過時描述——`tokens/design-tokens.json` 現已擴充為 6 大類 token 的唯一來源，`.css`/Swift 檔案皆由它自動產生，見 [`docs/workflow.md`](workflow.md)）**
+>
+> Token 分兩處定義:`tokens/design-tokens.css`(spacing / radius / color,來自 Figma Variables 匯出)與 `react/src/tokens.css`(typography / elevation,來自 Figma Style Guide 頁面,並 `@import` 前者)。`tokens/design-tokens.json` 是 spacing/radius/color 的 JSON 版本,供非 CSS 環境參考。
 
 ### 1.1 Color
 
@@ -73,7 +75,7 @@ Token 分兩處定義:`tokens/design-tokens.css`(spacing / radius / color,來自
 | `--radius-m` | 16px |
 | `--radius-rounded` | 9999px(pill / 全圓角) |
 
-**⚠️ 已知資料落差**:`tokens/design-tokens.json` 的數值(`xxs:4, xs:8, s:12, m:16`)跟 `tokens/design-tokens.css` **目前**的數值一致——但 `.css` 檔案裡有註解記錄,這是本次專案期間發現並修正過的(原本 `.css` 曾經是錯位的 `xxs:4, s:8, m:12, l:16`,靠實際呼叫 Figma `get_design_context` 拿到 "Radius/s(12)" 才校正回來)。**`design-tokens.json` 本身從未更新這次修正**,如果之後有人只看 json 檔案,兩份文件目前應該是一致的,但 json 檔案的 `_meta.completeness` 註記還停留在舊版說法,建議之後同步更新兩份文件的說明文字。
+**✅ 已解決(本文件撰寫後)**:原本這裡記錄的是 `design-tokens.json` 跟 `design-tokens.css` 兩份手寫檔案數值可能不同步的風險(`.css` 曾經修正過一次 xs/s/m 錯位,但 json 從未回頭同步)。這個風險已經透過 `tokens/build-tokens.mjs` 產生器徹底消除——`.css`(以及 SwiftUI 的 Swift 常數)現在都是從 `design-tokens.json` 這一份唯一來源自動產生,兩者在結構上不可能再不同步。細節見 [`docs/workflow.md`](workflow.md)。
 
 39/53(74%)個元件 CSS 檔有使用 radius token。
 
@@ -243,37 +245,41 @@ Token 分兩處定義:`tokens/design-tokens.css`(spacing / radius / color,來自
 ```
 /
 ├── tokens/
-│   ├── design-tokens.css      ← spacing / radius / color(CSS 變數,單一事實來源)
-│   └── design-tokens.json     ← 同上內容的 JSON 版(⚠️ radius 說明文字未同步最新修正)
-├── src/
-│   ├── tokens.css              ← @import tokens/design-tokens.css,再擴充 typography / elevation
-│   ├── vite-env.d.ts
-│   ├── assets/
-│   │   └── containers/          ← 3 個 SVG 佔位插圖(CardScene/CardDescription/CardSavedItems 用)
-│   ├── foundations/             ← 非元件的文件頁(Typography、Elevation 對照表)
-│   │   ├── Typography.stories.tsx
-│   │   └── Elevation.stories.tsx
-│   └── components/
-│       ├── clickable/       (15 個元件資料夾)
-│       ├── icons/           (8)
-│       ├── containers/      (9)
-│       ├── disclosure/      (6)
-│       ├── motion/          (4,外加共用的 spinnerDots.ts)
-│       ├── navigation/      (5)
-│       ├── ios-system/      (4)
-│       └── indicators/      (9)
+│   ├── design-tokens.json     ← 唯一來源(single source of truth),含 build-tokens.mjs 產生器
+│   └── design-tokens.css      ← 產生檔:spacing / radius / color
+├── react/
+│   └── src/
+│       ├── tokens.css          ← 產生檔:@import ../../tokens/design-tokens.css,再擴充 typography / elevation
+│       ├── vite-env.d.ts
+│       ├── assets/
+│       │   └── containers/      ← 3 個 SVG 佔位插圖(CardScene/CardDescription/CardSavedItems 用)
+│       ├── foundations/         ← 非元件的文件頁(Typography、Elevation 對照表)
+│       │   ├── Typography.stories.tsx
+│       │   └── Elevation.stories.tsx
+│       └── components/
+│           ├── clickable/       (15 個元件資料夾)
+│           ├── icons/           (8)
+│           ├── containers/      (9)
+│           ├── disclosure/      (6)
+│           ├── motion/          (4,外加共用的 spinnerDots.ts)
+│           ├── navigation/      (5)
+│           ├── ios-system/      (4)
+│           └── indicators/      (9)
 ├── docs/
+│   ├── component-spec/*.md  ← 平台無關元件規格(60 份)
+│   ├── workflow.md          ← 跨平台同步工作流程
 │   ├── figma-mapping.md     ← 60 個元件 ↔ Figma node id 對照表
 │   └── style-guide.md       ← Typography/Elevation 官方組合 + 使用元件清單
-├── .storybook/
+├── storybook/
 │   ├── main.ts               ← stories glob、GitHub Pages base path
-│   └── preview.ts            ← 全域載入 src/tokens.css
+│   └── preview.ts            ← 全域載入 react/src/tokens.css
+├── swiftui/                  ← SwiftUI 元件庫 + Component Gallery App(本文件撰寫後新增)
 └── .github/workflows/deploy-storybook.yml
 ```
 
 每個元件資料夾統一結構:`ComponentName.tsx`、`ComponentName.css`(7 個純 SVG/共用樣式元件例外,見 1.3 統計)、`ComponentName.stories.tsx`、`index.ts`(re-export)。
 
-**⚠️ 沒有頂層 barrel export**:`src/` 或 `src/components/` 底下都沒有彙總的 `index.ts`。目前只能逐一從個別元件資料夾匯入(`src/components/clickable/Button`),沒有單一入口(例如 `import { Button } from "@ds/react"`)。如果之後要把這個 design system 發布成 npm package 給實際 App 使用,這是必須補上的第一步。
+**⚠️ 沒有頂層 barrel export**:`react/src/` 或 `react/src/components/` 底下都沒有彙總的 `index.ts`。目前只能逐一從個別元件資料夾匯入(`react/src/components/clickable/Button`),沒有單一入口(例如 `import { Button } from "@ds/react"`)。如果之後要把這個 design system 發布成 npm package 給實際 App 使用,這是必須補上的第一步。
 
 ### 3.2 Component Dependency
 
@@ -346,7 +352,7 @@ SpinnerOnDark / SpinnerOnWhite
 
 ## 4. Storybook Stories 完整性評估
 
-**檔案覆蓋率:60/60(100%)** —— 每一個元件都有對應的 `.stories.tsx`,沒有遺漏。另外還有 2 個 `src/foundations/*.stories.tsx` 做為 Typography/Elevation 的視覺化文件頁(非元件 story)。
+**檔案覆蓋率:60/60(100%)** —— 每一個元件都有對應的 `.stories.tsx`,沒有遺漏。另外還有 2 個 `react/src/foundations/*.stories.tsx` 做為 Typography/Elevation 的視覺化文件頁(非元件 story)。
 
 | 檢查項目 | 結果 |
 |---|---|
