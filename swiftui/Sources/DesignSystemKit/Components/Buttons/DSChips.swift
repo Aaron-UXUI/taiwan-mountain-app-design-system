@@ -23,6 +23,8 @@ public struct DSChip: View {
         } label: {
             Text(title)
                 .dsFont(size == .large ? .bodyM : .bodyS)
+                // Figma switches the label to Semibold when selected.
+                .fontWeight(isSelected ? .semibold : .regular)
         }
         .buttonStyle(DSChipStyle(isSelected: isSelected))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
@@ -33,15 +35,20 @@ private struct DSChipStyle: ButtonStyle {
     let isSelected: Bool
 
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
+        // One 8pt rounded-rect shape for both the fill and the 1pt border.
+        // These were previously mismatched — the border was drawn as a Capsule
+        // while the fill was clipped to a rounded rectangle, so the outline did
+        // not follow the shape it was outlining.
+        let shape = RoundedRectangle(cornerRadius: DSRadius.xs, style: .continuous)
+        return configuration.label
             .padding(.vertical, DSSpacing.s)
             .padding(.horizontal, DSSpacing.m)
             .foregroundStyle(isSelected ? DSColor.primaryGreen900 : DSColor.gray800)
-            .background(isSelected ? DSColor.primaryGreen50 : DSColor.white)
-            .overlay(
-                Capsule().strokeBorder(isSelected ? DSColor.primaryGreen900 : DSColor.gray100)
-            )
-            .clipShape(RoundedRectangle(cornerRadius: DSRadius.xs, style: .continuous))
+            .background(isSelected ? DSColor.primaryGreen50 : DSColor.white, in: shape)
+            .overlay {
+                // Selected border is green-100 in Figma, not green-900.
+                shape.strokeBorder(isSelected ? DSColor.primaryGreen100 : DSColor.gray100, lineWidth: 1)
+            }
             .opacity(configuration.isPressed ? 0.7 : 1)
     }
 }
@@ -61,10 +68,14 @@ public struct DSSalientTag: View {
     }
 
     public var body: some View {
+        // Figma: fixed 32pt height with horizontal padding only, and the
+        // label uses the Label/S style (Semibold), not a regular weight.
         Text(title)
             .dsFont(.bodyS)
-            .padding(DSSpacing.m)
+            .fontWeight(.semibold)
             .foregroundStyle(DSColor.white)
+            .padding(.horizontal, DSSpacing.m)
+            .frame(height: 32)
             .background(fill)
             .clipShape(RoundedRectangle(cornerRadius: DSRadius.xs, style: .continuous))
     }
