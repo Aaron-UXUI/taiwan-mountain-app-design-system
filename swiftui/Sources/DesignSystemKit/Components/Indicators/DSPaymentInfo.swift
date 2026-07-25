@@ -27,32 +27,38 @@ public struct DSPaymentInfo: View {
     }
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: DSSpacing.sm) {
-            Text(title)
-                .dsFont(.bodyM)
-                .fontWeight(.semibold)
+        // In Figma the two states differ by *what is shown*, not by a border:
+        // Selected reveals the scene title and the line-item breakdown above
+        // the total, Unselected collapses to the total alone. The previous
+        // version always showed everything and drew a green outline instead,
+        // which is not in the design at all.
+        HStack(alignment: .top) {
+            if isSelected {
+                VStack(alignment: .leading, spacing: DSSpacing.s) {
+                    Text(title)
+                        .dsFont(.bodyM)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(DSColor.black)
+
+                    VStack(alignment: .leading, spacing: DSSpacing.xs) {
+                        ForEach(lineItems) { item in
+                            Text(item.label)
+                                .dsFont(.bodyS)
+                                .foregroundStyle(DSColor.gray800)
+                        }
+                    }
+                }
+                Spacer(minLength: DSSpacing.m)
+            } else {
+                Spacer(minLength: 0)
+            }
+
+            Text(total)
+                .dsFont(.headline1)
                 .foregroundStyle(DSColor.black)
-
-            ForEach(lineItems) { item in
-                LabeledContent(item.label, value: item.value)
-                    .dsFont(.bodyS)
-                    .foregroundStyle(DSColor.gray800)
-            }
-
-            Divider()
-
-            LabeledContent("總計") {
-                Text(total)
-            }
-            .dsFont(.headline3)
-            .fontWeight(.semibold)
-            .foregroundStyle(DSColor.black)
         }
         .padding(DSSpacing.lm)
-        .overlay(
-            RoundedRectangle(cornerRadius: DSRadius.s, style: .continuous)
-                .strokeBorder(isSelected ? DSColor.primaryGreen800 : .clear, lineWidth: 2)
-        )
+        .accessibilityElement(children: .combine)
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }

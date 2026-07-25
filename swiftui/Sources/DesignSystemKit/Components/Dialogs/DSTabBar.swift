@@ -74,14 +74,19 @@ public struct DSTabBar: View {
                 .fontWeight(isActive ? .semibold : .regular)
                 .foregroundStyle(isActive ? DSColor.primaryGreen900 : DSColor.gray800)
 
+                // Figma underlines every tab: the inactive rule is a hairline
+                // in the label's own grey, the active one is thicker and
+                // matches its green-900 label. Only the active rule was drawn
+                // before, and in the wrong green.
                 ZStack {
-                    Color.clear.frame(height: 2)
+                    DSColor.gray200.frame(height: 1)
                     if isActive {
-                        DSColor.primaryGreen800
+                        DSColor.primaryGreen900
                             .frame(height: 2)
                             .matchedGeometryEffect(id: "indicator", in: indicatorNamespace)
                     }
                 }
+                .frame(height: 2)
             }
         }
         .buttonStyle(.plain)

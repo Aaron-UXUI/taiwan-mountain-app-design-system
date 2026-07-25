@@ -47,14 +47,29 @@ used in the product, so they are not built:
 - Loading indicator: continuous rotation, **1s, linear, infinite**, running only while the Loading state is active.
 
 ## Token Mapping
+Resolved per emphasis × state, straight from the Figma component:
+
+| Emphasis | State | Background | Border | Label | Elevation |
+|---|---|---|---|---|---|
+| Primary | Default | `color.primary.green-800` | — | `color.gray-white` | `elevation.3` |
+| Primary | Pressing | `color.primary.green-900` | — | `color.gray-white` | `elevation.3` |
+| Primary | Disabled | `color.primary.green-50` | — | `color.gray-400` | none |
+| Secondary | Default | `color.gray-white` | `color.primary.green-800` | `color.primary.green-800` | `elevation.3` |
+| Secondary | Pressing | `color.primary.green-50` | `color.primary.green-900` | `color.primary.green-900` | `elevation.3` |
+| Secondary | Disabled | `color.gray-white` | `color.primary.green-100` | `color.primary.green-100` | none |
+| Tertiary | Default | transparent | — | `color.primary.green-800` | none |
+| Tertiary | Pressing | `color.primary.green-50` | — | `color.primary.green-900` | none |
+| Tertiary | Disabled | transparent | — | `color.primary.green-100` | none |
+
+Shared:
+
 | Role | Token |
 |---|---|
-| Primary fill | `color.primary.green-800` / pressed `color.primary.green-900` |
-| Secondary/Tertiary fill | `color.primary.green-50` / `color.primary.green-100` |
-| Disabled fill | `color.gray-400` |
-| Label text | `color.gray-white` (on filled) |
 | Corner radius | `radius.s` |
-| Internal spacing | `spacing.s`, `spacing.m`, `spacing.sm` |
-| Label typography | `typography.body-m` (size + line-height) or `typography.headline-4` depending on size, `font-weight.semibold` |
-| Elevation | `elevation.3` |
+| Padding — Large | `spacing.sm` vertical, `spacing.m` horizontal, 44pt min height |
+| Padding — Small | `spacing.s` vertical, `spacing.sm` horizontal, 36pt min height |
+| Label typography | `typography.headline-4` (Large) / `typography.body-m` (Small), `font-weight.semibold` |
 | Font family | `typeface.pingfang-tc` |
+
+Width is driven by **size**, not emphasis: Large fills the content width,
+Small hugs its label.

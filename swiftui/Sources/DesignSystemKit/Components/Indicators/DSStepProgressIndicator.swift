@@ -23,20 +23,19 @@ public struct DSStepProgressIndicator: View {
     }
 
     public var body: some View {
+        // Figma draws step labels joined by rules — there are no status dots.
+        // Only the current step is emphasised (semibold, brand green); the
+        // others stay in the same grey regardless of whether they are done.
         HStack(spacing: DSSpacing.xs) {
             ForEach(DSCheckoutStep.allCases, id: \.self) { step in
-                HStack(spacing: DSSpacing.xs) {
-                    Circle()
-                        .fill(step.rawValue <= current.rawValue ? DSColor.primaryGreen900 : DSColor.gray200)
-                        .frame(width: 8, height: 8)
-                    Text(step.label)
-                        .dsFont(.bodyM)
-                        .fontWeight(step == current ? .semibold : .regular)
-                        .foregroundStyle(step.rawValue <= current.rawValue ? DSColor.gray800 : DSColor.gray200)
-                }
+                Text(step.label)
+                    .dsFont(.bodyM)
+                    .fontWeight(step == current ? .semibold : .regular)
+                    .foregroundStyle(step == current ? DSColor.primaryGreen900 : DSColor.gray800)
+                    .fixedSize()
                 if step != DSCheckoutStep.allCases.last {
                     Rectangle()
-                        .fill(step.rawValue < current.rawValue ? DSColor.primaryGreen900 : DSColor.gray200)
+                        .fill(DSColor.gray800)
                         .frame(height: 1)
                 }
             }

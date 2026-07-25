@@ -150,6 +150,62 @@ Signal Missing=Most,           Expanded?=No
 
 ---
 
+## F. 第二輪:SwiftUI 逐元件視覺稽核(2026-07-25)
+
+第一輪只比對 variant/state **名稱**。這一輪改為從 Figma 匯出各分區 SVG,抽出
+**實際 fill/stroke 色值**,對照每個 SwiftUI 元件真正引用的 token,再用 Figma
+截圖確認。共找到 4 項真實視覺落差,全部已修正:
+
+### F1. `Button` — 停用與按下狀態幾乎全錯(影響最大)
+
+從 Figma 抽出的實際矩陣:
+
+| Type | State | 底色 | 外框 | 文字 | 陰影 |
+|---|---|---|---|---|---|
+| Primary | Default | green-800 | — | white | elevation-3 |
+| Primary | Pressing | green-900 | — | white | elevation-3 |
+| Primary | **Disabled** | **green-50** | — | **gray-400** | **無** |
+| Secondary | Default | **white** | **green-800** | green-800 | elevation-3 |
+| Secondary | Pressing | **green-50** | **green-900** | **green-900** | elevation-3 |
+| Secondary | **Disabled** | **white** | **green-100** | **green-100** | **無** |
+| Tertiary | Default | 透明 | — | green-800 | 無 |
+| Tertiary | Pressing | **green-50** | — | **green-900** | 無 |
+| Tertiary | **Disabled** | 透明 | — | **green-100** | 無 |
+
+原本的 SwiftUI:停用一律填 `gray-400`、Secondary 用 `green-50` 實心底**且完全
+沒有外框**、按下時文字不變色、Tertiary 停用也被填灰。全部改正。
+
+順帶修正尺寸:Large 應為 44pt 高、padding 12/16;Small 36pt、padding 8/12
+(原本用 16/24 與 8/16)。另外原本把「滿版寬度」綁在 `emphasis == .primary`,
+但 Figma 是**依 Size** 決定(Large 滿版、Small 包住文字),已改正。
+
+> 這一項也發現 **React 端的 Tertiary Pressing 是錯的**——Figma 有 green-50 底色,
+> React CSS 只改了文字顏色。已在 SwiftUI 註記,React 待修。
+
+### F2. `Progress Indicator` — 多畫了 Figma 沒有的圓點
+
+Figma 只有「文字 + 連接線」,沒有任何狀態圓點。原本 SwiftUI 每一步都畫了
+8pt 圓點。已移除;現行步驟改為 green-900 semibold,其餘 gray-800。
+
+### F3. `Payment Info` — 兩個狀態的差別是**內容**,不是外框
+
+Figma 的 `Selected` 會顯示景點標題 + 明細,`Unselected` 只顯示總價。原本
+SwiftUI 兩種狀態都顯示全部內容,只用一條 green-800 外框區分——那條外框在
+Figma 裡根本不存在。已改為依狀態顯示不同內容。
+
+### F4. `Tab` — 未選取的分頁也有底線
+
+Figma 每個分頁都有底線:未選取是淺色細線,選取是較粗的 green-900。原本只畫
+選取狀態,而且用了 green-800。已補上未選取的細線並改為 green-900。
+
+### 附帶發現(非落差)
+
+- Figma SVG 匯出的紅色是 `#B30000`,而 token 是 `#B20000`。這是
+  display-p3 → sRGB 轉換的 **1/255 捨入差**(肉眼不可分辨),且 token 來自你
+  官方的 variable 匯出,因此維持不動。
+
+---
+
 ## E. 補充說明:刻意的偏離(非落差)
 
 以下項目與 Figma 不同,但都是有記錄的平台決策,不列為落差:
