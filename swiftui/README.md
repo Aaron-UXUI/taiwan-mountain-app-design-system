@@ -34,19 +34,24 @@ The **4 `ios-system` mockup components** (`StatusBar`, `Keyboard`,
 device the OS already renders all of them; reimplementing system chrome
 would violate the "Native Interaction" requirement, not satisfy it.
 
-`CheckBoxNavigation` is likewise not a standalone file: its tab item content
-(icon + label + badge) is inlined directly into `DSAppTabView` via native
-`.tabItem`/`.badge()`, since it never needs to be used outside a `TabView`.
+`CheckBoxNavigation` is its own standalone file (`DSCheckBoxNavigation.swift`)
+but is **not** wired into `DSAppTabView`'s `.tabItem`s — iOS's `TabView` only
+picks up image + text from whatever is passed to `.tabItem` and silently
+discards custom background/padding/highlight styling there, so
+`DSAppTabView` keeps using plain `Label` + `.badge()` for that job instead.
+`DSCheckBoxNavigation` is for the cases that need the exact look/interaction
+the spec describes outside of `TabView`'s automatic chrome — e.g. a custom
+destination switcher inside `DSBottomBar`.
 
 `Logo` / `Logos` (brand marks) have no real asset to port — like the React
 source's own `Logo.tsx`/`Logos.tsx`, they render as text-lockup / neutral
 badge placeholders (`Components/Icons/DSLogo.swift`,
 `DSPaymentBrandBadge.swift`) rather than reproducing real trademarks.
 
-**Coverage: 57 of the spec's 60 components have a direct native counterpart**
-(6 icon-set components consolidated into the 1 `DSIcon` lookup, 4 iOS-system
-mockups deliberately excluded, 3 net components added back as `DSLogo` /
-`DSPaymentBrandBadge` — see above).
+**Coverage: all 60 spec components have a direct native counterpart or a
+documented, deliberate replacement** (6 icon-set components consolidated
+into the 1 `DSIcon` lookup, 4 iOS-system mockups excluded since the OS
+already renders them — see above).
 
 ## Structure
 

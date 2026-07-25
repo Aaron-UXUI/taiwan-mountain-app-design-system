@@ -1,10 +1,12 @@
 import SwiftUI
 
-/// Native port of `navigation-bar.md` / `check-box-navigation.md` — the
-/// app's persistent bottom navigation. This maps directly onto SwiftUI's
-/// `TabView`: the current-page indicator, icon+label pairing, and unread
-/// badge are all native (`.tabItem` + `.badge(_:)`), so no custom tab item
-/// view is needed the way the spec's `CheckBoxNavigation` was.
+/// Native port of `navigation-bar.md` — the app's persistent bottom
+/// navigation. This maps directly onto SwiftUI's `TabView`: the
+/// current-page indicator, icon+label pairing, and unread badge are all
+/// native (`.tabItem` + `.badge(_:)`). `check-box-navigation.md`'s own
+/// component is intentionally not reused here — see `DSCheckBoxNavigation`'s
+/// doc comment for why a custom-styled view can't be dropped into
+/// `.tabItem`.
 public enum DSAppDestination: Hashable {
     case activity, map, notify, member
 }

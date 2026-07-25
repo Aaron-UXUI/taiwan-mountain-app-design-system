@@ -4,6 +4,7 @@ import DesignSystemKit
 struct NavigationShowcase: View {
     @State private var tabSelection: DSAppDestination = .map
     @State private var searchText = ""
+    @State private var customTab = "map"
 
     var body: some View {
         ScrollView {
@@ -43,6 +44,22 @@ struct NavigationShowcase: View {
                     .frame(height: 240)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .overlay(RoundedRectangle(cornerRadius: 8).strokeBorder(.secondary.opacity(0.2)))
+                }
+                GallerySection(title: "CheckBoxNavigation") {
+                    HStack(spacing: 8) {
+                        DSCheckBoxNavigation(label: "活動", systemImage: "figure.hiking", isActive: customTab == "activity") {
+                            customTab = "activity"
+                        }
+                        DSCheckBoxNavigation(label: "地圖", systemImage: "map.fill", isActive: customTab == "map") {
+                            customTab = "map"
+                        }
+                        DSCheckBoxNavigation(label: "通知", systemImage: "bell.fill", isActive: customTab == "notify", badge: .count(2)) {
+                            customTab = "notify"
+                        }
+                        DSCheckBoxNavigation(label: "會員", systemImage: "person.crop.circle", isActive: customTab == "member", badge: .dot) {
+                            customTab = "member"
+                        }
+                    }
                 }
                 GallerySection(title: "BottomBar") {
                     NavigationStack {
