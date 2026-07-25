@@ -35,9 +35,21 @@ private struct DSCheckBoxStyle: ToggleStyle {
                 Image(systemName: configuration.isOn ? "checkmark.square.fill" : "square")
                     .imageScale(.large)
                     .foregroundStyle(isEnabled ? (configuration.isOn ? DSColor.primaryGreen800 : DSColor.gray400) : DSColor.gray200)
+                    // Spec: "The visual box itself is decorative" — the
+                    // control's real semantics come from the Toggle below.
+                    .accessibilityHidden(true)
                 configuration.label
             }
         }
         .buttonStyle(.plain)
+        // Wrapping the content in a plain Button is what gives us the
+        // checkbox *look*, but a Button alone is announced as "button" and
+        // never conveys checked/unchecked — which the spec explicitly
+        // requires ("assistive tech announces 'checked'/'unchecked' state
+        // automatically"). Re-project the real Toggle semantics onto it so
+        // VoiceOver reports both the state and that it is togglable.
+        .accessibilityRepresentation {
+            Toggle(isOn: configuration.$isOn) { configuration.label }
+        }
     }
 }

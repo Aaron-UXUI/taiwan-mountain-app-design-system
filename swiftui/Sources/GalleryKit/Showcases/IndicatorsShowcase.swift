@@ -9,8 +9,10 @@ struct IndicatorsShowcase: View {
             VStack(alignment: .leading, spacing: 24) {
                 GallerySection(title: "Badge") {
                     HStack(spacing: 12) {
-                        DSBadge(count: 3)
-                        DSBadge(count: 128, style: .alert)
+                        DSBadge(count: 3)                                    // Accordion / Large
+                        DSBadge(count: 3, kind: .notification)               // Notification / Large
+                        DSBadge(count: 128, kind: .notification, size: .maximum) // Maximum → "99+"
+                        DSBadge.dot                                          // Notification / Small
                     }
                 }
                 GallerySection(title: "Crowdedness / Status Label") {

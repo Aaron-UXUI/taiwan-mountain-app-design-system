@@ -40,21 +40,29 @@ public struct DSCheckBoxNavigation: View {
     public var body: some View {
         Button(action: action) {
             VStack(spacing: DSSpacing.xs) {
-                ZStack(alignment: .topTrailing) {
-                    Image(systemName: systemImage)
-                        .imageScale(.large)
-                        .accessibilityHidden(true)
-                    badgeOverlay
-                }
+                Image(systemName: systemImage)
+                    .imageScale(.large)
+                    .accessibilityHidden(true)
                 Text(label)
                     .dsFont(.bodyS)
                     .fontWeight(.semibold)
             }
-            .foregroundStyle(isActive ? DSColor.primaryGreen800 : DSColor.gray800)
+            // Spec `check-box-navigation.md` maps text to
+            // `gray-800` (inactive) / `gray-black` (active), with
+            // `primary.green-50` used only as the active pill fill below —
+            // matching the React `.tmads-checkbox-navigation__label` rules.
+            .foregroundStyle(isActive ? DSColor.black : DSColor.gray800)
             .padding(.vertical, DSSpacing.xs)
             .padding(.horizontal, DSSpacing.sm)
             .background(isActive ? DSColor.primaryGreen50 : .clear)
             .clipShape(Capsule())
+            // The badge is overlaid *after* the capsule clip and without a
+            // negative offset. Previously it was a ZStack child inside the
+            // clipped stack and pushed outward with .offset(), so the
+            // clipShape cut the badge in half. Keeping it inside the
+            // component's own bounds also means it can never be clipped by
+            // whatever container the caller drops this into.
+            .overlay(alignment: .topTrailing) { badgeOverlay }
         }
         .buttonStyle(.plain)
         .accessibilityLabel(accessibilityLabel)
@@ -67,14 +75,12 @@ public struct DSCheckBoxNavigation: View {
         case .none:
             EmptyView()
         case .dot:
-            Circle()
-                .fill(DSColor.destruct700)
-                .frame(width: 8, height: 8)
-                .offset(x: 4, y: -4)
-                .accessibilityHidden(true)
+            // Was a hand-drawn 8pt circle here, which silently diverged from
+            // the design system's own 6pt dot (React `.tmads-badge--dot`).
+            // Reuse DSBadge's dot form so there is one definition, not two.
+            DSBadge.dot
         case .count(let count):
-            DSBadge(count: count, style: .alert)
-                .offset(x: 10, y: -8)
+            DSBadge(count: count, kind: .notification)
         }
     }
 

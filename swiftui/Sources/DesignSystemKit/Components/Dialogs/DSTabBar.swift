@@ -63,7 +63,11 @@ public struct DSTabBar: View {
                 HStack(spacing: DSSpacing.xs) {
                     Text(tab.title)
                     if let count = tab.badgeCount {
-                        DSBadge(count: count)
+                        // Spec `tab.md` maps the tab badge to the
+                        // error-adjacent `semantic.destruct-700` fill (matching
+                        // the React `.tmads-tab__badge` rule), i.e. the
+                        // Notification kind — not the default Accordion green.
+                        DSBadge(count: count, kind: .notification)
                     }
                 }
                 .dsFont(size.typeStyle)
