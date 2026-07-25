@@ -28,6 +28,14 @@ A compact, icon-only action control dedicated to one of three specific purposes:
 | Axis | Values | Purpose |
 |---|---|---|
 | `for` | Location / Save / OfflineMap | Selects the fixed icon, accessible label, and behavior set — this is a purpose selector, not a free-form icon picker. |
+| `type` (emphasis) | Primary / Tertiary | Primary is a filled brand-green circle with elevation; Tertiary is the bare glyph on no background. In Figma this is not freely combinable — Location is authored Primary, Save and OfflineMap are Tertiary — so it is derived from `for` rather than set independently. |
+
+**Figma states not yet covered** (see `docs/figma-consistency-audit.md` C3): the
+source component also defines `State=Enabled` (Location, actively locating) and
+a `State=Loading...` distinct from `State=Loading` (OfflineMap). Both render
+identically to their neighbours in the exported frame, so their intended
+difference could not be determined from the file alone and they are
+deliberately not guessed at here.
 
 ## Animation
 Uses the same rapid hover/press transition timing as Button; the Offline-Map purpose's progress indicator updates continuously while Loading (no fixed easing curve — driven by the actual download percentage).

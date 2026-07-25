@@ -20,7 +20,9 @@ struct IndicatorsShowcase: View {
                         DSCrowdednessTag(level: .comfortable)
                         DSCrowdednessTag(level: .crowded)
                         DSStatusLabel(.open)
+                        DSStatusLabel(.partial)
                         DSStatusLabel(.closed)
+                        DSStatusLabel(.familyFriendly)
                     }
                 }
                 GallerySection(title: "OfflineMap") {

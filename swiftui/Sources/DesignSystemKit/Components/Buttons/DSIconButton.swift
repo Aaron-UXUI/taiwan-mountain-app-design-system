@@ -33,14 +33,16 @@ public struct DSIconButton: View {
         case .offlineMap(.idle):
             button(icon: .map, label: "離線地圖下載")
         case .offlineMap(.downloading(let progress)):
+            // OfflineMap is Type=Tertiary in Figma, so no filled circle here
+            // either — this case doesn't route through `button(icon:label:)`
+            // and so kept its own hardcoded green circle after that fix.
             Button(action: {}) {
                 ProgressView(value: progress)
                     .progressViewStyle(.circular)
                     .tint(DSColor.black)
+                    .frame(width: 48, height: 48)
             }
-            .frame(width: 48, height: 48)
-            .background(DSColor.primaryGreen800)
-            .clipShape(Circle())
+            .buttonStyle(DSIconButtonStyle(emphasis: .tertiary))
             .disabled(true)
             .accessibilityLabel("下載中")
             .accessibilityValue(Text("\(Int(progress * 100))%"))
@@ -55,21 +57,48 @@ public struct DSIconButton: View {
             DSIconView(icon)
                 .frame(width: 48, height: 48)
         }
-        .buttonStyle(DSIconButtonStyle())
+        .buttonStyle(DSIconButtonStyle(emphasis: purpose.emphasis))
         .accessibilityLabel(label)
     }
 }
 
+private extension DSIconButtonPurpose {
+    /// Figma `Icon Buttons` (node 7297:15056) carries a `Type` axis alongside
+    /// `For?`: Location is authored as `Type=Primary` (filled green circle)
+    /// while Save and OfflineMap are `Type=Tertiary` (bare glyph, no fill).
+    /// That axis was missing here, so every purpose rendered with the filled
+    /// circle — visibly wrong for Save and OfflineMap.
+    var emphasis: DSIconButtonEmphasis {
+        switch self {
+        case .location: return .primary
+        case .save, .offlineMap: return .tertiary
+        }
+    }
+}
+
+enum DSIconButtonEmphasis {
+    case primary, tertiary
+}
+
 private struct DSIconButtonStyle: ButtonStyle {
+    let emphasis: DSIconButtonEmphasis
     @Environment(\.isEnabled) private var isEnabled
 
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .foregroundStyle(DSColor.black)
-            .background(isEnabled ? (configuration.isPressed ? DSColor.primaryGreen900 : DSColor.primaryGreen800) : DSColor.gray400)
-            .clipShape(Circle())
-            .dsElevation(.level4)
-            .dsAnimation(DSMotion.quick, value: configuration.isPressed)
+        switch emphasis {
+        case .primary:
+            configuration.label
+                .foregroundStyle(DSColor.black)
+                .background(isEnabled ? (configuration.isPressed ? DSColor.primaryGreen900 : DSColor.primaryGreen800) : DSColor.gray400)
+                .clipShape(Circle())
+                .dsElevation(.level4)
+                .dsAnimation(DSMotion.quick, value: configuration.isPressed)
+        case .tertiary:
+            configuration.label
+                .foregroundStyle(isEnabled ? DSColor.black : DSColor.gray400)
+                .opacity(configuration.isPressed ? 0.6 : 1)
+                .dsAnimation(DSMotion.quick, value: configuration.isPressed)
+        }
     }
 }
 

@@ -10,13 +10,12 @@ None — read-only status display.
 - The visible text itself must state the condition in words ("Open" / "Partial" / "Closed" or the relevant family of states) — never rely on color alone to distinguish states.
 
 ## State
-| State | Description |
-|---|---|
-| Open | Fully operating. |
-| Partial | Limited/partial operating hours. |
-| Close | Not currently operating. |
-
-(Additional related states in the same family follow the same pattern.)
+| State | Default text | Description |
+|---|---|---|
+| Open | 今日開放 | Fully operating today. |
+| Partial | 部分開放 | Limited/partial operating hours. |
+| Close | 暫停開放 | Not currently operating. |
+| family | 親子友善 | Family-friendly. Authored in Figma as lowercase `family`, alongside the three operating states rather than as a separate component. |
 
 ## Variant
 No separate variant axis — the state values above are the only variation.
@@ -28,8 +27,9 @@ None.
 | Role | Token |
 |---|---|
 | Open | `color.primary.green-900` |
-| Partial | `color.accent.yellow-900` |
-| Closed | `color.semantic.destruct-700` |
+| Partial | `color.primary.green-900` — deliberately the **same** fill as Open in Figma |
+| Close | `color.semantic.destruct-700` |
+| family | `color.accent.yellow-900` |
 | Text | `color.gray-white` |
 | Corner radius | `radius.xxs` |
 | Typography | `typography.body-s`, `font-weight.regular` |
