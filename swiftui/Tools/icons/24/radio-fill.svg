@@ -1,0 +1,11 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g transform="translate(-460, -20)">
+<g id="Type=Radio, Filled?=yes">
+<g id="Radio">
+<path d="M472 22.5996C477.191 22.5996 481.4 26.8085 481.4 32C481.4 37.1915 477.191 41.4004 472 41.4004C466.809 41.4004 462.6 37.1915 462.6 32C462.6 26.8085 466.809 22.5996 472 22.5996Z" fill="#FDFDFC" style="fill:#FDFDFC;fill:color(display-p3 0.9910 0.9931 0.9869);fill-opacity:1;"/>
+<path d="M472 22.5996C477.191 22.5996 481.4 26.8085 481.4 32C481.4 37.1915 477.191 41.4004 472 41.4004C466.809 41.4004 462.6 37.1915 462.6 32C462.6 26.8085 466.809 22.5996 472 22.5996Z" stroke="#1D1F1B" style="stroke:#1D1F1B;stroke:color(display-p3 0.1148 0.1200 0.1044);stroke-opacity:1;" stroke-width="1.2"/>
+<circle id="Indicator" cx="472" cy="32" r="6" fill="#1D1F1B" style="fill:#1D1F1B;fill:color(display-p3 0.1148 0.1200 0.1044);fill-opacity:1;"/>
+</g>
+</g>
+</g>
+</svg>

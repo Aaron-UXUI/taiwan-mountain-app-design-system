@@ -75,8 +75,15 @@ for (const abs of allSourcePaths) {
   buildFiles.push({ uuid: bf, fileRefUUID: fr });
 }
 
-const assetsFileRefUUID = uuid();
-const assetsBuildFileUUID = uuid();
+// Asset catalogs bundled into the app: PreviewApp's own, plus the design
+// system's DSIcons.xcassets (the real Figma icon + motion artwork). The
+// latter normally reaches consumers as an SPM resource via Bundle.module,
+// but this project compiles the sources directly with no SwiftPM involved,
+// so it has to be added to the app bundle explicitly — see DSResources.swift.
+const ASSET_CATALOGS = [
+  { name: "Assets.xcassets", relPath: "PreviewApp/Assets.xcassets" },
+  { name: "DSIcons.xcassets", relPath: "../Sources/DesignSystemKit/Resources/DSIcons.xcassets" },
+].map((c) => ({ ...c, fileRef: uuid(), buildFile: uuid() }));
 
 const appProductUUID = uuid();
 const targetUUID = uuid();
@@ -172,7 +179,9 @@ for (const fr of fileRefs) {
   fileRefText +=
     `\t\t${fr.uuid} /* ${fr.name} */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "${fr.name}"; path = "${relFromProj}"; sourceTree = "<group>"; };\n`;
 }
-fileRefText += `\t\t${assetsFileRefUUID} /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "PreviewApp/Assets.xcassets"; sourceTree = "<group>"; };\n`;
+for (const c of ASSET_CATALOGS) {
+  fileRefText += `\t\t${c.fileRef} /* ${c.name} */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = ${c.name}; path = "${c.relPath}"; sourceTree = "<group>"; };\n`;
+}
 fileRefText += `\t\t${appProductUUID} /* PreviewApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PreviewApp.app; sourceTree = BUILT_PRODUCTS_DIR; };\n`;
 
 let buildFileText = "";
@@ -180,7 +189,9 @@ for (const bf of buildFiles) {
   const fr = fileRefs.find((f) => f.uuid === bf.fileRefUUID);
   buildFileText += `\t\t${bf.uuid} /* ${fr.name} in Sources */ = {isa = PBXBuildFile; fileRef = ${fr.uuid} /* ${fr.name} */; };\n`;
 }
-buildFileText += `\t\t${assetsBuildFileUUID} /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ${assetsFileRefUUID} /* Assets.xcassets */; };\n`;
+for (const c of ASSET_CATALOGS) {
+  buildFileText += `\t\t${c.buildFile} /* ${c.name} in Resources */ = {isa = PBXBuildFile; fileRef = ${c.fileRef} /* ${c.name} */; };\n`;
+}
 
 // ---- PreviewApp group (own files) ----
 const previewAppSwiftUUID = fileRefs.find((f) => f.abs === previewAppSwift).uuid;
@@ -189,7 +200,7 @@ const previewAppGroupText =
   `\t\t\tisa = PBXGroup;\n` +
   `\t\t\tchildren = (\n` +
   `\t\t\t\t${previewAppSwiftUUID} /* PreviewApp.swift */,\n` +
-  `\t\t\t\t${assetsFileRefUUID} /* Assets.xcassets */,\n` +
+  ASSET_CATALOGS.map((c) => `\t\t\t\t${c.fileRef} /* ${c.name} */,\n`).join("") +
   `\t\t\t);\n` +
   `\t\t\tname = PreviewApp;\n` +
   `\t\t\tsourceTree = "<group>";\n` +
@@ -294,7 +305,7 @@ ${previewAppGroupText}${dsGroupsText}${galleryGroupsText}/* End PBXGroup section
 \t\t\tisa = PBXResourcesBuildPhase;
 \t\t\tbuildActionMask = 2147483647;
 \t\t\tfiles = (
-\t\t\t\t${assetsBuildFileUUID} /* Assets.xcassets in Resources */,
+${ASSET_CATALOGS.map((c) => `\t\t\t\t${c.buildFile} /* ${c.name} in Resources */,`).join("\n")}
 \t\t\t);
 \t\t\trunOnlyForDeploymentPostprocessing = 0;
 \t\t};

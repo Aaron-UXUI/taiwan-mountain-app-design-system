@@ -26,9 +26,9 @@ public struct DSIconButton: View {
     public var body: some View {
         switch purpose {
         case .location:
-            button(icon: .location, label: "定位")
+            button(icon: .gps, label: "定位")
         case .save(let isSaved):
-            button(icon: isSaved ? .heartFilled : .heart, label: isSaved ? "取消收藏" : "加入收藏")
+            button(icon: isSaved ? .heartFill : .heart, label: isSaved ? "取消收藏" : "加入收藏")
                 .accessibilityAddTraits(isSaved ? .isSelected : [])
         case .offlineMap(.idle):
             button(icon: .map, label: "離線地圖下載")
@@ -52,8 +52,7 @@ public struct DSIconButton: View {
 
     private func button(icon: DSIcon, label: String) -> some View {
         Button(action: action) {
-            icon.image
-                .imageScale(.large)
+            DSIconView(icon)
                 .frame(width: 48, height: 48)
         }
         .buttonStyle(DSIconButtonStyle())

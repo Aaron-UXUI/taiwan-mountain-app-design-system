@@ -1,0 +1,438 @@
+[
+  {
+    "set": "14",
+    "name": "chevron",
+    "w": 14,
+    "h": 14,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "14",
+    "name": "secured",
+    "w": 14,
+    "h": 14,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "16",
+    "name": "exclamation",
+    "w": 16,
+    "h": 16,
+    "colors": [
+      "#CF0000"
+    ]
+  },
+  {
+    "set": "16",
+    "name": "arrow-up-right",
+    "w": 16,
+    "h": 16,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "16",
+    "name": "non-notified",
+    "w": 16,
+    "h": 16,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "16",
+    "name": "notified",
+    "w": 16,
+    "h": 16,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "16",
+    "name": "heart",
+    "w": 16,
+    "h": 16,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "16",
+    "name": "heart-fill",
+    "w": 16,
+    "h": 16,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "20",
+    "name": "search",
+    "w": 20,
+    "h": 20,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "20",
+    "name": "microphone",
+    "w": 20,
+    "h": 20,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "20",
+    "name": "check",
+    "w": 20,
+    "h": 20,
+    "colors": [
+      "#396100"
+    ]
+  },
+  {
+    "set": "20",
+    "name": "info",
+    "w": 20,
+    "h": 20,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "20",
+    "name": "credit-card",
+    "w": 20,
+    "h": 20,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "20",
+    "name": "close-eye",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "20",
+    "name": "open-eye",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "map",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#494C44"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "map-fill",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "search",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#494C44"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "search-fill",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "notify",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#494C44"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "notify-fill",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "member",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#494C44"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "member-fill",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "heart",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "heart-fill",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "radio-fill",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#FDFDFC",
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "radio",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#FDFDFC",
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "gps",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "gps-fill",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "setting",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "more",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "filter",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "back",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "close",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "minus",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#494C44"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "plus",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "24",
+    "name": "placeholder",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#1D1F1B"
+    ]
+  },
+  {
+    "set": "map",
+    "name": "tree",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#FDFDFC"
+    ]
+  },
+  {
+    "set": "map",
+    "name": "camera",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#FDFDFC"
+    ]
+  },
+  {
+    "set": "map",
+    "name": "walk",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#FDFDFC"
+    ]
+  },
+  {
+    "set": "map",
+    "name": "info",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#FDFDFC"
+    ]
+  },
+  {
+    "set": "weather",
+    "name": "cloud-sun",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#FFD966",
+      "#494C44"
+    ]
+  },
+  {
+    "set": "weather",
+    "name": "sunny",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#494C44",
+      "#FFD966"
+    ]
+  },
+  {
+    "set": "weather",
+    "name": "rain",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#494C44"
+    ]
+  },
+  {
+    "set": "weather",
+    "name": "lightning-rain",
+    "w": 24,
+    "h": 25,
+    "colors": [
+      "#494C44"
+    ]
+  },
+  {
+    "set": "weather",
+    "name": "windy",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#494C44"
+    ]
+  },
+  {
+    "set": "weather",
+    "name": "typhoon",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#494C44"
+    ]
+  },
+  {
+    "set": "weather",
+    "name": "cloud-snow",
+    "w": 24,
+    "h": 24,
+    "colors": [
+      "#494C44"
+    ]
+  }
+]

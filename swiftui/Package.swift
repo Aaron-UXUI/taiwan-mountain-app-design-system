@@ -15,7 +15,8 @@ let package = Package(
     targets: [
         .target(
             name: "DesignSystemKit",
-            path: "Sources/DesignSystemKit"
+            path: "Sources/DesignSystemKit",
+            resources: [.process("Resources")]
         ),
         .target(
             name: "GalleryKit",

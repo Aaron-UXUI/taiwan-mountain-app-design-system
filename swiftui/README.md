@@ -24,8 +24,8 @@ native interaction — reusing it beats rebuilding it:
 | `AppBar` | `NavigationStack` + `.toolbar` (back button is automatic) |
 | `CarouselIndicators` | `TabView(.page)`'s built-in page dots |
 | `SpinnerOnWhite` / `SpinnerOnDark` | `ProgressView` (tinted) |
-| `MotionSuccess` / `MotionTransaction` | SF Symbol `.symbolEffect(...)` |
-| `Icon14/16/20/24`, `IconMap`, `IconWeather` | SF Symbols via `DSIcon`, one lookup file instead of 6 components |
+| `MotionSuccess` / `MotionTransaction` | rebuilt from the Figma storyboards as real interpolated motion over the extracted artwork (checkmark wipe; card sliding across the payment terminal) — these were also SF Symbols before, depicting something else entirely |
+| `Icon14/16/20/24`, `IconMap`, `IconWeather` | one `DSIcon` enum over the **real Figma vector art**, bundled as SVG imagesets in `Resources/DSIcons.xcassets` (see `Tools/README.md`) — an earlier revision mapped these onto SF Symbols, which kept a system-native look but silently substituted different artwork |
 | `RadioButton` (Default style) | `Picker(.inline)` — iOS has no standalone radio control; this is HIG's own "choice list" idiom |
 | `UserLocation` | MapKit's native `UserAnnotation()` (this kit's version is a non-MapKit fallback only) |
 
@@ -34,24 +34,20 @@ The **4 `ios-system` mockup components** (`StatusBar`, `Keyboard`,
 device the OS already renders all of them; reimplementing system chrome
 would violate the "Native Interaction" requirement, not satisfy it.
 
-`CheckBoxNavigation` is its own standalone file (`DSCheckBoxNavigation.swift`)
-but is **not** wired into `DSAppTabView`'s `.tabItem`s — iOS's `TabView` only
-picks up image + text from whatever is passed to `.tabItem` and silently
-discards custom background/padding/highlight styling there, so
-`DSAppTabView` keeps using plain `Label` + `.badge()` for that job instead.
-`DSCheckBoxNavigation` is for the cases that need the exact look/interaction
-the spec describes outside of `TabView`'s automatic chrome — e.g. a custom
-destination switcher inside `DSBottomBar`.
+`CheckBoxNavigation` has **no SwiftUI component**. iOS's `TabView` only reads
+image + text out of whatever is passed to `.tabItem` and draws its own chrome
+around them, discarding custom styling, so `DSAppTabView` uses plain `Label` +
+`.badge()` and there was nothing left for a separate component to do.
 
 `Logo` / `Logos` (brand marks) have no real asset to port — like the React
 source's own `Logo.tsx`/`Logos.tsx`, they render as text-lockup / neutral
 badge placeholders (`Components/Icons/DSLogo.swift`,
 `DSPaymentBrandBadge.swift`) rather than reproducing real trademarks.
 
-**Coverage: all 60 spec components have a direct native counterpart or a
-documented, deliberate replacement** (6 icon-set components consolidated
-into the 1 `DSIcon` lookup, 4 iOS-system mockups excluded since the OS
-already renders them — see above).
+**Coverage: 59 of the spec's 60 components have a native counterpart or a
+documented, deliberate replacement** — 6 icon-set components consolidated
+into the 1 `DSIcon` enum, 4 iOS-system mockups excluded since the OS already
+renders them, and `CheckBoxNavigation` dropped as above.
 
 ## Structure
 
@@ -60,7 +56,8 @@ swiftui/
 ├── Package.swift
 ├── Sources/
 │   ├── DesignSystemKit/        ← the component library (import this)
-│   │   ├── Tokens/              Color / Spacing / Radius / Typography (Dynamic Type) / Elevation / Motion / SF Symbol map
+│   │   ├── Tokens/              Color / Spacing / Radius / Typography (Dynamic Type) / Elevation / Motion / DSIcon
+│   │   ├── Resources/           DSIcons.xcassets — 48 Figma glyphs + 3 motion artwork assets
 │   │   └── Components/
 │   │       ├── Buttons/         Button, IconButton, Link, LinkFurtherInfo, Chips
 │   │       ├── Inputs/          CheckBox, RadioButton, Toggle, Stepper, SegmentedControl, TextField
@@ -74,6 +71,7 @@ swiftui/
 │   │   ├── GalleryRootView.swift   NavigationSplitView catalog
 │   │   └── Showcases/              one live, interactive showcase per category
 │   └── ComponentGallery/        ← 4-line @main entry point that just shows GalleryRootView()
+├── Tools/                       ← Figma export -> DSIcons.xcassets extraction scripts (see Tools/README.md)
 ├── PreviewApp/                  ← local-only Xcode project for visually verifying in Simulator (see PreviewApp/README.md)
 └── .gitignore
 ```
@@ -89,8 +87,11 @@ swiftui/
   badge/count is folded into its host's accessible label rather than
   exposed as a disconnected element; Reduce Motion is explicitly checked in
   `dsAnimation(_:value:)` (SwiftUI does not do this for you — you must).
-- **SF Symbols**: `DSIcon` (in `Tokens/`) is a single semantic-name → SF
-  Symbol lookup that replaces the spec's 6 separate icon-set components.
+- **Icons**: `DSIcon` (in `Tokens/`) is a single enum over the design
+  system's own 48 Figma glyphs, shipped as vector imagesets. Most are
+  template-rendered so they tint from `foregroundStyle` like an SF Symbol;
+  four keep their original colours because the multi-colour *is* the design.
+  `DSIconView` scales them for Dynamic Type. Regenerate with `Tools/`.
 - **No dark-mode color tokens exist yet** upstream (the Figma library only
   defines one appearance) — `DSColor` is written as semantic names so a
   future dark palette only changes one file, not call sites.
@@ -103,7 +104,7 @@ environment): `PreviewApp/` is a small helper Xcode project — see
 source under `Sources/DesignSystemKit` + `Sources/GalleryKit` into one app
 target and installs it as a real `.app` on Simulator. Confirmed working via
 `xcodebuild` + `simctl`/the Simulator directly: the sidebar lists all 8
-categories with correct SF Symbols, every showcase renders with correct
+categories, every showcase renders with correct
 colors/spacing/radius from the generated tokens, live interactions work
 (tapping a chip toggles it, navigating between categories pushes/pops
 correctly via NavigationSplitView), and Chinese labels render correctly.

@@ -27,9 +27,11 @@ public struct DSWeatherRow: View {
                 .foregroundStyle(DSColor.black)
                 .frame(width: 56, alignment: .leading)
             Spacer()
-            Label(conditionText, systemImage: condition.systemName)
-                .labelStyle(.iconOnly)
-                .imageScale(.large)
+            // The glyph carries no accessible text of its own; the row's
+            // combined label below states the condition in words, which
+            // `list-weather.md` requires (the icon must never be the only
+            // carrier of the forecast).
+            DSIconView(condition)
             Spacer()
             Text(temperature)
                 .dsFont(.bodyL)

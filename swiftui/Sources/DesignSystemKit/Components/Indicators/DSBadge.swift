@@ -3,7 +3,7 @@ import SwiftUI
 /// Native port of `badge.md`. Hidden from accessibility by default: per the
 /// spec, a badge's value must be folded into its *host* element's accessible
 /// name/description rather than exposed as its own disconnected node — call
-/// sites (see `DSAccordionCheckBox`, `DSTabBar`, `DSCheckBoxNavigation`) set
+/// sites (see `DSAccordionCheckBox`, `DSTabBar`) set
 /// that label explicitly.
 ///
 /// The spec's two variant axes map here as:

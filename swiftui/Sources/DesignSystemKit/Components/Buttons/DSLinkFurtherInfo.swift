@@ -16,7 +16,7 @@ public struct DSLinkFurtherInfo: View {
         Button(action: action) {
             HStack(spacing: DSSpacing.xs) {
                 Text(title)
-                DSIcon.externalLink.image
+                DSIconView(.externalLink)
                     .accessibilityHidden(true)
             }
         }
