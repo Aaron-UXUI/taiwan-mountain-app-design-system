@@ -25,8 +25,27 @@ public extension View {
 }
 
 /// `style: Filter_Discover`
+///
+/// Figma composes this from two labelled blocks — **排序依據** holding a
+/// `Segmented Controls`, then **篩選** holding one `Accordion / CheckBox`
+/// followed by a run of `Accordion / Chips` — and closes with a `Bottom Bar`.
+/// The earlier version had no sort block at all, gave the sheet a Headline/3
+/// title Figma does not have, and built every group from a raw
+/// `DisclosureGroup` + checkboxes rather than reusing the two Accordion
+/// components the design actually instantiates.
 public struct DSFilterDiscoverSheet: View {
-    public struct Group: Identifiable {
+    /// The `Accordion / CheckBox` group — options are checkboxes.
+    public struct CheckBoxGroup {
+        public let title: String
+        public let options: [String]
+        public init(title: String, options: [String]) {
+            self.title = title
+            self.options = options
+        }
+    }
+
+    /// An `Accordion / Chips` group — options are Chips/Large.
+    public struct ChipsGroup: Identifiable {
         public let id = UUID()
         public let title: String
         public let options: [String]
@@ -36,59 +55,100 @@ public struct DSFilterDiscoverSheet: View {
         }
     }
 
-    private let title: String
-    private let groups: [Group]
-    @State private var expanded: Set<UUID> = []
-    @State private var checked: Set<String> = []
+    private let sortLabel: String
+    private let sortLeading: String
+    private let sortTrailing: String
+    private let filterLabel: String
+    private let checkBoxGroup: CheckBoxGroup?
+    private let chipsGroups: [ChipsGroup]
     private let onApply: () -> Void
 
-    public init(title: String, groups: [Group], onApply: @escaping () -> Void = {}) {
-        self.title = title
-        self.groups = groups
+    @Binding private var sortSelection: DSSegmentSide
+    @State private var expanded: Set<String> = []
+    @State private var checked: Set<String> = []
+    @State private var selectedChips: Set<String> = []
+
+    public init(
+        sortLabel: String = "排序依據",
+        sortLeading: String,
+        sortTrailing: String,
+        sortSelection: Binding<DSSegmentSide>,
+        filterLabel: String = "篩選",
+        checkBoxGroup: CheckBoxGroup? = nil,
+        chipsGroups: [ChipsGroup] = [],
+        onApply: @escaping () -> Void = {}
+    ) {
+        self.sortLabel = sortLabel
+        self.sortLeading = sortLeading
+        self.sortTrailing = sortTrailing
+        self._sortSelection = sortSelection
+        self.filterLabel = filterLabel
+        self.checkBoxGroup = checkBoxGroup
+        self.chipsGroups = chipsGroups
         self.onApply = onApply
     }
 
     public var body: some View {
-        VStack(spacing: 0) {
-            ScrollView {
-                VStack(alignment: .leading, spacing: DSSpacing.sm) {
-                    Text(title)
-                        .dsFont(.headline3)
-                        .foregroundStyle(DSColor.black)
-                        .accessibilityAddTraits(.isHeader)
+        ScrollView {
+            VStack(alignment: .leading, spacing: DSSpacing.sm) {
+                section(sortLabel) {
+                    DSSegmentedControl(
+                        leftLabel: sortLeading,
+                        rightLabel: sortTrailing,
+                        selected: $sortSelection
+                    )
+                }
 
-                    ForEach(groups) { group in
-                        groupRow(group)
+                section(filterLabel) {
+                    VStack(spacing: 0) {
+                        if let checkBoxGroup {
+                            DSAccordionCheckBox(
+                                title: checkBoxGroup.title,
+                                options: checkBoxGroup.options,
+                                isExpanded: expansion(for: checkBoxGroup.title),
+                                checkedOptions: $checked
+                            )
+                        }
+                        ForEach(chipsGroups) { group in
+                            DSAccordionChips(
+                                title: group.title,
+                                options: group.options,
+                                isExpanded: expansion(for: group.title),
+                                selectedOptions: $selectedChips
+                            )
+                        }
                     }
                 }
-                .padding(.horizontal, DSSpacing.lm)
+
+                // Figma's 32pt Blank before the Bottom Bar.
+                Spacer(minLength: DSSpacing.l)
             }
-            Divider()
-            DSButton("套用篩選") { onApply() }
-                .padding(.horizontal, DSSpacing.lm)
-                .padding(.vertical, DSSpacing.s)
+            .padding(.horizontal, DSSpacing.lm)
+        }
+        .dsBottomBar(.singleButton(title: "套用篩選", action: onApply))
+    }
+
+    /// Figma labels each block with a 20pt-tall caption 4pt above its content.
+    private func section<Content: View>(
+        _ label: String,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        VStack(alignment: .leading, spacing: DSSpacing.xs) {
+            Text(label)
+                .dsFont(.bodyM)
+                .foregroundStyle(DSColor.black)
+                .accessibilityAddTraits(.isHeader)
+            content()
         }
     }
 
-    private func groupRow(_ group: Group) -> some View {
-        DisclosureGroup(isExpanded: Binding(
-            get: { expanded.contains(group.id) },
+    private func expansion(for title: String) -> Binding<Bool> {
+        Binding(
+            get: { expanded.contains(title) },
             set: { isOn in
-                if isOn { expanded.insert(group.id) } else { expanded.remove(group.id) }
+                if isOn { expanded.insert(title) } else { expanded.remove(title) }
             }
-        )) {
-            ForEach(group.options, id: \.self) { option in
-                DSCheckBox(option, isChecked: Binding(
-                    get: { checked.contains(option) },
-                    set: { isOn in
-                        if isOn { checked.insert(option) } else { checked.remove(option) }
-                    }
-                ))
-            }
-            .padding(.top, DSSpacing.xs)
-        } label: {
-            Text(group.title).dsFont(.labelM).foregroundStyle(DSColor.black)
-        }
+        )
     }
 }
 

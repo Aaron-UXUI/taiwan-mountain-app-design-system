@@ -134,12 +134,17 @@ struct DSButtonStyle: ButtonStyle {
 
         return HStack(spacing: DSSpacing.s) {
             if isLoading {
-                ProgressView().tint(look.foreground)
+                // Figma drops the label and centres the 40pt brand spinner —
+                // On Dark inside a Primary fill, On White otherwise, which is
+                // exactly the resolved foreground.
+                DSSpinner(tint: look.foreground)
             } else {
                 configuration.label.dsFont(size.typeStyle)
             }
         }
-        .padding(.vertical, size.verticalPadding)
+        // The 40pt spinner already fills the button's fixed height, so the
+        // vertical padding would push it past it.
+        .padding(.vertical, isLoading ? 0 : size.verticalPadding)
         .padding(.horizontal, size.horizontalPadding)
         // Figma sizes Large to the full content width and lets Small hug its
         // label — it is the size, not the emphasis, that drives this.

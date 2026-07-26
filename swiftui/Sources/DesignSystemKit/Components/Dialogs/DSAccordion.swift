@@ -104,9 +104,11 @@ public struct DSAccordionChips: View {
 
     public var body: some View {
         DisclosureGroup(isExpanded: $isExpanded) {
+            // Figma fills this row with `Chips / Large` (103pt wide, 8/16
+            // padding, 14pt label), not the Small variant.
             DSFlowLayout(spacing: DSSpacing.s) {
                 ForEach(options, id: \.self) { option in
-                    DSChip(option, size: .small, isSelected: Binding(
+                    DSChip(option, size: .large, isSelected: Binding(
                         get: { selectedOptions.contains(option) },
                         set: { isOn in
                             if isOn { selectedOptions.insert(option) } else { selectedOptions.remove(option) }

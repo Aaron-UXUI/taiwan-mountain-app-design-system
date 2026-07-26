@@ -835,6 +835,74 @@ toolbar 按鈕改用品牌自己的 24pt 圖示而非 SF Symbol。
 
 ---
 
+## R. 第十四輪:最後 6 個元件驗完(2026-07-26)
+
+### R1. `Accordion / Chips` 用的是 **Chips/Large**,不是 Small(SwiftUI)
+
+Figma 展開後那排是 `Chips / Large`(103pt 寬、8/16 padding、14pt 標籤),
+SwiftUI 卻傳 `.small`。React 的 chip 本來就是 py-8 px-16 / 14pt,正確。
+
+### R2. `Spinner` 依 Figma 自繪,尺寸也錯了一半(兩平台)
+
+Figma 是 **40pt 方框上八顆 8pt 圓點**繞著圓周淡出成一道尾巴。
+
+- **React**:容器只有 **20pt**、圓點 16.6% —— **整個小了一半**。Buttons 的
+  Loading 狀態在 44pt 按鈕裡放的是 40pt spinner,所以 40 才是原意。已改正,
+  旋轉原點跟著換成 250%。
+- **SwiftUI**:原本是 tint 過的原生 `ProgressView`(轉圈的缺口環),與八點尾巴
+  是不同的東西。依 Figma 自繪,並**明確保留**原生指示器本來免費給的兩件事:
+  無障礙報讀(`updatesFrequently` + 標籤),以及 **Reduce Motion**——開啟時
+  不旋轉,改為停在一個靜態尾巴。
+- 順帶修:`DSSpinner.onWhite` 用的是 gray-800,Figma 是 **green-800**。
+- 另外 `DSButton` 的 Loading 還在用裸的 `ProgressView`,已換成 40pt 的
+  `DSSpinner(tint: 前景色)`——Primary 上是 On Dark、其餘是 On White,剛好就是
+  已解析出來的前景色。Loading 時取消垂直 padding,否則 40pt 會撐破 44pt。
+
+### R3. `Bottom Sheet / Filter_Discover` — 少了一整個排序區塊(SwiftUI)
+
+Figma 由兩個有標題的區塊組成,最後接 `Bottom Bar`:
+
+```
+排序依據 → Segmented Controls
+篩選     → 1× Accordion/CheckBox + 9× Accordion/Chips(各 48pt)
+Blank 32pt
+Bottom Bar
+```
+
+原本的實作:**完全沒有排序區塊**、自己加了一個 Figma 沒有的 Headline/3 標題、
+每個群組都用裸的 `DisclosureGroup` + checkbox,而不是重用設計裡真正實例化的
+那兩個 Accordion 元件。已依 Figma 重建,並改用 `dsBottomBar` 收尾。
+
+### R4. 本輪確認**沒有**落差的元件
+
+| 元件 | 結果 |
+|---|---|
+| `Accordion / Chips` | React ✅ |
+| `Motion / Success` | 兩邊都對。SwiftUI 帶著 Figma 的精確 wipe 幾何(mask 1→22→60,x=19 y=23 h=52,96×96 success-600 圓);React 用 stroke-dash 畫出同一個揭露效果,2.4s |
+| `Motion / Transaction` | 兩邊都對。SwiftUI 的座標(`screen = CGRect(x: 26.84, y: 21.45, ...)` 等)直接來自十格 storyboard,是先前「從真實 Figma 圖稿重建」那次的產物 |
+
+### 60 個元件的最終覆蓋狀況
+
+| 類別 | 數量 | 狀態 |
+|---|---|---|
+| 已用精確 CSS 驗過 | **45** | 落差全部修正 |
+| 刻意不逐像素對(有記錄) | 11 | `Logo`/`Logos`(不重製商標)、6 組 icon set(圖檔是從 Figma 抽的真實向量)、`iOS System` 四件 |
+| 由原生控制項繪製(唯一保留者) | 1 | `App Bar`——見 Q4 的權衡 |
+| Bottom Sheet 的三個 style | 3 | 皆已驗(Map_Info、Filter_MapSearch、Filter_Discover) |
+
+**目前沒有已知未驗、也沒有已知未修的項目。**
+
+### 這一系列稽核最該記住的三件事
+
+1. **來源看錯,結論會很有信心地錯。** SVG 匯出抽不到陰影 → 兩個元件四處錯;
+   空的元件本體抽不到 fill 層 → 誤刪了 Cards/Scene 的漸層。
+2. **兩個平台不一致的地方,就是至少一邊錯了。** 這比「憑印象覺得哪裡怪」有效得多,
+   而且大多數情況下 React 是對的那一邊。
+3. **元件名稱會騙人。** `2 Buttons` 不是兩顆按鈕;`List / weather` 不是一列;
+   Text Field 的 S/M/L/XL 不是字級。名稱只能當線索,不能當規格。
+
+---
+
 ## E. 補充說明:刻意的偏離(非落差)
 
 以下項目與 Figma 不同,但都是有記錄的平台決策,不列為落差:

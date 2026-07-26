@@ -12,6 +12,7 @@ struct DialogsShowcase: View {
     @State private var checkedOptions: Set<String> = []
     @State private var chipsExpanded = false
     @State private var selectedChips: Set<String> = []
+    @State private var filterSort: DSSegmentSide = .left
     @State private var tabSelection = "a"
 
     var body: some View {
@@ -73,8 +74,12 @@ struct DialogsShowcase: View {
         .dsBanner(isPresented: showBanner, message: "目前為離線模式,部分資訊可能未更新")
         .dsBottomSheet(isPresented: $showFilterSheet) {
             DSFilterDiscoverSheet(
-                title: "篩選條件",
-                groups: [
+                sortLeading: "瀏覽數",
+                sortTrailing: "距離",
+                sortSelection: $filterSort,
+                checkBoxGroup: .init(title: "園區", options: ["內洞", "滿月圓", "東眼山"]),
+                chipsGroups: [
+                    .init(title: "景點主題", options: ["日出", "賞花", "瀑布", "吊橋", "森林浴"]),
                     .init(title: "難度", options: ["簡單", "中等", "困難"]),
                     .init(title: "設施", options: ["廁所", "停車場"])
                 ]
