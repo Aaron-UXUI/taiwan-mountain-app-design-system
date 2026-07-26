@@ -21,8 +21,11 @@
   color: var(--color-gray-white);
 }
 
+/* Pressing drops the shadow, same as Button — only Default and Enabled are
+   lifted. */
 .tmads-icon-button--primary.tmads-icon-button--pressing {
   background-color: var(--color-primary-green-900);
+  box-shadow: none;
 }
 
 /* Type=Tertiary — bare glyph, no background. */

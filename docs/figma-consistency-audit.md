@@ -662,6 +662,50 @@ LocationPin 四種組合、TabBar 徽章位置、Button 陰影,與 Figma 算圖�
 
 ---
 
+## O. 第十一輪:把剩餘未驗的元件補上(2026-07-26)
+
+延續第十輪,繼續處理從未用 `get_design_context` 讀過的元件。
+
+| # | 元件 | 落差 | 平台 |
+|---|---|---|---|
+| O1 | `Icon Buttons` Location/Pressing | 與 `Buttons` 同一條規則:**按下時 drop-shadow 消失**。兩邊都還留著 elevation-4 | React + SwiftUI |
+| O2 | `Icon Buttons` OfflineMap 的 `0%` / `已下載` | 文字是 **Label/M(14pt Semibold)**,SwiftUI 用了 body/M(regular)。React 的基礎 class 本來就是 semibold,正確 | SwiftUI |
+| O3 | `Tooltip` | 內文寬度固定 **180pt**,SwiftUI 沒有設,氣泡會被內容撐開。React 有 | SwiftUI |
+
+### 本輪確認**沒有**落差的元件
+
+| 元件 | 結果 |
+|---|---|
+| `Cards / Description` | 兩邊都對(p-12、gap-8/4、Headline/3、body/M、240×180 圖片 radius 12) |
+| `Tooltip` | React ✅(黑底、radius 4、p-8、elevation-4、180pt 內文寬) |
+| `Banner` | React ✅(327pt、py-4 px-24、gray-800、body/S 白字) |
+| `Toggle` | React ✅(52×32、Off = green-100 底 + 2pt green-800 框 + green-800 滑鈕;On = green-800 底 + 白滑鈕位移 20) |
+
+### 一個累積出來的規律
+
+`Buttons` 與 `Icon Buttons` 的 Pressing **都會拿掉陰影**。第二輪那份矩陣是從
+匯出的 SVG 抽色值建的,而 **SVG 抽不到陰影**——這個方法上的盲點一次造成了兩個
+元件、兩個平台共四處錯誤。凡是當初只靠 SVG 取色定案的結論,都值得用實際 CSS
+再確認一次。
+
+### 仍未用精確 CSS 驗過
+
+`List / Setting`、`List / DownloadMap`、`List / Notification`、
+`Accordion / Chips`、`Segmented Controls`、`Stepper`、`Search Bar`、`App Bar`、
+`Spinner / On White`、`Spinner / On Dark`、`Motion / Transaction`、
+`Motion / Success`、`Bottom Sheet` 的 `Filter_Discover`、`Link`、
+`Logo` / `Logos`(刻意不重製商標)、六組 icon set、
+`iOS System` 四件(React 有實作、SwiftUI 刻意不移植)。
+
+### 設計端可能想知道的一點
+
+`Toggle` 的 Off 狀態在 Figma 是 **green-100 底 + 2pt green-800 外框 + green-800
+滑鈕**,和 iOS 原生開關(灰底白鈕)差距很大。SwiftUI 目前用原生控制項,是
+E 章記錄過的平台決策,所以沒有改;但如果品牌一致性優先於原生慣例,這是少數
+真的看得出差別的地方,需要設計端拍板。
+
+---
+
 ## E. 補充說明:刻意的偏離(非落差)
 
 以下項目與 Figma 不同,但都是有記錄的平台決策,不列為落差:

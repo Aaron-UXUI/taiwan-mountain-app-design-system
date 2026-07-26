@@ -159,15 +159,17 @@ struct DSButtonStyle: ButtonStyle {
     }
 }
 
-/// Applies `elevation.3` only when the resolved appearance calls for it.
+/// Applies an elevation only when the resolved appearance calls for it.
 /// A plain ternary can't express "no shadow", since every `DSElevationStyle`
-/// draws something.
-private struct DSConditionalElevation: ViewModifier {
+/// draws something. Shared with `DSIconButton`, which has the same
+/// "pressing removes the shadow" rule.
+struct DSConditionalElevation: ViewModifier {
     let isOn: Bool
+    var level: DSElevationStyle = .level3
 
     func body(content: Content) -> some View {
         if isOn {
-            content.dsElevation(.level3)
+            content.dsElevation(level)
         } else {
             content
         }

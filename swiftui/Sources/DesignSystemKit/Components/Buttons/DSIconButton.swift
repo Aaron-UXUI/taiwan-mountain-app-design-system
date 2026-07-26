@@ -67,7 +67,8 @@ public struct DSIconButton: View {
         case .offlineMap(.downloading(let progress)):
             Button(action: {}) {
                 Text("\(Int(progress * 100))%")
-                    .dsFont(.bodyM)
+                    // Figma sets these in Label/M — 14pt Semibold.
+                    .dsFont(.labelM)
                     .frame(minWidth: 48, minHeight: 48)
             }
             .buttonStyle(DSIconButtonStyle(emphasis: .tertiary, tint: nil))
@@ -78,7 +79,7 @@ public struct DSIconButton: View {
         case .offlineMap(.downloaded):
             Button(action: {}) {
                 Text("已下載")
-                    .dsFont(.bodyM)
+                    .dsFont(.labelM)
                     .frame(minWidth: 48, minHeight: 48)
             }
             .buttonStyle(DSIconButtonStyle(emphasis: .tertiary, tint: nil))
@@ -112,7 +113,9 @@ private struct DSIconButtonStyle: ButtonStyle {
                 .foregroundStyle(tint ?? DSColor.white)
                 .background(isEnabled ? (configuration.isPressed ? DSColor.primaryGreen900 : DSColor.primaryGreen800) : DSColor.gray400)
                 .clipShape(Circle())
-                .dsElevation(.level4)
+                // Pressing drops the shadow, same as `DSButton` — only
+                // Default and Enabled are lifted.
+                .modifier(DSConditionalElevation(isOn: !configuration.isPressed, level: .level4))
                 .dsAnimation(DSMotion.quick, value: configuration.isPressed)
         case .tertiary:
             configuration.label

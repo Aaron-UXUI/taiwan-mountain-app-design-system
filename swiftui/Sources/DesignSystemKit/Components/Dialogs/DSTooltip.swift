@@ -11,6 +11,9 @@ public extension View {
             Text(text)
                 .dsFont(.bodyS)
                 .foregroundStyle(DSColor.white)
+                // Figma pins the copy to a 180pt measure so the bubble wraps
+                // at a readable width instead of stretching to its content.
+                .frame(width: 180, alignment: .leading)
                 .padding(DSSpacing.s)
                 .background(DSColor.black)
                 .clipShape(RoundedRectangle(cornerRadius: DSRadius.xxs, style: .continuous))
