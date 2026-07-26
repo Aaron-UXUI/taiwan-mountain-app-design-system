@@ -128,7 +128,12 @@ struct DSButtonStyle: ButtonStyle {
         let look = DSButtonAppearance.resolve(
             emphasis: emphasis,
             pressed: configuration.isPressed,
-            enabled: isEnabled
+            // `.disabled(isLoading)` on the button keeps a Loading button
+            // non-interactive, but that also drives `isEnabled` false — which
+            // would resolve the *Disabled* appearance. Figma's Loading is the
+            // enabled fill (green-800 with elevation for Primary), so loading
+            // counts as enabled for appearance purposes.
+            enabled: isEnabled || isLoading
         )
         let shape = RoundedRectangle(cornerRadius: DSRadius.s, style: .continuous)
 
