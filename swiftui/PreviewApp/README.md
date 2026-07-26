@@ -43,11 +43,19 @@ node generate-pbxproj.mjs      # writes PreviewApp.xcodeproj + GeneratedSources/
 open PreviewApp.xcodeproj      # or build via xcodebuild, see below
 ```
 
-Re-run `generate-pbxproj.mjs` any time a file is added/removed under
-`Sources/DesignSystemKit` or `Sources/GalleryKit` — the file list is
-enumerated fresh each run. Neither `PreviewApp.xcodeproj/` nor
-`GeneratedSources/` are tracked in git (see `swiftui/.gitignore`) since
-they're fully regenerated from the real source.
+Re-run `generate-pbxproj.mjs`:
+
+- after **any edit** to `Sources/GalleryKit` — the project compiles the
+  stripped *copies* under `GeneratedSources/GalleryKit/`, not the real files,
+  so an edit you don't regenerate simply won't appear in the build (it fails
+  silently: the build succeeds, showing the previous version);
+- after adding/removing a file under `Sources/DesignSystemKit` — those are
+  referenced in place, so plain edits there need no regenerate, but the file
+  list is enumerated fresh each run.
+
+Regenerating is cheap, so when in doubt just run it. Neither
+`PreviewApp.xcodeproj/` nor `GeneratedSources/` are tracked in git (see
+`swiftui/.gitignore`) since they're fully regenerated from the real source.
 
 Command-line build + run, given a booted Simulator:
 
