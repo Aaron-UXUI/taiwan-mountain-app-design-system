@@ -64,7 +64,10 @@
   background-color: transparent;
   color: var(--color-primary-green-800);
 }
+/* Figma's Tertiary Pressing has a green-50 fill, not just a darker label —
+   this was flagged in the round-F audit and never applied. */
 .tmads-button--tertiary:where(:hover, [data-state="pressing"]) {
+  background-color: var(--color-primary-green-50);
   color: var(--color-primary-green-900);
 }
 .tmads-button--tertiary[data-state="disabled"] {

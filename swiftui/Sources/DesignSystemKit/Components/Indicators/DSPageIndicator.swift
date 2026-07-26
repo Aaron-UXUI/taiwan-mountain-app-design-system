@@ -37,9 +37,12 @@ public struct DSPageIndicator: View {
         .background {
             if !isOnDarkBackground {
                 RoundedRectangle(cornerRadius: DSRadius.xs, style: .continuous)
-                    .fill(DSColor.white.opacity(0.6))
+                    .fill(DSColor.white)
             }
         }
+        // Figma sets 60% opacity on the whole container, so it fades the dots
+        // along with the plate — not just the plate behind them.
+        .opacity(isOnDarkBackground ? 1 : 0.6)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("第 \(currentPage + 1) 張,共 \(pageCount) 張")
     }

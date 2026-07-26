@@ -1,4 +1,5 @@
 import type { InputHTMLAttributes } from "react";
+import { Icon24 } from "../../icons/Icon24";
 import "./RadioButton.css";
 
 export type RadioButtonStyle = "Default" | "Expanded";
@@ -29,7 +30,10 @@ export function RadioButton({
           className="tmads-radio-button__input"
           {...rest}
         />
-        <span className="tmads-radio-button__circle" aria-hidden="true" />
+        <Icon24
+          name={checked ? "radio-filled" : "radio"}
+          className="tmads-radio-button__mark"
+        />
         <span className="tmads-radio-button__label">{label}</span>
       </label>
       {radioStyle === "Expanded" && checked && (

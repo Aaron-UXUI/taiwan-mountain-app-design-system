@@ -58,7 +58,11 @@ public struct DSCardTickets: View {
                 }
             }
 
-            Divider()
+            // Figma's rule is green-700 (sampled from the rendered node), not
+            // the system separator grey a plain `Divider()` draws.
+            Rectangle()
+                .fill(ink(DSColor.primaryGreen700))
+                .frame(height: 1)
 
             HStack(alignment: .bottom, spacing: DSSpacing.sm) {
                 VStack(alignment: .leading, spacing: DSSpacing.xs) {
@@ -81,7 +85,10 @@ public struct DSCardTickets: View {
                     .foregroundStyle(ink(DSColor.gray800))
             }
         }
+        // The stub is drawn as an overlay, so the content needs its 6pt back
+        // as extra leading inset or the two would collide.
         .padding(DSSpacing.m)
+        .padding(.leading, 6)
         .frame(maxWidth: 360, alignment: .leading)
         .background(DSColor.white, in: shape)
         .overlay(alignment: .leading) {

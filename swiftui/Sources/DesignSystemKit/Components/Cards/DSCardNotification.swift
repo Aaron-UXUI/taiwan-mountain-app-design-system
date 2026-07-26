@@ -47,10 +47,14 @@ public struct DSCardNotification: View {
         }
         .overlay(alignment: .topLeading) {
             if isUnread {
+                // Figma centres the 6pt indicator in a 30x18 badge slot
+                // pinned at left:-1 / top:7 — so the dot lands at 11 / 13,
+                // inside the card's leading padding rather than straddling
+                // the border.
                 Circle()
                     .fill(DSColor.destruct700)
                     .frame(width: 6, height: 6)
-                    .offset(x: -3, y: 13)
+                    .offset(x: 11, y: 13)
                     .accessibilityHidden(true)
             }
         }

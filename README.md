@@ -3,23 +3,30 @@
 一個跨平台 Design System:同一份需求,同時在 **React（Storybook）** 與 **SwiftUI（Component Gallery App）** 兩個平台上實作,透過單一 Design Tokens 來源 + 平台無關的 Component Spec 保持同步。
 
 ```
-Figma Variables
-      │
-      ▼
-Design Tokens ──generate──▶ React CSS 變數 ──▶ Storybook
-(唯一來源 JSON)  │
-      └─────────generate──▶ SwiftUI Swift 常數
-                                   │
-Component Spec ──behavior 規格依據──▶ React 元件實作 ──▶ Storybook
-(docs/component-spec/*.md)   └──────behavior 規格依據──▶ SwiftUI 元件實作 ──▶ Component Gallery App
+              Figma 檔案 = 唯一依據來源
+                       │
+     ┌─────────────────┼─────────────────┐
+     ▼                 ▼                 ▼
+Design Tokens    React 元件實作    SwiftUI 元件實作
+(Figma Variables  (對照 Figma       (對照 Figma
+ 匯出的 JSON)      節點的實際 CSS)   節點的實際 CSS)
+     │                 │                 │
+     ├──▶ CSS 變數 ────┘                 │
+     └──▶ Swift 常數 ────────────────────┘
 ```
 
-新增或修改一個元件時,永遠先動這兩個地方,再回頭去 React / SwiftUI 兩邊實作:
+**視覺一律以 Figma 為準。** 尺寸、間距、圓角、線寬、字級、字重、顏色——實作前用
+Figma MCP 的 `get_design_context` 取得該節點的實際 CSS,不要憑截圖目測,也不要憑
+`docs/component-spec/` 的文字描述(那是二手轉述,寫錯了兩個平台會一起錯)。
 
-1. **Design Tokens**(`tokens/design-tokens.json`)——新增數值,跑 `npm run tokens:build`,React 跟 SwiftUI 自動拿到一致的常數。
-2. **Component Spec**(`docs/component-spec/<name>.md`)——先定案 Behavior / Interaction / Accessibility / State / Variant / Animation / Token Mapping,兩邊實作都對照這份文件。
+新增或修改一個元件時:
 
-完整流程、每一步在做什麼、為什麼 Design Tokens 能全自動而 Component Spec 不行,請見 **[`docs/workflow.md`](docs/workflow.md)**。
+1. **先看 Figma**——取得目標節點的精確 CSS,並在程式碼註解裡記下節點 id。
+2. **Design Tokens**(`tokens/design-tokens.json`)——需要新數值就先加在這裡,跑 `npm run tokens:build`,React 跟 SwiftUI 自動拿到一致的常數。
+3. **兩個平台各自實作**,對照同一個 Figma 節點。
+4. **Component Spec**(`docs/component-spec/<name>.md`)——補上 Behavior / Interaction / Accessibility 等**行為**決策;它記錄的是跨平台取捨,不是視覺數值的依據。
+
+完整流程與這個原則的來由(前幾輪照 spec 實作而與原稿差很遠的實例),請見 **[`docs/workflow.md`](docs/workflow.md)**。
 
 ## Repository 結構
 

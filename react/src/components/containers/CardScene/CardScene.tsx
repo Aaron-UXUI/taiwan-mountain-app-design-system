@@ -40,7 +40,6 @@ export function CardScene({
     <div className={["tmads-card-scene", className].filter(Boolean).join(" ")} {...rest}>
       <div className="tmads-card-scene__picture">
         <img className="tmads-card-scene__image" src={resolvedImageSrc} alt={imageAlt} />
-        <div className="tmads-card-scene__scrim" aria-hidden="true" />
         <div className="tmads-card-scene__status">{statusLabel}</div>
         {showFamilyFriendlyLabel && (
           <div className="tmads-card-scene__family-label">親子友善</div>

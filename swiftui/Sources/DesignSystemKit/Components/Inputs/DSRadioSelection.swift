@@ -80,7 +80,10 @@ struct DSRadioMark: View {
     let isOn: Bool
 
     var body: some View {
+        // Figma draws the glyph in gray-black; pinned explicitly so it does
+        // not inherit the system label colour from whatever encloses it.
         DSIconView(isOn ? .radioFill : .radio)
+            .foregroundStyle(DSColor.black)
             .frame(width: 24, height: 24)
             .accessibilityHidden(true)
     }

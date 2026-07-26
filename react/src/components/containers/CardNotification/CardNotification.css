@@ -12,14 +12,17 @@
   font-family: var(--typeface-pingfang-tc);
 }
 
+/* Figma centres the 6pt indicator in a 30x18 badge slot pinned at
+   left:-1 / top:7, which puts the dot itself at left 11 / top 13 — and its
+   fill is destruct-700, the same as every other notification badge. */
 .tmads-card-notification__badge {
   position: absolute;
-  left: 6px;
-  top: 16px;
+  left: 11px;
+  top: 13px;
   width: 6px;
   height: 6px;
   border-radius: var(--radius-rounded);
-  background-color: var(--color-semantic-destruct-600);
+  background-color: var(--color-semantic-destruct-700);
 }
 
 .tmads-card-notification__content {

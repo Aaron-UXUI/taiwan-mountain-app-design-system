@@ -10,10 +10,12 @@
   border-bottom: 1px solid var(--color-gray-200);
 }
 
+/* Figma: 48pt row, and the mark sits 8pt from the label — not 12pt. */
 .tmads-radio-button__row {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-s);
+  min-height: 24px;
   cursor: pointer;
 }
 
@@ -26,30 +28,13 @@
   white-space: nowrap;
 }
 
-.tmads-radio-button__circle {
-  position: relative;
+/* Figma's control is the `icon / 24px, Type=Radio` component in a 24pt box,
+   so this renders the shared Icon24 glyph rather than re-drawing a ring in
+   CSS at a guessed size and stroke weight. */
+.tmads-radio-button__mark {
   flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: var(--radius-rounded);
-  border: 1.5px solid var(--color-gray-800);
-}
-
-.tmads-radio-button__circle::after {
-  content: "";
-  position: absolute;
-  inset: 4px;
-  border-radius: var(--radius-rounded);
-  background-color: var(--color-primary-green-800);
-  opacity: 0;
-}
-
-.tmads-radio-button__input:checked ~ .tmads-radio-button__circle {
-  border-color: var(--color-primary-green-800);
-}
-
-.tmads-radio-button__input:checked ~ .tmads-radio-button__circle::after {
-  opacity: 1;
+  width: 24px;
+  height: 24px;
 }
 
 .tmads-radio-button__label {

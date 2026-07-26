@@ -427,6 +427,83 @@ Radio Default / Radio Expanded)、Text Field 四種狀態、Dialogs(兩個 Accor
 
 ---
 
+## K. 第七輪:改以 Figma 為唯一依據,兩個平台一起對(2026-07-26)
+
+前六輪只查 SwiftUI,而且部分結論是照 `docs/component-spec/` 的描述去對的。這輪
+改變作法:**以 Figma 檔案本身為唯一依據**,React 與 SwiftUI 兩邊同時比對。
+`README.md` 與 `docs/workflow.md` 已更新,明訂視覺數值一律以 Figma 為準,
+spec 降為記錄 behavior / a11y 決策的文件。
+
+### 先講結論:落後的是 SwiftUI,不是 React
+
+把 React 的 CSS 逐一攤開對照 Figma 之後,發現 React 在絕大多數元件上**本來就是
+對的**——Cards/Scene 的浮動說明面板、Cards/Tickets 的 6pt 票根與非對稱圓角、
+Cards/SavedItems 的 70pt 拼貼、List/weather 的垂直天氣欄、Text Field 的
+寬度軸與 40pt 高、Accordion 的 14pt chevron,React 全部都做對了。
+前兩輪(I、J)其實是把 SwiftUI 補到 React 早就達到的水準。
+
+這也反過來說明一件事:**兩個平台實作分歧的地方,就是至少有一邊錯了的地方**。
+這輪就是用這個方法找出剩下的落差。
+
+### K1. `Cards / Scene` 的漸層遮罩:Figma 裡根本沒有 ⚠️
+
+React 有一層 `linear-gradient(180deg, transparent 66.83%, black 100%)` 的
+scrim。重新取 Figma 的 Picture frame,裡面**只有**三個子節點:照片、浮動說明
+面板、狀態標籤——沒有任何漸層。已從 React 移除。
+
+(第三輪 G1 曾說「多加了一層漸層遮罩」,那句是對的;但同一輪又把內縮與圓角
+一起拿掉,那半句是錯的,已於第五輪 I1 修回。)
+
+### K2. 兩邊對不上、用取色決勝負的三處
+
+| # | 元件 | React | SwiftUI | Figma(取色/量測) | 處置 |
+|---|---|---|---|---|---|
+| K2a | `Progress Indicator` 連接線 | gray-200 實線 | gray-800 | 取樣得 `#8D8E89`,解 α 得 **gray-800 @ 62% 覆蓋**,即 0.6px 髮絲線(gray-200 解出 α=2.0,不可能) | **React 錯**,改為 0.6px gray-800 |
+| K2b | `Cards / Notification` 未讀點 | destruct-600,left 6 / top 16 | destruct-700,offset(-3, 13) | Badge 色票取樣得 **`#B20000` = destruct-700**;30×18 徽章槽釘在 left:-1 / top:7,圓點置中 → **left 11 / top 13** | **兩邊都錯**,一起改正 |
+| K2c | `Cards / Tickets` 分隔線 | green-700 | 系統 `Divider()` 灰 | 取樣 y=41 得 `#5C6647` = **green-700** | **SwiftUI 錯**,改為 green-700 |
+
+### K3. `Radio button` 的圖示尺寸與顏色
+
+第六輪(J2)已把 SwiftUI 改用匯出的向量資產,但沒有核對 React。實際取樣
+Figma 的 `Type=Radio, Filled?=yes`(node 816:4626):
+
+```
+y=12 掃描:  ..#+..############..+#..
+外環 1.5pt,外徑 20pt;內圓 12pt;顏色 #1D1F1B = gray-black
+```
+
+React 的 `Icon24` 畫的是 r=8(外徑 16)+ 內圓 r=4(8pt),顏色 gray-800——
+**尺寸和顏色都不對**,已改為 r=9.25 / r=6 / gray-black。SwiftUI 那邊圖示雖然
+是真資產,但沒有指定顏色,會繼承系統 label 色(深色模式還會翻白),已明確
+pin 成 gray-black。
+
+React 的 `RadioButton` 另外還在用 CSS 手繪的圓圈,已改為引用共用的 `Icon24`;
+圖示與標籤間距 12 → **8**。
+
+### K4. React 其餘兩處
+
+| # | 元件 | 落差 | 處置 |
+|---|---|---|---|
+| K4a | `Button` Tertiary Pressing | **第四輪(F1)就記錄過「React 待修」,一直沒修**:Figma 有 green-50 底色,React 只改了文字顏色 | 補上底色 |
+| K4b | `Snackbar` | 內距應為**左 16 / 上下 10 / 右 0**(關閉鈕自帶 12pt),React 用了對稱的 16/12,還多一個 8pt gap | 改正 |
+
+### 驗證方式
+
+`swift build` 與 `npm run typecheck` 皆通過。React 端在 Storybook 逐一截圖比對
+(Cards/Scene、Radio、Progress Indicator、Snackbar),與 Figma 節點的算圖一致;
+主控台除了一個既有的 story 警告(story 傳了 `checked` 但沒給 `onChange`,與本次
+改動無關)之外沒有錯誤。
+
+### 仍待處理
+
+- `docs/component-spec/` 有多份規格的**視覺描述**與 Figma 不符
+  (`list-weather`、`bottom-bar`、`offline-map`、`progress-indicator`、
+  `text-field`、`radio-button`)。依照新的原則,這些文件不該再描述視覺數值——
+  應該改寫成只記錄 behavior / a11y,或直接引用 Figma 節點 id。
+- React `RadioButton` 的 `checked` 沒有搭配 `onChange`(既有問題,非本輪造成)。
+
+---
+
 ## E. 補充說明:刻意的偏離(非落差)
 
 以下項目與 Figma 不同,但都是有記錄的平台決策,不列為落差:

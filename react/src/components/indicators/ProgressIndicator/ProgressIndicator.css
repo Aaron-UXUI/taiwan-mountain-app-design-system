@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-xs);
   width: 100%;
   padding: var(--spacing-sm) var(--spacing-lm);
 }
@@ -34,9 +33,12 @@
   color: var(--color-primary-green-900);
 }
 
+/* Figma draws the connector as a 0.6px gray-800 hairline that stretches to
+   fill the gap — sampling the rendered node gives #8D8E89, which solves as
+   gray-800 at ~62% coverage. It was a full-strength gray-200 rule here, which
+   reads far lighter than the design. */
 .tmads-progress-indicator__line {
   flex: 1 0 0;
-  height: 1px;
-  background-color: var(--color-gray-200);
-  margin: 0 var(--spacing-xs);
+  height: 0.6px;
+  background-color: var(--color-gray-800);
 }

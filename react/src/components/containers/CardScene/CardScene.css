@@ -22,12 +22,8 @@
   object-fit: cover;
 }
 
-.tmads-card-scene__scrim {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.83%, rgba(0, 0, 0, 1) 100%);
-}
+/* Figma's Picture frame holds only the image, the floating caption panel and
+   the status labels — there is no gradient scrim over the photo. */
 
 .tmads-card-scene__status {
   position: absolute;

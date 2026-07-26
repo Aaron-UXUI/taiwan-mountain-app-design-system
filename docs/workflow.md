@@ -1,23 +1,48 @@
 # Workflow — 跨平台 Design System 同步流程
 
 ```
-Figma Variables
-      │
-      ▼
-Design Tokens ──generate──▶ React CSS 變數 ──▶ Storybook
-(唯一來源 JSON)  │
-      └─────────generate──▶ SwiftUI Swift 常數
+                    ┌─────────────────────────────┐
+                    │  Figma 檔案 = 唯一依據來源   │
+                    │  nXFkT45U8mDzUK5rUfL0eK      │
+                    └──────────────┬──────────────┘
                                    │
-Component Spec ──behavior 規格依據──▶ React 元件實作 ──▶ Storybook
-(docs/component-spec/*.md)   └──────behavior 規格依據──▶ SwiftUI 元件實作 ──▶ Component Gallery App
+         ┌─────────────────────────┼─────────────────────────┐
+         ▼                         ▼                         ▼
+  Design Tokens            React 元件實作            SwiftUI 元件實作
+  (從 Figma Variables       (對照 Figma 節點           (對照 Figma 節點
+   匯出的 JSON)              的實際 CSS)                的實際 CSS)
+         │                         │                         │
+         ├──generate──▶ CSS 變數 ──┘                         │
+         └──generate──▶ Swift 常數 ────────────────────────-─┘
+
+  docs/component-spec/*.md  ← 描述性文件,記錄 behavior/a11y 決策
+                              **不是**視覺規格的依據
 ```
 
-## 核心原則
+## 核心原則:Figma 是唯一依據來源
 
-新增或修改一個元件時,永遠先動這兩個地方,再回頭實作:
+視覺上的任何問題——尺寸、間距、圓角、線寬、字級、字重、顏色、層級順序——
+**一律以 Figma 檔案本身為準**,用 Figma MCP 的 `get_design_context` 取得該節點的
+實際 CSS 再實作,不要憑截圖目測,也不要憑 `docs/component-spec/` 的描述。
 
-1. **Design Tokens**(`tokens/design-tokens.json`)——如果需要新的顏色/間距/圓角/字級/陰影/動效數值,先加在這裡。
-2. **Component Spec**(`docs/component-spec/<name>.md`)——先寫清楚這個元件的 Behavior / Interaction / Accessibility / State / Variant / Animation / Token Mapping,不涉及任何平台語法。
+> **為什麼特別強調這件事**:前幾輪稽核吃過虧。spec 是人寫的二手轉述,寫錯了
+> 兩個平台就會一起錯,而且錯得「很一致」所以不容易發現。實際發生過的例子:
+> spec 把 `List / weather` 寫成水平列(Figma 是垂直的一整欄)、把 Bottom Bar 的
+> `2 Buttons` 寫成兩顆按鈕(Figma 是一顆按鈕加一個分頁捷徑)、把 Text Field 的
+> S/M/L/XL 寫成字級(Figma 是寬度)。這些都是照 spec 實作、也「照做了」,
+> 但跟原稿差很遠。
+>
+> `docs/component-spec/` 仍然有用,但它的角色是**記錄行為與無障礙決策**
+> (例如「iOS 上這個元件改用原生控制項」、VoiceOver 要怎麼報讀),
+> 以及跨平台的取捨紀錄——**不是**視覺數值的依據。兩者衝突時,以 Figma 為準,
+> 並回頭修正 spec。
+
+新增或修改一個元件時:
+
+1. **先看 Figma**——用 `get_design_context` 取得目標節點的精確 CSS。
+2. **Design Tokens**(`tokens/design-tokens.json`)——如果需要新的顏色/間距/圓角/字級/陰影/動效數值,先加在這裡。
+3. **兩個平台各自實作**,都對照同一個 Figma 節點,並在程式碼註解裡記下節點 id。
+4. **Component Spec**——補上這次確立的 behavior / a11y 決策。
 
 這兩份東西各自的「同步」機制不一樣,必須先講清楚,才不會誤解成「全自動」:
 

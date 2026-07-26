@@ -113,11 +113,14 @@ const GLYPHS: Record<Icon24Name, JSX.Element> = {
       fill="var(--color-gray-800)"
     />
   ),
-  radio: <circle cx="12" cy="12" r="8" stroke="var(--color-gray-800)" strokeWidth="1.5" fill="none" />,
+  /* Sampling the Figma glyph gives a 20pt ring (1.5pt stroke) with a 12pt
+     centre, both in gray-black — not a 16pt ring with an 8pt centre in
+     gray-800. */
+  radio: <circle cx="12" cy="12" r="9.25" stroke="var(--color-gray-black)" strokeWidth="1.5" fill="none" />,
   "radio-filled": (
     <>
-      <circle cx="12" cy="12" r="8" stroke="var(--color-gray-800)" strokeWidth="1.5" fill="none" />
-      <circle cx="12" cy="12" r="4" fill="var(--color-gray-800)" />
+      <circle cx="12" cy="12" r="9.25" stroke="var(--color-gray-black)" strokeWidth="1.5" fill="none" />
+      <circle cx="12" cy="12" r="6" fill="var(--color-gray-black)" />
     </>
   ),
   gps: (
