@@ -180,7 +180,7 @@ Signal Missing=Most,           Expanded?=No
 但 Figma 是**依 Size** 決定(Large 滿版、Small 包住文字),已改正。
 
 > 這一項也發現 **React 端的 Tertiary Pressing 是錯的**——Figma 有 green-50 底色,
-> React CSS 只改了文字顏色。已在 SwiftUI 註記,React 待修。
+> React CSS 只改了文字顏色。已在 SwiftUI 註記,React 待修。**（已於第七輪 K4a 補上，見下方。）**
 
 ### F2. `Progress Indicator` — 多畫了 Figma 沒有的圓點
 
@@ -195,8 +195,11 @@ Figma 裡根本不存在。已改為依狀態顯示不同內容。
 
 ### F4. `Tab` — 未選取的分頁也有底線
 
-Figma 每個分頁都有底線:未選取是淺色細線,選取是較粗的 green-900。原本只畫
-選取狀態,而且用了 green-800。已補上未選取的細線並改為 green-900。
+Figma 每個分頁都有底線:未選取是淺色細線,選取是較粗的。原本只畫選取狀態。
+已補上未選取的細線。
+
+> **更正(第五輪 I6h)**:這裡當時把作用中底線寫成 green-900,實際上底線是
+> **green-800**、文字才是 green-900。已改正。
 
 ### 附帶發現(非落差)
 
@@ -219,7 +222,7 @@ Figma 每個分頁都有底線:未選取是淺色細線,選取是較粗的 green
 | G3 | `Cards / Tickets` | 缺少 Figma 左緣的**綠色票根色條**;內容順序整個相反(Figma 是 使用期限 → 分隔線 → 景點 → 票種 → 金額);停用態缺少「已使用」標記 | 全部補上並重排 |
 | G4 | `Cards / Saved Items` | Figma 是「標題 + **N 個收藏**」,原本做成標題 + 一顆愛心(設計裡沒有這顆愛心) | 改為收藏數量 |
 | G5 | `Text Field` | 輸入中的外框在 Figma 是**近黑色**,原本用品牌綠——這個元件在設計裡根本沒用到綠色 | 改為 black |
-| G6 | `Radio button` | Figma 畫的是**真正的圓形 radio**(左側圓圈 + 選中填綠點 + 每列分隔線),原本用 `Picker(.inline)`,iOS 會渲染成「右側打勾清單」——是 HIG 慣例,但明顯不是設計稿的控制項 | 改為依照設計繪製,並保留 radio 的無障礙語意 |
+| G6 | `Radio button` | Figma 畫的是**真正的圓形 radio**(左側圓圈 + 每列分隔線),原本用 `Picker(.inline)`,iOS 會渲染成「右側打勾清單」——是 HIG 慣例,但明顯不是設計稿的控制項 | 改為依照設計繪製,並保留 radio 的無障礙語意。**更正(第六/七輪 J2、K3)**:當時是「手繪」圓圈、且把選中的圓點寫成綠色——實際上 Figma 用的是匯出的 `icon / 24px` 向量,環與圓點**都是 gray-black**,不是品牌綠 |
 
 ---
 
@@ -259,7 +262,7 @@ Figma 的字級變數命名會誤導:Chips 與 CheckBox 的標籤引用的是
 
 ### 仍未做細節比對的元件
 
-以下**只做過顏色比對**,尚未逐項核對圓角/間距/字重/陰影:
+以下**只做過顏色比對**,尚未逐項核對圓角/間距/字重/陰影(**已於第五、六輪全部補完**):
 
 `BottomSheet`、`List / weather`、`List / DownloadMap`、`Carousel Indicators`、
 `Segmented Controls`、`Toggle`、`Stepper`、`Navigation Bar`、`Search Bar`、
@@ -359,7 +362,7 @@ UserLocation、WeatherColumn 四組畫面都已對照 Figma 截圖確認。
 電信商時把整列包在 `disabled` 的 `Button` 裡,SwiftUI 會把整列變淡——Figma 的單列
 variant 是全彩的。已改為只有真的可展開時才包 `Button`。
 
-### 這一輪之後仍待處理(不在本次範圍)
+### 這一輪之後仍待處理(不在本次範圍)——**已於第七、八輪處理完畢**
 
 - **`docs/component-spec/` 有四份規格已與 Figma 不符**:`list-weather.md`(寫成
   水平列)、`bottom-bar.md`(把 `2 Buttons` 寫成兩顆按鈕)、`offline-map.md`
@@ -501,6 +504,53 @@ React 的 `RadioButton` 另外還在用 CSS 手繪的圓圈,已改為引用共�
   `text-field`、`radio-button`)。依照新的原則,這些文件不該再描述視覺數值——
   應該改寫成只記錄 behavior / a11y,或直接引用 Figma 節點 id。
 - React `RadioButton` 的 `checked` 沒有搭配 `onChange`(既有問題,非本輪造成)。
+
+---
+
+## L. 第八輪:把歷輪「已記錄但沒修」的項目清乾淨(2026-07-26)
+
+這輪不找新落差,只把前面七輪**寫進文件、但一直沒動手**的東西做完。
+
+### L1. spec 的視覺描述與 Figma 不符(第五~七輪都記過)
+
+依照新原則(視覺以 Figma 為準,spec 只記 behavior / a11y),把有問題的 spec
+逐一改寫,並在檔頭加上該元件的 **Figma node id**,讓下一個人直接去看原稿:
+
+| spec | 原本寫錯的地方 |
+|---|---|
+| `bottom-bar.md` | 把 `2 Buttons` 描述成「兩顆按鈕」。實際是**主要按鈕 + 一個分頁式捷徑**;已加註這是 Figma 的命名陷阱 |
+| `text-field.md` | 把 S/M/L/XL 說成「只改密度」,token 表還列了三種字級。實際是**寬度軸**,四個尺寸的高度與字級完全相同;外框也不是 gray-400 而是 **gray-800** |
+| `radio-button.md` | token 表寫「圓框/選中填色 = green-800、未選 = gray-400」。實際上控制項是匯出的 `icon / 24px` 向量,環與圓點**都是 gray-black**,完全沒有品牌綠 |
+| `offline-map.md` | 描述成「可收合的狀態**卡片**」+ 單一總結色票 + gray-100 明細底。實際是**逐電信商的列堆疊**,每列各自有自己的訊號狀態與顏色,沒有卡片、沒有那些底色 |
+| `progress-indicator.md` | token 表寫「未來步驟 = gray-200」。實際上**已完成與未完成不做區分**,都是 gray-800;連接線也是 gray-800 髮絲線 |
+| `list-weather.md` | 寫成「row/column」語意模糊。實際是**垂直的一整欄**,已明確描述 11 組資料的上下順序 |
+| `card-scene.md` | 描述與 a11y 段都提到「漸層遮罩」——Figma 裡**沒有**這層東西;說明列是四邊內縮的浮動面板 |
+| `card-notification.md` | 未讀點寫 destruct-600,實際是 **destruct-700** |
+| `card-tickets.md` | 分隔線寫 gray-400,實際是 **green-700**(與外框、票根同色) |
+| `tab.md` | 「作用中文字/底線 green-800 / green-900」語意含混,已拆成:底線 **green-800**、文字 **green-900**、未選底線 gray-200 |
+
+### L2. React `RadioButton` 的受控輸入警告
+
+`checked` 有給、`onChange` 沒給,React 會在主控台警告這是一個永遠不會更新的
+受控欄位。只要呈現固定狀態(文件、story)是合理用法,所以改成:沒有給
+`onChange` 時自動帶上 `readOnly`,而不是強迫呼叫端塞一個空函式。已在瀏覽器
+確認 `input.readOnly === true`。
+
+### L3. 歷輪文件的自我矛盾
+
+前面幾輪的結論被後面幾輪推翻,但舊段落沒有更新,讀起來會互相打架。已就地補上
+更正註記:
+
+- **F4**(Tab)當時寫「作用中底線 green-900」→ 底線是 green-800,文字才是 green-900
+- **G6**(Radio)當時寫「選中填綠點」且是手繪 → 是匯出向量,而且是 gray-black
+- **F1** 註記的「React 待修」→ 已於 K4a 補上
+- **H** 章「尚未逐項核對」清單 → 已於第五、六輪補完
+- **I** 章「仍待處理」→ 已於第七、八輪處理完畢
+
+### 目前沒有已知未處理項目
+
+歷輪記錄過的落差全部關閉。刻意的偏離(原生控制項、商標不重製、iOS System
+元件不移植)見 E 章,那些是有記錄的決策,不是待辦。
 
 ---
 

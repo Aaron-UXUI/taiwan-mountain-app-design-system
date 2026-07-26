@@ -1,7 +1,17 @@
 # ListWeather
 
+> **Figma is the source of truth for anything visual.** Node `877:8425`.
+> This document records behaviour and accessibility decisions only.
+
 ## Component Behavior
-A single day's forecast row/column, combining a date, a weather condition icon (see IconWeather), a temperature, and a wider set of supplementary data fields (precipitation rate, UV index, sunrise/sunset, and others — 13 fields total). Purely a data-display surface.
+A single day's forecast as a **vertical column**, meant to be laid out side by
+side with other days in a horizontally scrolling strip. Top to bottom: the
+condition glyph (see IconWeather), then date + weekday, temperature, apparent
+temperature, precipitation rate, UV index + UV level, sunrise, sunset,
+humidity, wind speed and wind direction. Purely a data-display surface.
+
+> Despite the "List" name this is not a horizontal row. An earlier SwiftUI
+> port read it as one (date · glyph · temperature) and shipped 3 of the fields.
 
 ## Interaction
 None — read-only forecast display; if part of a tappable day-selector, that behavior is external to this component.
@@ -14,7 +24,7 @@ None — read-only forecast display; if part of a tappable day-selector, that be
 None.
 
 ## Variant
-No variant axis — content-driven (which of the 13 fields are populated varies by data availability).
+No variant axis — content-driven (which fields are populated varies by data availability).
 
 ## Animation
 None.

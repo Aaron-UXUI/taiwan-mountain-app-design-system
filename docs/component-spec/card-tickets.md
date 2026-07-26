@@ -27,7 +27,7 @@ None.
 |---|---|
 | Card fill | `color.gray-white` |
 | Corner radius | `radius.m` |
-| Divider | `radius.xxs`, `color.gray-400` |
+| Divider / border / ticket stub | `color.primary.green-700` (all three share one colour); `color.gray-400` throughout when disabled |
 | Price/emphasis text | `color.primary.green-700` / `green-800` |
 | Body text | `color.gray-800` / `color.gray-black` |
 | Typography | `typography.body-m` / `body-s`, `font-weight.regular` / `semibold` |

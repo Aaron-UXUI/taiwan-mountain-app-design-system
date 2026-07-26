@@ -24,7 +24,7 @@ None.
 |---|---|
 | Card fill | `color.gray-white` |
 | Divider | `color.gray-200` |
-| Unread badge | `color.semantic.destruct-600` |
+| Unread badge | `color.semantic.destruct-700` — the same fill as every other notification badge |
 | Headline text | `color.gray-black`, `font-weight.semibold` |
 | Body text | `color.gray-800`, `font-weight.regular` |
 | Corner radius | `radius.s` / `radius.rounded` (badge) |

@@ -29,7 +29,9 @@ None defined at the individual Tab level (a shared active-indicator slide, if pr
 ## Token Mapping
 | Role | Token |
 |---|---|
-| Active text/underline | `color.primary.green-800` / `green-900` |
+| Active underline | `color.primary.green-800` |
+| Active label | `color.primary.green-900` |
+| Inactive underline | `color.gray-200` — every tab is underlined, not just the active one |
 | Inactive text | `color.gray-800` |
 | Disabled-adjacent tone | `color.gray-200` |
 | Badge (error-adjacent use) | `color.semantic.destruct-700` |

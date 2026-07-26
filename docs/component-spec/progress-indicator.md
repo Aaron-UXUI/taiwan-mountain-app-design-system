@@ -1,7 +1,10 @@
 # ProgressIndicator
 
+> **Figma is the source of truth for anything visual.** Node `1274:20052`.
+> This document records behaviour and accessibility decisions only.
+
 ## Component Behavior
-A three-step progress readout (e.g. Choice → Method → Info in a checkout flow) showing which step of a fixed sequence the user currently occupies, with labels for each step.
+A three-step progress readout (選擇票券 → 付款方式 → 付款資訊 in the checkout flow) showing which step of a fixed sequence the user currently occupies, with labels for each step. Steps are joined by plain rules — there are no status dots, and completed steps are not styled differently from upcoming ones.
 
 ## Interaction
 None in the base component — it is a status readout; if steps are made tappable to jump back, that behavior belongs to the containing flow, not to ProgressIndicator itself.
@@ -26,8 +29,8 @@ None defined — the connecting-line/step emphasis updates instantly as the curr
 ## Token Mapping
 | Role | Token |
 |---|---|
-| Completed/current step | `color.primary.green-900` |
-| Upcoming step | `color.gray-200` |
-| Text | `color.gray-800` |
-| Typography | `typography.body-m`, `font-weight.regular` / `semibold` |
-| Spacing | `spacing.lm`, `spacing.sm`, `spacing.xs` |
+| Current step | `color.primary.green-900`, `font-weight.semibold` |
+| Every other step (completed **and** upcoming — they are not distinguished) | `color.gray-800`, `font-weight.regular` |
+| Connecting rule | `color.gray-800` at a hairline weight — not a light grey line |
+| Typography | `typography.body-m` |
+| Spacing | `spacing.lm` (horizontal), `spacing.sm` (vertical) |
