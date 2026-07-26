@@ -15,3 +15,17 @@ enum DSPlatform {
         #endif
     }
 }
+
+public extension View {
+    /// Pins the navigation title inline — centred and compact, matching Figma's
+    /// 48pt App Bar rather than iOS's large-title default. `navigationBarTitleDisplayMode`
+    /// is iOS-only, so it is behind the same platform fence as `toolbarTrailing`.
+    @ViewBuilder
+    func dsInlineTitle() -> some View {
+        #if os(iOS)
+        self.navigationBarTitleDisplayMode(.inline)
+        #else
+        self
+        #endif
+    }
+}

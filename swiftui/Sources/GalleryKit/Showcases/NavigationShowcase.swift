@@ -60,7 +60,10 @@ struct NavigationShowcase: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .overlay(RoundedRectangle(cornerRadius: 8).strokeBorder(.secondary.opacity(0.2)))
                 }
-                GallerySection(title: "SearchBar (.searchable)") {
+                GallerySection(title: "SearchBar — Figma component") {
+                    DSSearchBar(text: $searchText, onMicrophoneTap: {}, onFilterTap: {})
+                }
+                GallerySection(title: "SearchBar — system .searchable") {
                     NavigationStack {
                         List(1..<4) { i in Text("結果 \(i)") }
                             .dsSearchable(text: $searchText, historyItems: ["陽明山", "擎天崗"], suggestionItems: ["陽明山國家公園"])

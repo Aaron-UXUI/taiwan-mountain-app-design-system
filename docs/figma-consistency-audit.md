@@ -759,6 +759,82 @@ Dynamic Type 也照常運作。`DSNotificationSettingRow` 用的是同一個 Fig
 
 ---
 
+## Q. 第十三輪:三個原生控制項改為自繪,並判斷另外兩個(2026-07-26)
+
+### Q1. `Segmented Controls` 依設計端決定改為自繪(SwiftUI)
+
+Figma:gray-50 軌道(radius 8)+ **green-800** 實心指示器(radius 8、Elevation/1、
+內縮 2pt)+ **白字**;未選取是 gray-800 字。原生控制項剛好相反(白色指示器 +
+深色字),所以整塊顏色是反的。已依 Figma 自繪。
+
+選取行為仍是原生語意:透過 `accessibilityRepresentation` 投影一個真正的
+`Picker`,VoiceOver 報讀為「選擇器 + 目前值」而不是兩顆獨立按鈕;指示器用
+`matchedGeometryEffect` 滑動(與 `DSTabBar` 同一手法)。
+
+### Q2. `Stepper` — 驗過之後判斷:**應該自繪**
+
+Figma 是**一個帶外框的膠囊**,裡面依序是 [− 48pt][數值 48pt][+ 48pt]:
+
+```
+外框 radius 12 — Default/0: 1pt gray-200;Error: 2pt destruct-600;Disabled: 1pt gray-100
+數值 SF Mono Semibold / Headline/4(16pt),Disabled 時 gray-200
+錯誤訊息在下方:16pt 警告圖示 + destruct-700 12pt 文字,gap 4
+```
+
+原生 `Stepper` 把數值放在控制項**外面**,只給一組小的 −/+ ——這是**結構差異**,
+不只是配色,所以自繪。無障礙契約維持原生:整個控制項投影一個真正的 `Stepper`,
+VoiceOver 依舊當成可調整的值(上下滑動改變)。
+
+順帶解決了 C1:Figma 的 `State=0` 不需要是一個具名狀態,它就是「數值等於範圍
+下界、減號自動停用」的樣子,從範圍判斷自然得出。
+
+### Q3. `Search Bar` — 驗過之後判斷:**應該自繪**
+
+Figma 的搜尋列**不是**系統搜尋框,而是放在頁面內容裡的組合控制項:
+
+```
+48pt 白色欄位,1pt gray-200 外框,radius 12,Elevation/3,左內距 12、右 0
+內含 20pt 放大鏡 + 查詢文字(Label/L 16pt,placeholder gray-400)+ 48pt 麥克風鈕
+旁邊還有一個**獨立的** 48pt 篩選鈕(同樣白底、外框、radius 12、Elevation/3),gap 8
+```
+
+`.searchable` 表達不出來:它畫在導覽列裡的灰色膠囊,容不下麥克風鈕,也沒有
+並排的兄弟控制項。原本的作法是叫呼叫端「把篩選放到 toolbar」——那等於把它挪到
+畫面上完全不同的位置。已新增 `DSSearchBar` 作為 Figma 元件的實作;
+`dsSearchable` 保留給真的想要**系統**搜尋行為(可滾動顯示、Cancel)的情境,
+並在註解裡說明兩者何時用哪個。
+
+### Q4. `App Bar` — 驗過之後判斷:**維持原生**
+
+Figma 是 48pt 白色列 + **置中 16pt Regular** 標題;iOS 是 44pt + 17pt Semibold。
+差距不大,而為了這點差距換掉導覽列,要放棄:跟真實導覽深度連動的返回鈕、
+邊緣滑回手勢、大標題收合、toolbar 的安全區處理——**行為代價遠大於視覺收益**。
+
+改為用便宜的方式縮小差距:標題釘成 inline(置中、精簡,與 Figma 一致),
+toolbar 按鈕改用品牌自己的 24pt 圖示而非 SF Symbol。
+
+另外修掉兩個與原生無關的純錯誤:`ProfileInfo` 的頭像應為 **48pt**(原本 32)、
+姓名應為 **14pt**(原本 16),間距 16。
+
+### Q5. 本輪確認**沒有**落差的元件
+
+| 元件 | 結果 |
+|---|---|
+| `Link` | 兩邊都對(yellow-700、Label/M 14pt Semibold) |
+| `Segmented Controls` | React ✅ |
+| `Stepper` | React ✅(本來就照 Figma 自繪,含 `State=0`) |
+| `Search Bar` | React ✅ |
+
+### 仍未用精確 CSS 驗過(6 個)
+
+`Accordion / Chips`、`Spinner / On White`、`Spinner / On Dark`、
+`Motion / Transaction`、`Motion / Success`、`Bottom Sheet` 的 `Filter_Discover`。
+
+其餘刻意不逐像素對的:`Logo` / `Logos`(不重製商標)、六組 icon set
+(圖檔本身是從 Figma 抽的真實向量)、`iOS System` 四件。
+
+---
+
 ## E. 補充說明:刻意的偏離(非落差)
 
 以下項目與 Figma 不同,但都是有記錄的平台決策,不列為落差:
