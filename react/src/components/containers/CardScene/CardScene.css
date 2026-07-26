@@ -22,8 +22,17 @@
   object-fit: cover;
 }
 
-/* Figma's Picture frame holds only the image, the floating caption panel and
-   the status labels — there is no gradient scrim over the photo. */
+/* The scrim is part of the image node's fill stack in Figma, so it only shows
+   up in generated CSS for nodes that actually carry a photo — every Cards/Scene
+   instance in Filter_MapSearch (4685:53295) has it, while the empty standalone
+   component (374:3819) does not. Reading the component alone is what made an
+   earlier pass delete this. */
+.tmads-card-scene__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.83%, rgba(0, 0, 0, 1) 100%);
+}
 
 .tmads-card-scene__status {
   position: absolute;

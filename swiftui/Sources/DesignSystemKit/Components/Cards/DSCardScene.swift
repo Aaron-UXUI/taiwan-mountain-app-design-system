@@ -72,6 +72,22 @@ public struct DSCardScene: View {
                 Rectangle().fill(DSColor.gray200)
             }
         }
+        // Figma darkens the bottom third of the photo so the white caption
+        // keeps its contrast over a light or busy image. The scrim lives in
+        // the image node's *fill stack*, so it is missing from the generated
+        // CSS of the empty standalone component and only appears on instances
+        // that carry a photo — which is why an earlier pass concluded it did
+        // not exist. Confirmed on all six instances in Filter_MapSearch.
+        .overlay {
+            LinearGradient(
+                stops: [
+                    .init(color: .clear, location: 0.6683),
+                    .init(color: .black, location: 1)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        }
         .accessibilityHidden(true)
     }
 

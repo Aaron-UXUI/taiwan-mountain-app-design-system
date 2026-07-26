@@ -448,14 +448,18 @@ Cards/SavedItems 的 70pt 拼貼、List/weather 的垂直天氣欄、Text Field 
 這也反過來說明一件事:**兩個平台實作分歧的地方,就是至少有一邊錯了的地方**。
 這輪就是用這個方法找出剩下的落差。
 
-### K1. `Cards / Scene` 的漸層遮罩:Figma 裡根本沒有 ⚠️
+### K1. `Cards / Scene` 的漸層遮罩 — ❌ **這一項當時判斷錯誤,已於第十輪推翻**
 
-React 有一層 `linear-gradient(180deg, transparent 66.83%, black 100%)` 的
-scrim。重新取 Figma 的 Picture frame,裡面**只有**三個子節點:照片、浮動說明
-面板、狀態標籤——沒有任何漸層。已從 React 移除。
+> **這段結論是錯的,保留原文供追溯。實際上漸層遮罩存在。**
+> 見下方 N1。
 
-(第三輪 G1 曾說「多加了一層漸層遮罩」,那句是對的;但同一輪又把內縮與圓角
-一起拿掉,那半句是錯的,已於第五輪 I1 修回。)
+當時的(錯誤)結論:React 有一層
+`linear-gradient(180deg, transparent 66.83%, black 100%)` 的 scrim,而重新取
+Figma 的 Picture frame,裡面只有照片、浮動說明面板、狀態標籤三個子節點,
+沒有漸層,所以把它從 React 移除了。
+
+錯在**只看了空的元件本體**(374:3819)。那個節點沒有掛照片,漸層是照片節點
+**fill stack 的一層**,沒有 fill 就不會出現在產生的 CSS 裡。
 
 ### K2. 兩邊對不上、用取色決勝負的三處
 
@@ -615,6 +619,46 @@ LocationPin 四種組合、TabBar 徽章位置、Button 陰影,與 Figma 算圖�
 `Bottom Sheet` 的 Filter_Discover / Filter_MapSearch 兩個變體、
 `iOS System` 四件(未移植)。以及 SwiftUI 刻意改用原生控制項的六個
 (見 E 章),那些不逐像素對齊是已記錄的決策。
+
+---
+
+## N. 第十輪:推翻 K1,補回 `Cards / Scene` 的漸層遮罩(2026-07-26)
+
+### N1. 我在第七輪刪錯了東西 ⚠️
+
+第七輪(K1)判定「Figma 沒有漸層遮罩」,把 React 的 scrim 移除。**這是錯的。**
+
+發現方式:準備開 PR 前比對 `main`,看到上面有一個更早的 commit
+`1b18db1 Fix CardScene: photo darkening scrim, badge blur, save icon...`——
+也就是先前有人**特地把這層遮罩加上去**,而我把它刪了。那個 commit 的訊息寫明
+它比對的是 **`Filter_MapSearch` 裡的 Cards/Scene 實例(4685:53295)**,
+跟我看的**元件本體(374:3819)**不是同一個節點。
+
+實際去取 4685:53295,六個 Cards/Scene 實例**每一個**都有:
+
+```html
+<div class="absolute bg-gradient-to-b from-[66.827%] from-[rgba(0,0,0,0)] inset-0 to-black" />
+```
+
+算圖上也看得很清楚,照片下緣明顯壓暗。
+
+**為什麼元件本體看不到**:漸層是照片節點 fill stack 裡的一層,不是獨立的子
+節點。元件本體那個 `image` 節點沒有掛照片,沒有 fill 就不會產生對應的 CSS,
+所以輸出裡只剩一個空的 `<div>`。**空的元件本體會漏掉 fill 層級的樣式。**
+
+處置:
+- React 的 scrim **加回來**。
+- SwiftUI **補上**(第三輪 G1 移除之後,一直沒人加回去,所以 SwiftUI 從頭到尾
+  都缺這層)。
+
+### 這件事的教訓(比這個 bug 本身重要)
+
+1. **「元件本體沒有」不等於「設計裡沒有」。** 空狀態的元件會漏掉 fill、
+   effect 這類掛在節點屬性上的東西。要判斷「某個效果不存在」,必須去看**有實
+   際內容的實例**,不能只看元件本體。
+2. **刪東西前先看 git log。** 這層遮罩是先前特地加上的,commit 訊息裡就寫了
+   它比對的節點。我如果在動手前查過,就不會刪。移除既有的、有人刻意加上的
+   東西,要比新增更謹慎。
 
 ---
 
