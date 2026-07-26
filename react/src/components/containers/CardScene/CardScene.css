@@ -1,0 +1,146 @@
+.tmads-card-scene {
+  width: 100%;
+  max-width: 400px;
+  flex-shrink: 0;
+  border-radius: var(--radius-m);
+  background-color: var(--color-gray-white);
+  overflow: hidden;
+  font-family: var(--typeface-pingfang-tc);
+}
+
+.tmads-card-scene__picture {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 327 / 236;
+}
+
+.tmads-card-scene__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The scrim is part of the image node's fill stack in Figma, so it only shows
+   up in generated CSS for nodes that actually carry a photo — every Cards/Scene
+   instance in Filter_MapSearch (4685:53295) has it, while the empty standalone
+   component (374:3819) does not. Reading the component alone is what made an
+   earlier pass delete this. */
+.tmads-card-scene__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.83%, rgba(0, 0, 0, 1) 100%);
+}
+
+.tmads-card-scene__status {
+  position: absolute;
+  top: var(--spacing-s);
+  right: var(--spacing-s);
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-xxs);
+  background-color: var(--color-primary-green-900);
+  opacity: 0.95;
+  backdrop-filter: blur(12px);
+  color: var(--color-gray-white);
+  font-size: var(--type-scale-body-s);
+  line-height: var(--line-height-body-s);
+  white-space: nowrap;
+}
+
+.tmads-card-scene__family-label {
+  position: absolute;
+  top: 38px;
+  right: var(--spacing-s);
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-xxs);
+  background-color: var(--color-accent-yellow-900);
+  opacity: 0.95;
+  backdrop-filter: blur(12px);
+  color: var(--color-gray-white);
+  font-size: var(--type-scale-body-s);
+  line-height: var(--line-height-body-s);
+  white-space: nowrap;
+}
+
+.tmads-card-scene__content {
+  position: absolute;
+  left: var(--spacing-s);
+  right: var(--spacing-s);
+  bottom: var(--spacing-s);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-s);
+  border-radius: var(--radius-s);
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+}
+
+.tmads-card-scene__text {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-s);
+}
+
+.tmads-card-scene__title {
+  margin: 0;
+  color: var(--color-gray-white);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--type-scale-headline-3);
+  line-height: var(--line-height-h3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tmads-card-scene__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s);
+  color: var(--color-gray-white);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-body-s);
+  line-height: var(--line-height-body-s);
+}
+
+.tmads-card-scene__location {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tmads-card-scene__distance {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  white-space: nowrap;
+}
+
+.tmads-card-scene__divider {
+  width: 4px;
+  height: 4px;
+  border-radius: var(--radius-rounded);
+  background-color: var(--color-gray-white);
+}
+
+.tmads-card-scene__save {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  padding: var(--spacing-sm);
+  background: none;
+  border: none;
+  color: var(--color-gray-white);
+  cursor: pointer;
+}
+
+.tmads-card-scene__save svg {
+  width: 24px;
+  height: 24px;
+}

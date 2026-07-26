@@ -1,0 +1,34 @@
+.tmads-snackbar {
+  display: flex;
+  align-items: center;
+  width: 344px;
+  min-height: 68px;
+  /* Figma: 16pt leading, 10pt vertical, no trailing padding — the close
+     button supplies its own 12pt. */
+  padding: 10px 0 10px var(--spacing-m);
+  border-radius: var(--radius-xxs);
+  background-color: var(--color-gray-800);
+  box-shadow: var(--elevation-3);
+}
+
+.tmads-snackbar__label {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--typeface-pingfang-tc);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--type-scale-body-m);
+  line-height: var(--line-height-body-m);
+  color: var(--color-gray-white);
+}
+
+.tmads-snackbar__close {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}

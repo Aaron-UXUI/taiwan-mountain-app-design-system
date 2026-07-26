@@ -1,60 +1,147 @@
 {
   "spacing": {
-    "0": { "value": 0 },
-    "xs": { "value": 4 },
-    "s": { "value": 8 },
-    "sm": { "value": 12 },
-    "m": { "value": 16 },
-    "lm": { "value": 24 },
-    "L": { "value": 32 },
-    "XL": { "value": 40 },
-    "2XL": { "value": 48 },
-    "3XL": { "value": 56 },
-    "4XL": { "value": 64 }
+    "0": { "value": 0, "cssVar": "--spacing-0", "swiftName": "none" },
+    "xs": { "value": 4, "cssVar": "--spacing-xs", "swiftName": "xs" },
+    "s": { "value": 8, "cssVar": "--spacing-s", "swiftName": "s" },
+    "sm": { "value": 12, "cssVar": "--spacing-sm", "swiftName": "sm" },
+    "m": { "value": 16, "cssVar": "--spacing-m", "swiftName": "m" },
+    "lm": { "value": 24, "cssVar": "--spacing-lm", "swiftName": "lm" },
+    "L": { "value": 32, "cssVar": "--spacing-l", "swiftName": "l" },
+    "XL": { "value": 40, "cssVar": "--spacing-xl", "swiftName": "xl" },
+    "2XL": { "value": 48, "cssVar": "--spacing-2xl", "swiftName": "xl2" },
+    "3XL": { "value": 56, "cssVar": "--spacing-3xl", "swiftName": "xl3" },
+    "4XL": { "value": 64, "cssVar": "--spacing-4xl", "swiftName": "xl4" }
   },
   "radius": {
-    "none": { "value": 0 },
-    "xxs": { "value": 4 },
-    "xs": { "value": 8 },
-    "s": { "value": 12 },
-    "m": { "value": 16 },
-    "rounded": { "value": 9999, "note": "Figma 裡是「Radius/rounded」，實際數值請在 Figma 裡確認（通常代表 pill / 全圓角）" }
+    "none": { "value": 0, "cssVar": "--radius-none", "swiftName": "none" },
+    "xxs": { "value": 4, "cssVar": "--radius-xxs", "swiftName": "xxs" },
+    "xs": { "value": 8, "cssVar": "--radius-xs", "swiftName": "xs" },
+    "s": { "value": 12, "cssVar": "--radius-s", "swiftName": "s" },
+    "m": { "value": 16, "cssVar": "--radius-m", "swiftName": "m" },
+    "rounded": {
+      "value": 9999,
+      "cssVar": "--radius-rounded",
+      "swiftName": null,
+      "swiftNote": "Intentionally not exposed as a Swift CGFloat constant — use Capsule()/.clipShape(Capsule()) for a fully-rounded shape at any size instead of an arbitrarily large corner radius.",
+      "note": "Figma 裡是「Radius/rounded」，實際數值請在 Figma 裡確認（通常代表 pill / 全圓角）"
+    }
   },
   "color": {
     "primary": {
-      "green-50": { "value": "#ECF0E4", "figmaName": "Primary Color/Green-50" },
-      "green-100": { "value": "#D6E0C3", "figmaName": "Primary Color/Green-100" },
-      "green-700": { "value": "#5C6647", "figmaName": "Primary Color/Green-700" },
-      "green-800": { "value": "#464F34", "figmaName": "Primary Color/Green-800" },
-      "green-900": { "value": "#343C25", "figmaName": "Primary Color/Green-900" }
+      "green-50": { "value": "#ECF0E4", "figmaName": "Primary Color/Green-50", "cssVar": "--color-primary-green-50", "swiftName": "primaryGreen50" },
+      "green-100": { "value": "#D6E0C3", "figmaName": "Primary Color/Green-100", "cssVar": "--color-primary-green-100", "swiftName": "primaryGreen100" },
+      "green-700": { "value": "#5C6647", "figmaName": "Primary Color/Green-700", "cssVar": "--color-primary-green-700", "swiftName": "primaryGreen700" },
+      "green-800": { "value": "#464F34", "figmaName": "Primary Color/Green-800", "cssVar": "--color-primary-green-800", "swiftName": "primaryGreen800" },
+      "green-900": { "value": "#343C25", "figmaName": "Primary Color/Green-900", "cssVar": "--color-primary-green-900", "swiftName": "primaryGreen900" }
     },
     "accent": {
-      "yellow-50": { "value": "#FFF19C", "figmaName": "Accent Color/Yellow-50" },
-      "yellow-100": { "value": "#FFD966", "figmaName": "Accent Color/Yellow-100" },
-      "yellow-700": { "value": "#695400", "figmaName": "Accent Color/Yellow-700" },
-      "yellow-900": { "value": "#493700", "figmaName": "Accent Color/Yellow-900" }
+      "yellow-50": { "value": "#FFF19C", "figmaName": "Accent Color/Yellow-50", "cssVar": "--color-accent-yellow-50", "swiftName": "accentYellow50" },
+      "yellow-100": { "value": "#FFD966", "figmaName": "Accent Color/Yellow-100", "cssVar": "--color-accent-yellow-100", "swiftName": "accentYellow100" },
+      "yellow-700": { "value": "#695400", "figmaName": "Accent Color/Yellow-700", "cssVar": "--color-accent-yellow-700", "swiftName": "accentYellow700" },
+      "yellow-900": { "value": "#493700", "figmaName": "Accent Color/Yellow-900", "cssVar": "--color-accent-yellow-900", "swiftName": "accentYellow900" }
     },
     "semantic": {
-      "info-600": { "value": "#006AD1", "figmaName": "Semantic Color/Info-600" },
-      "info-700": { "value": "#0051B8", "figmaName": "Semantic Color/Info-700" },
-      "success-600": { "value": "#467800", "figmaName": "Semantic Color/Success-600" },
-      "success-700": { "value": "#396100", "figmaName": "Semantic Color/Success-700" },
-      "destruct-600": { "value": "#CF0000", "figmaName": "Semantic Color/Destruct-600" },
-      "destruct-700": { "value": "#B20000", "figmaName": "Semantic Color/Destruct-700" }
+      "info-600": { "value": "#006AD1", "figmaName": "Semantic Color/Info-600", "cssVar": "--color-semantic-info-600", "swiftName": "info600" },
+      "info-700": { "value": "#0051B8", "figmaName": "Semantic Color/Info-700", "cssVar": "--color-semantic-info-700", "swiftName": "info700" },
+      "success-600": { "value": "#467800", "figmaName": "Semantic Color/Success-600", "cssVar": "--color-semantic-success-600", "swiftName": "success600" },
+      "success-700": { "value": "#396100", "figmaName": "Semantic Color/Success-700", "cssVar": "--color-semantic-success-700", "swiftName": "success700" },
+      "destruct-600": { "value": "#CF0000", "figmaName": "Semantic Color/Destruct-600", "cssVar": "--color-semantic-destruct-600", "swiftName": "destruct600" },
+      "destruct-700": { "value": "#B20000", "figmaName": "Semantic Color/Destruct-700", "cssVar": "--color-semantic-destruct-700", "swiftName": "destruct700" }
     },
     "gray": {
-      "black": { "value": "#1D1F1B", "figmaName": "Gray Scale/Black" },
-      "white": { "value": "#FDFDFC", "figmaName": "Gray Scale/White" },
-      "gray-50": { "value": "#F3F5EE", "figmaName": "Gray Scale/Gray-50" },
-      "gray-100": { "value": "#DBDED5", "figmaName": "Gray Scale/Gray-100" },
-      "gray-200": { "value": "#C5C8BE", "figmaName": "Gray Scale/Gray-200" },
-      "gray-400": { "value": "#989C91", "figmaName": "Gray Scale/Gray-400" },
-      "gray-800": { "value": "#494C44", "figmaName": "Gray Scale/Gray-800" }
+      "black": { "value": "#1D1F1B", "figmaName": "Gray Scale/Black", "cssVar": "--color-gray-black", "swiftName": "black" },
+      "white": { "value": "#FDFDFC", "figmaName": "Gray Scale/White", "cssVar": "--color-gray-white", "swiftName": "white" },
+      "gray-50": { "value": "#F3F5EE", "figmaName": "Gray Scale/Gray-50", "cssVar": "--color-gray-50", "swiftName": "gray50" },
+      "gray-100": { "value": "#DBDED5", "figmaName": "Gray Scale/Gray-100", "cssVar": "--color-gray-100", "swiftName": "gray100" },
+      "gray-200": { "value": "#C5C8BE", "figmaName": "Gray Scale/Gray-200", "cssVar": "--color-gray-200", "swiftName": "gray200" },
+      "gray-400": { "value": "#989C91", "figmaName": "Gray Scale/Gray-400", "cssVar": "--color-gray-400", "swiftName": "gray400" },
+      "gray-800": { "value": "#494C44", "figmaName": "Gray Scale/Gray-800", "cssVar": "--color-gray-800", "swiftName": "gray800" }
     }
+  },
+  "typeface": {
+    "pingfang-tc": { "value": "\"PingFang TC\", \"Noto Sans TC\", sans-serif", "cssVar": "--typeface-pingfang-tc" },
+    "sf-mono": { "value": "\"SF Mono\", ui-monospace, \"Menlo\", monospace", "cssVar": "--typeface-sf-mono" }
+  },
+  "fontWeight": {
+    "regular": { "value": 400, "cssVar": "--font-weight-regular" },
+    "semibold": { "value": 600, "cssVar": "--font-weight-semibold" }
+  },
+  "typography": {
+    "_comment": "size/lineHeight in px. weight/family are keys into fontWeight/typeface above. swiftRelativeTo is the built-in Font.TextStyle each size scales relative to via @ScaledMetric on the SwiftUI side — see swiftui/README.md.",
+    "headline1": {
+      "size": 40, "lineHeight": 56, "weight": "regular", "family": "pingfang-tc",
+      "cssSizeVar": "--type-scale-headline-1", "cssLineHeightVar": "--line-height-h1",
+      "swiftName": "headline1", "swiftRelativeTo": "largeTitle",
+      "note": "Figma Style Guide 本身標記 Regular/2% letter-spacing，跟 H2–H4（皆 Semibold/0%）不一致，疑似文件錯誤，忠實保留而非逕自修正"
+    },
+    "headline2": { "size": 24, "lineHeight": 36, "weight": "semibold", "family": "pingfang-tc", "cssSizeVar": "--type-scale-headline-2", "cssLineHeightVar": "--line-height-h2", "swiftName": "headline2", "swiftRelativeTo": "title" },
+    "headline3": { "size": 20, "lineHeight": 30, "weight": "semibold", "family": "pingfang-tc", "cssSizeVar": "--type-scale-headline-3", "cssLineHeightVar": "--line-height-h3", "swiftName": "headline3", "swiftRelativeTo": "title2" },
+    "headline4": { "size": 16, "lineHeight": 24, "weight": "semibold", "family": "pingfang-tc", "cssSizeVar": "--type-scale-headline-4", "cssLineHeightVar": "--line-height-h4", "swiftName": "headline4", "swiftRelativeTo": "headline" },
+    "bodyL": { "size": 16, "lineHeight": 24, "weight": "regular", "family": "pingfang-tc", "cssSizeVar": "--type-scale-body-l", "cssLineHeightVar": "--line-height-body-l", "swiftName": "bodyL", "swiftRelativeTo": "body" },
+    "bodyM": { "size": 14, "lineHeight": 20, "weight": "regular", "family": "pingfang-tc", "cssSizeVar": "--type-scale-body-m", "cssLineHeightVar": "--line-height-body-m", "swiftName": "bodyM", "swiftRelativeTo": "subheadline" },
+    "bodyS": { "size": 12, "lineHeight": 18, "weight": "regular", "family": "pingfang-tc", "cssSizeVar": "--type-scale-body-s", "cssLineHeightVar": "--line-height-body-s", "swiftName": "bodyS", "swiftRelativeTo": "footnote" },
+    "labelM": { "size": 14, "lineHeight": 20, "weight": "semibold", "family": "pingfang-tc", "cssSizeVar": "--type-scale-label-m", "cssLineHeightVar": "--line-height-label-m", "swiftName": "labelM", "swiftRelativeTo": "subheadline" },
+    "labelS": { "size": 12, "lineHeight": 18, "weight": "semibold", "family": "pingfang-tc", "cssSizeVar": "--type-scale-label-s", "cssLineHeightVar": "--line-height-label-s", "swiftName": "labelS", "swiftRelativeTo": "caption" },
+    "numberL": {
+      "size": 16, "lineHeight": 24, "weight": "semibold", "family": "sf-mono",
+      "cssSizeVar": "--type-scale-number-l", "cssLineHeightVar": "--line-height-number",
+      "swiftName": "numberL", "swiftRelativeTo": "body",
+      "note": "Number/L 與 Number/M 數值完全相同，只有粗細不同，疑似複製貼上遺漏更新，忠實保留"
+    },
+    "numberM": { "size": 16, "lineHeight": 24, "weight": "regular", "family": "sf-mono", "cssSizeVar": "--type-scale-number-m", "cssLineHeightVar": "--line-height-number", "swiftName": "numberM", "swiftRelativeTo": "body" }
+  },
+  "elevation": {
+    "_comment": "css is the literal box-shadow shorthand (may reference color tokens via var()). swiftLayers approximates the same shadow as one or more native SwiftUI .shadow() layers — colorRef keys into the swiftColorRefs lookup in tokens/build-tokens.mjs.",
+    "level1": {
+      "css": "0 1px 2px 0 var(--color-gray-100)",
+      "swiftName": "level1",
+      "swiftLayers": [{ "colorRef": "gray100", "radius": 1, "x": 0, "y": 1 }]
+    },
+    "level2": {
+      "css": "0 1px 4px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.08)",
+      "swiftName": "level2",
+      "swiftLayers": [
+        { "colorRef": "black8", "radius": 4, "x": 0, "y": 1 },
+        { "colorRef": "black8", "radius": 8, "x": 0, "y": 2 }
+      ]
+    },
+    "level3": {
+      "css": "0 2px 1px rgba(0, 0, 0, 0.12), 0 2px 12px rgba(0, 0, 0, 0.12)",
+      "swiftName": "level3",
+      "swiftLayers": [
+        { "colorRef": "black12", "radius": 1, "x": 0, "y": 2 },
+        { "colorRef": "black12", "radius": 12, "x": 0, "y": 2 }
+      ]
+    },
+    "level4": {
+      "css": "0 6px 20px rgba(0, 0, 0, 0.12)",
+      "swiftName": "level4",
+      "swiftLayers": [{ "colorRef": "black12", "radius": 20, "x": 0, "y": 6 }]
+    },
+    "level5": {
+      "css": "0 8px 32px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.12)",
+      "swiftName": "level5",
+      "swiftLayers": [
+        { "colorRef": "black16", "radius": 32, "x": 0, "y": 8 },
+        { "colorRef": "black12", "radius": 4, "x": 0, "y": 2 }
+      ]
+    }
+  },
+  "motion": {
+    "_comment": "durations in seconds. No formal easing-curve token system beyond 'ease' exists yet — see DESIGN_SYSTEM_ANALYSIS.md Motion section.",
+    "quick": { "duration": 0.1, "easing": "ease", "swiftName": "quick", "note": "Button press/hover feedback" },
+    "standard": { "duration": 0.15, "easing": "ease", "swiftName": "standard", "note": "Selection / expand-collapse transitions — the de-facto standard timing reused by six components" }
   },
   "_meta": {
     "source": "Figma 檔案 nXFkT45U8mDzUK5rUfL0eK，library「【設計】台灣山林 App」",
     "colorSource": "color 數值來自使用者用 Figma 外掛匯出的 Mode 1.tokens.json（W3C Design Tokens 格式）",
-    "completeness": "spacing、radius、color 三組現在都是完整實際數值。若 Color collection 還有其他 mode（例如 Dark），需要另外匯出該 mode 的 json 再併進來。元件清單仍只是抽樣，見 components-inventory.md。"
+    "typographyElevationSource": "typography / elevation 數值來自 Figma 檔案內建的「🔶 Design System」→ Style Guide → Typography / Elevation 文件 frame（node 12948:43690 / 12948:43756），非個別元件實例",
+    "completeness": "spacing、radius、color、typography、elevation、motion 六大類現在都是這個檔案的正式來源（single source of truth）。若 Color collection 還有其他 mode（例如 Dark），需要另外匯出該 mode 的 json 再併進 color 區塊，並在 cssVar/swiftName 之外新增對應的 dark 輸出。",
+    "generatedOutputs": [
+      "tokens/design-tokens.css",
+      "react/src/tokens.css",
+      "swiftui/Sources/DesignSystemKit/Tokens/Generated/*.swift"
+    ],
+    "generator": "node tokens/build-tokens.mjs — see docs/workflow.md"
   }
 }

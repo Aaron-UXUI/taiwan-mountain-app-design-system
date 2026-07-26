@@ -1,0 +1,57 @@
+@import "../../tokens/design-tokens.css";
+
+/* GENERATED FILE — do not edit by hand.
+ * Source of truth: tokens/design-tokens.json
+ * Regenerate with: npm run tokens:build (node tokens/build-tokens.mjs)
+ */
+
+/*
+ * Typography + Elevation tokens — canonical values pulled from the Figma file's
+ * own "🔶 Design System" → Style Guide → Typography / Elevation documentation
+ * frames, not from individual component instances. See tokens/design-tokens.json
+ * `_meta.typographyElevationSource` and each entry's own `note` field for the
+ * known Style Guide inconsistencies (kept faithfully, not silently corrected).
+ */
+:root {
+  --typeface-pingfang-tc: "PingFang TC", "Noto Sans TC", sans-serif;
+  --typeface-sf-mono: "SF Mono", ui-monospace, "Menlo", monospace;
+
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+
+  /* Headline */
+  --type-scale-headline-1: 40px; /* Figma Style Guide 本身標記 Regular/2% letter-spacing，跟 H2–H4（皆 Semibold/0%）不一致，疑似文件錯誤，忠實保留而非逕自修正 */
+  --line-height-h1: 56px;
+  --type-scale-headline-2: 24px;
+  --line-height-h2: 36px;
+  --type-scale-headline-3: 20px;
+  --line-height-h3: 30px;
+  --type-scale-headline-4: 16px;
+  --line-height-h4: 24px;
+
+  /* Body */
+  --type-scale-body-l: 16px;
+  --line-height-body-l: 24px;
+  --type-scale-body-m: 14px;
+  --line-height-body-m: 20px;
+  --type-scale-body-s: 12px;
+  --line-height-body-s: 18px;
+
+  /* Label */
+  --type-scale-label-m: 14px;
+  --line-height-label-m: 20px;
+  --type-scale-label-s: 12px;
+  --line-height-label-s: 18px;
+
+  /* Number */
+  --type-scale-number-l: 16px; /* Number/L 與 Number/M 數值完全相同，只有粗細不同，疑似複製貼上遺漏更新，忠實保留 */
+  --line-height-number: 24px;
+  --type-scale-number-m: 16px;
+
+  /* Elevation */
+  --elevation-1: 0 1px 2px 0 var(--color-gray-100);
+  --elevation-2: 0 1px 4px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.08);
+  --elevation-3: 0 2px 1px rgba(0, 0, 0, 0.12), 0 2px 12px rgba(0, 0, 0, 0.12);
+  --elevation-4: 0 6px 20px rgba(0, 0, 0, 0.12);
+  --elevation-5: 0 8px 32px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.12);
+}
