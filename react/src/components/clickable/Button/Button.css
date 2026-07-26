@@ -31,8 +31,11 @@
   color: var(--color-gray-white);
   box-shadow: var(--elevation-3);
 }
+/* Pressing drops the shadow in Figma — the button sinks rather than staying
+   lifted. Only the resting and Loading states carry elevation. */
 .tmads-button--primary:where(:hover, [data-state="pressing"]) {
   background-color: var(--color-primary-green-900);
+  box-shadow: none;
 }
 .tmads-button--primary[data-state="disabled"] {
   background-color: var(--color-primary-green-50);
@@ -51,6 +54,7 @@
   background-color: var(--color-primary-green-50);
   border-color: var(--color-primary-green-900);
   color: var(--color-primary-green-900);
+  box-shadow: none;
 }
 .tmads-button--secondary[data-state="disabled"] {
   background-color: var(--color-gray-white);

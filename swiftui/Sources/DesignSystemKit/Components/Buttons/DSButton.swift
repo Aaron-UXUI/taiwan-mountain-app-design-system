@@ -86,8 +86,11 @@ private struct DSButtonAppearance {
                 return .init(background: DSColor.primaryGreen50, border: nil,
                              foreground: DSColor.gray400, hasElevation: false)
             }
+            // Pressing drops the shadow in Figma — the button sinks rather
+            // than staying lifted. Only the resting and Loading states carry
+            // elevation.
             return .init(background: pressed ? DSColor.primaryGreen900 : DSColor.primaryGreen800,
-                         border: nil, foreground: DSColor.white, hasElevation: true)
+                         border: nil, foreground: DSColor.white, hasElevation: !pressed)
 
         case .secondary:
             // Secondary is a white button with a green outline, not a tinted fill.
@@ -98,7 +101,7 @@ private struct DSButtonAppearance {
             return .init(background: pressed ? DSColor.primaryGreen50 : DSColor.white,
                          border: pressed ? DSColor.primaryGreen900 : DSColor.primaryGreen800,
                          foreground: pressed ? DSColor.primaryGreen900 : DSColor.primaryGreen800,
-                         hasElevation: true)
+                         hasElevation: !pressed)
 
         case .tertiary:
             // No fill and no elevation at rest; pressing tints the background

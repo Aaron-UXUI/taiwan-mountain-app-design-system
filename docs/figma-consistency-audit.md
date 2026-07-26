@@ -554,6 +554,70 @@ React 的 `RadioButton` 另外還在用 CSS 手繪的圓圈,已改為引用共�
 
 ---
 
+## M. 第九輪:剩下沒用精確 CSS 驗過的元件(2026-07-26)
+
+前面幾輪雖然覆蓋很廣,但仍有一批元件從來沒有用 `get_design_context` 取過
+精確 CSS——只靠早期的 SVG 取色或截圖目測。這輪把其中影響最大的補完。
+
+### M1. `Buttons` — Pressing 狀態**不該有陰影**(兩平台都錯)⚠️
+
+第二輪(F1)的矩陣是從匯出的 SVG 抽色值做的,抽不到陰影,所以當時寫成
+「Primary Pressing:green-900 + elevation-3」。這次取實際 CSS:
+
+```
+Primary / Large / Pressing  → bg-green-900,       (無 drop-shadow)
+Primary / Large / Loading   → bg-green-800 + drop-shadow + gap-8 + 40pt spinner
+Secondary / Large / Pressing→ bg-green-50 + border-green-900,(無 drop-shadow)
+```
+
+也就是**按下時陰影會消失**(按鈕下沉),只有靜止與 Loading 帶 elevation-3。
+React 的 `:hover/[data-state=pressing]` 規則沒有取消 `box-shadow`,SwiftUI 的
+`hasElevation` 在 pressed 時仍是 `true`——**兩邊都錯**,已一起修正。
+
+### M2. `Location Pin` — Focused 改變的是**尺寸**,不是顏色(SwiftUI 錯)
+
+Figma 的兩個狀態差別只有一項:圓形圖釘 **24pt → 48pt**。填色在兩個狀態下都
+一樣。SwiftUI 卻做成「focused 時顏色加深(green-800→900 / info-600→700)、
+尺寸不變」——軸完全搞錯了。
+
+另外兩點也一併修正:
+
+- **標籤與圖釘不同色**:`Type=Info` 是 info-600 的圖釘配 **info-700** 的標籤。
+- 標籤與圖釘之間**沒有間距**(原本給了 4pt),容器固定 144pt 寬,
+  圖示在圓內是**內縮**的(原本讓 24pt 圖示塞滿 24pt 圓)。
+
+React 端這個元件**本來就完全正確**,不需改動。
+
+### M3. `Tab` — 徽章是絕對定位,分頁是固定寬(SwiftUI 錯)
+
+Figma 的徽章釘在 `left: calc(50% + 17.88px)`、`top: calc(50% - 6px)`,
+不參與版面;分頁寬度固定 **75 / 93.75 / 187.5**。SwiftUI 把徽章放進 `HStack`
+裡跟標題並排,又用 `maxWidth: .infinity`——有徽章的分頁會被撐開、標題也不再
+置中。已改為 overlay + 固定寬度。React 端本來就是絕對定位,正確。
+
+### 本輪確認**沒有**落差的元件
+
+| 元件 | 平台 |
+|---|---|
+| `Tab` 的尺寸/字級/底線 | React ✅ |
+| `Location Pin` | React ✅(24/48pt、標籤與圖釘的雙色都對) |
+| `Collapse Text` | React ✅ / SwiftUI ✅(px-24、gap-0、py-8 滿版按鈕、14pt chevron、文案) |
+| `Navigation Bar` / `CheckBox Navigation` | React ✅(56pt、green-50 指示器 56×32、徽章偏移) |
+
+### 驗證方式
+
+`swift build` 與 `npm run typecheck` 通過;SwiftUI 端在模擬器截圖確認
+LocationPin 四種組合、TabBar 徽章位置、Button 陰影,與 Figma 算圖一致。
+
+### 仍未用精確 CSS 驗過(影響較小)
+
+`Tooltip`、`Banner`、`Accordion / Chips`、`Logo`/`Logos`、`Spinner`、
+`Bottom Sheet` 的 Filter_Discover / Filter_MapSearch 兩個變體、
+`iOS System` 四件(未移植)。以及 SwiftUI 刻意改用原生控制項的六個
+(見 E 章),那些不逐像素對齊是已記錄的決策。
+
+---
+
 ## E. 補充說明:刻意的偏離(非落差)
 
 以下項目與 Figma 不同,但都是有記錄的平台決策,不列為落差:

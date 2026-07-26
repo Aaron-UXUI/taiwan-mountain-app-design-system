@@ -36,32 +36,50 @@ public struct DSLocationPin: View {
         self.isFocused = isFocused
     }
 
+    /// Figma keeps one fill per `Type` across both states — focus does **not**
+    /// darken the pin, it *enlarges* it (24pt → 48pt). An earlier version
+    /// shifted green-800→900 / info-600→700 on focus and kept the size fixed,
+    /// which is the wrong axis entirely.
     private var fill: Color {
         switch kind {
-        case .place: return isFocused ? DSColor.primaryGreen900 : DSColor.primaryGreen800
-        case .info: return isFocused ? DSColor.info700 : DSColor.info600
+        case .place: return DSColor.primaryGreen800
+        case .info: return DSColor.info600
         }
     }
 
+    /// The label does not always match the pin: `Type=Info` pairs an info-600
+    /// pin with an info-700 label.
+    private var labelColor: Color {
+        switch kind {
+        case .place: return DSColor.primaryGreen800
+        case .info: return DSColor.info700
+        }
+    }
+
+    private var pinSize: CGFloat { isFocused ? 48 : 24 }
+
     public var body: some View {
-        VStack(spacing: DSSpacing.xs) {
+        VStack(spacing: 0) {
             Text(placeName)
                 .dsFont(.headline4)
-                .foregroundStyle(fill)
+                .foregroundStyle(labelColor)
                 .multilineTextAlignment(.center)
                 // Figma applies Elevation/4 to the label so it stays legible
                 // over map imagery.
                 .shadow(color: .black.opacity(0.12), radius: 20, y: 6)
 
             DSIconView(glyph)
+                // The glyph is inset inside the circle rather than filling it.
+                .frame(width: pinSize * 0.5, height: pinSize * 0.5)
                 .foregroundStyle(DSColor.white)
-                .frame(width: 24, height: 24)
+                .frame(width: pinSize, height: pinSize)
                 .background(fill)
                 .clipShape(Circle())
                 // 2pt white ring around the pin.
                 .overlay(Circle().strokeBorder(DSColor.white, lineWidth: 2))
                 .dsElevation(.level4)
         }
+        .frame(width: 144)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(placeName)
         .accessibilityAddTraits(isFocused ? [.isButton, .isSelected] : .isButton)
