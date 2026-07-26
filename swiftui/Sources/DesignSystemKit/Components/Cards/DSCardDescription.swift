@@ -17,16 +17,22 @@ public struct DSCardDescription: View {
     public var body: some View {
         // Figma order is title -> body -> image. The image was being rendered
         // first here, which put the photo above the text it illustrates.
-        VStack(alignment: .leading, spacing: DSSpacing.sm) {
-            if let title {
-                Text(title)
-                    .dsFont(.headline3)
-                    .foregroundStyle(DSColor.black)
-                    .accessibilityAddTraits(.isHeader)
+        // Geometry: 12pt card padding, 8pt between the copy block and the
+        // image, 4pt between title and body, and a fixed 240x180 image at a
+        // 12pt radius (it was full-width at 160pt and an 8pt radius).
+        VStack(alignment: .leading, spacing: DSSpacing.s) {
+            VStack(alignment: .leading, spacing: DSSpacing.xs) {
+                if let title {
+                    Text(title)
+                        .dsFont(.headline3)
+                        .foregroundStyle(DSColor.black)
+                        .accessibilityAddTraits(.isHeader)
+                }
+                Text(body_)
+                    .dsFont(.bodyM)
+                    .foregroundStyle(DSColor.gray800)
             }
-            Text(body_)
-                .dsFont(.bodyM)
-                .foregroundStyle(DSColor.gray800)
+            .frame(maxWidth: .infinity, alignment: .leading)
 
             if let imageURL {
                 AsyncImage(url: imageURL) { phase in
@@ -36,11 +42,11 @@ public struct DSCardDescription: View {
                         Rectangle().fill(DSColor.gray100)
                     }
                 }
-                .frame(height: 160)
-                .clipShape(RoundedRectangle(cornerRadius: DSRadius.xs, style: .continuous))
+                .frame(width: 240, height: 180)
+                .clipShape(RoundedRectangle(cornerRadius: DSRadius.s, style: .continuous))
                 .accessibilityHidden(true)
             }
         }
-        .padding(DSSpacing.s)
+        .padding(DSSpacing.sm)
     }
 }

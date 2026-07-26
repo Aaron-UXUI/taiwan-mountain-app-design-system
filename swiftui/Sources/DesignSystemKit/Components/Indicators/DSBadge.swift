@@ -44,11 +44,14 @@ public struct DSBadge: View {
                     .fill(fill)
                     .frame(width: 6, height: 6)
             } else {
+                // Figma sizes the counter pill at a fixed 18pt with 4pt of
+                // horizontal padding and no vertical padding, so a single
+                // digit reads as a circle rather than a squat capsule.
                 Text(size == .maximum || count > 99 ? "99+" : "\(count)")
                     .dsFont(.bodyS)
                     .foregroundStyle(DSColor.white)
                     .padding(.horizontal, DSSpacing.xs)
-                    .padding(.vertical, 2)
+                    .frame(minWidth: 18, minHeight: 18)
                     .background(fill)
                     .clipShape(Capsule())
             }

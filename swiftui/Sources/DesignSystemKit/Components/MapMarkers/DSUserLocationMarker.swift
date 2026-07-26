@@ -15,15 +15,41 @@ public struct DSUserLocationMarker: View {
     }
 
     public var body: some View {
-        ZStack {
-            Circle()
-                .fill(DSColor.info700.opacity(0.25))
-                .frame(width: 40, height: 40)
-            Image(systemName: "location.north.circle.fill")
-                .font(.system(size: 24))
-                .foregroundStyle(DSColor.white, DSColor.info700)
+        // Figma is a heading cone fading out away from the pin, with a 20pt
+        // info-700 dot under it carrying a 3pt white ring and Elevation/3 —
+        // not an SF Symbol arrow inside a translucent halo.
+        ZStack(alignment: .bottom) {
+            HeadingCone()
+                .fill(
+                    LinearGradient(
+                        colors: [DSColor.info700.opacity(0.0), DSColor.info700.opacity(0.45)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .frame(width: 70, height: 70)
                 .rotationEffect(.degrees(headingDegrees))
+                .offset(y: 8)
+
+            Circle()
+                .fill(DSColor.info700)
+                .frame(width: 20, height: 20)
+                .overlay(Circle().strokeBorder(DSColor.white, lineWidth: 3))
+                .dsElevation(.level3)
         }
+        .frame(width: 40)
         .accessibilityHidden(true)
+    }
+}
+
+/// The fan of the heading indicator: a wedge that opens away from the pin.
+private struct HeadingCone: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.midX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
+        path.closeSubpath()
+        return path
     }
 }

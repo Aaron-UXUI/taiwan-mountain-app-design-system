@@ -27,8 +27,9 @@ public struct DSLinkFurtherInfo: View {
 
 private struct DSLinkFurtherInfoStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
+        // Figma sets the label in Label/M — 14pt Semibold, not Regular.
         configuration.label
-            .dsFont(.bodyM)
+            .dsFont(.labelM)
             .padding(.vertical, DSSpacing.sm)
             .padding(.horizontal, DSSpacing.sm)
             .foregroundStyle(DSColor.primaryGreen800)

@@ -52,12 +52,14 @@ public struct DSCardScene: View {
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(DSSpacing.s)
 
-            // Figma runs the caption bar edge to edge across the bottom of the
-            // card — it is not an inset, separately-rounded panel, and there is
-            // no gradient scrim above it.
+            // Figma floats the caption as its own translucent panel inset 8pt
+            // from the card's leading/trailing/bottom edges, with a 12pt radius
+            // of its own — not an edge-to-edge bar, and not a gradient scrim.
             footer
+                .padding(DSSpacing.s)
         }
         .aspectRatio(327.0 / 236.0, contentMode: .fit)
+        .background(DSColor.white)
         .clipShape(RoundedRectangle(cornerRadius: DSRadius.m, style: .continuous))
     }
 
@@ -73,34 +75,42 @@ public struct DSCardScene: View {
         .accessibilityHidden(true)
     }
 
+    /// The floating `Label` component — 4pt padding, 4pt radius, 95% opaque
+    /// over a blurred backdrop.
     private func tag(_ text: String, fill: Color) -> some View {
         Text(text)
             .dsFont(.bodyS)
             .foregroundStyle(DSColor.white)
             .padding(DSSpacing.xs)
-            .background(fill.opacity(0.95))
-            .clipShape(RoundedRectangle(cornerRadius: DSRadius.xxs, style: .continuous))
+            .background(fill, in: RoundedRectangle(cornerRadius: DSRadius.xxs, style: .continuous))
+            .opacity(0.95)
     }
 
     private var footer: some View {
-        HStack(spacing: DSSpacing.s) {
-            VStack(alignment: .leading, spacing: 2) {
+        HStack(spacing: 0) {
+            // Figma: Headline/3 title, body/S location — the title was a step
+            // too small here, at Headline/4.
+            VStack(alignment: .leading, spacing: 0) {
                 Text(siteName)
-                    .dsFont(.headline4)
+                    .dsFont(.headline3)
                     .foregroundStyle(DSColor.white)
                     .lineLimit(1)
                 HStack(spacing: DSSpacing.s) {
                     Text(location)
                         .lineLimit(1)
                     if let distance {
-                        Circle().frame(width: 4, height: 4)
-                        Text(distance)
+                        HStack(spacing: DSSpacing.xs) {
+                            Circle().frame(width: 4, height: 4)
+                            Text(distance)
+                        }
                     }
                 }
                 .dsFont(.bodyS)
                 .foregroundStyle(DSColor.white)
             }
-            Spacer(minLength: 0)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(DSSpacing.s)
+
             Button {
                 isSaved.toggle()
                 onToggleSave()
@@ -109,13 +119,16 @@ public struct DSCardScene: View {
                     .symbolEffect(.bounce, value: isSaved)
                     .foregroundStyle(DSColor.white)
                     .frame(width: 24, height: 24)
+                    .padding(DSSpacing.sm)
             }
             .accessibilityLabel(isSaved ? "取消收藏" : "加入收藏")
             .accessibilityAddTraits(isSaved ? .isSelected : [])
         }
-        .padding(.horizontal, DSSpacing.m)
-        .padding(.vertical, DSSpacing.sm)
-        .frame(maxWidth: .infinity)
-        .background(DSColor.black.opacity(0.55))
+        .background {
+            // rgba(0,0,0,0.5) over a 6pt backdrop blur.
+            RoundedRectangle(cornerRadius: DSRadius.s, style: .continuous)
+                .fill(DSColor.black.opacity(0.5))
+                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: DSRadius.s, style: .continuous))
+        }
     }
 }

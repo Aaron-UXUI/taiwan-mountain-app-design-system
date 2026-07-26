@@ -22,11 +22,21 @@ public struct DSTab: Identifiable, Hashable {
 public enum DSTabBarSize {
     case small, medium, large
 
+    /// Figma runs Small and Medium at the same body/L (14pt) size — they
+    /// differ only in slot width — and steps up to Headline/4 (16pt) at Large.
+    /// Small was rendering at 12pt here.
     var typeStyle: DSTypeStyle {
         switch self {
-        case .small: return .bodyS
-        case .medium: return .bodyM
+        case .small, .medium: return .bodyM
         case .large: return .bodyL
+        }
+    }
+
+    /// Figma's fixed slot widths (75 / 93.75 / 187.5) with their padding.
+    var horizontalPadding: CGFloat {
+        switch self {
+        case .small: return DSSpacing.xs
+        case .medium, .large: return DSSpacing.m
         }
     }
 }
@@ -44,8 +54,10 @@ public struct DSTabBar: View {
     }
 
     public var body: some View {
+        // Figma butts the tabs directly against each other so their 1pt
+        // baseline rule reads as one continuous line; there is no gutter.
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: DSSpacing.m) {
+            HStack(spacing: 0) {
                 ForEach(tabs) { tab in
                     tabButton(tab)
                 }
@@ -59,29 +71,35 @@ public struct DSTabBar: View {
         return Button {
             selection = tab.id
         } label: {
-            VStack(spacing: DSSpacing.xs) {
-                HStack(spacing: DSSpacing.xs) {
-                    Text(tab.title)
-                    if let count = tab.badgeCount {
-                        // Spec `tab.md` maps the tab badge to the
-                        // error-adjacent `semantic.destruct-700` fill (matching
-                        // the React `.tmads-tab__badge` rule), i.e. the
-                        // Notification kind — not the default Accordion green.
-                        DSBadge(count: count, kind: .notification)
-                    }
+            // Figma fixes every tab at 44pt tall and draws the rule as an
+            // *inset* bottom border, so the label stays vertically centred in
+            // the full 44pt rather than being pushed up by the rule.
+            HStack(spacing: DSSpacing.xs) {
+                Text(tab.title)
+                if let count = tab.badgeCount {
+                    // Spec `tab.md` maps the tab badge to the
+                    // error-adjacent `semantic.destruct-700` fill (matching
+                    // the React `.tmads-tab__badge` rule), i.e. the
+                    // Notification kind — not the default Accordion green.
+                    DSBadge(count: count, kind: .notification)
                 }
-                .dsFont(size.typeStyle)
-                .fontWeight(isActive ? .semibold : .regular)
-                .foregroundStyle(isActive ? DSColor.primaryGreen900 : DSColor.gray800)
-
+            }
+            .dsFont(size.typeStyle)
+            .fontWeight(isActive ? .semibold : .regular)
+            .foregroundStyle(isActive ? DSColor.primaryGreen900 : DSColor.gray800)
+            .padding(.horizontal, size.horizontalPadding)
+            .frame(height: 44)
+            .frame(maxWidth: .infinity)
+            .background(DSColor.white)
+            .overlay(alignment: .bottom) {
                 // Figma underlines every tab: the inactive rule is a hairline
-                // in the label's own grey, the active one is thicker and
-                // matches its green-900 label. Only the active rule was drawn
-                // before, and in the wrong green.
-                ZStack {
+                // in grey-200, the active one a 2pt green-800 bar sitting on
+                // top of it. Only the active rule was drawn before, and in
+                // green-900 rather than green-800.
+                ZStack(alignment: .bottom) {
                     DSColor.gray200.frame(height: 1)
                     if isActive {
-                        DSColor.primaryGreen900
+                        DSColor.primaryGreen800
                             .frame(height: 2)
                             .matchedGeometryEffect(id: "indicator", in: indicatorNamespace)
                     }

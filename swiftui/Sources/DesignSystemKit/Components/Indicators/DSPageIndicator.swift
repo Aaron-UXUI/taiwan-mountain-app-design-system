@@ -22,11 +22,22 @@ public struct DSPageIndicator: View {
     }
 
     public var body: some View {
-        HStack(spacing: DSSpacing.xs) {
+        // Figma: 4pt dots on an 8pt gutter inside a 4pt-padded, 8pt-radius
+        // container. Over a light background the container itself is a 60%
+        // white plate so the dark dots stay legible; over a dark one it is
+        // transparent. The dots were 6pt on a 4pt gutter with no plate at all.
+        HStack(spacing: DSSpacing.s) {
             ForEach(0..<pageCount, id: \.self) { index in
                 Circle()
                     .fill(index == currentPage ? activeColor : inactiveColor)
-                    .frame(width: 6, height: 6)
+                    .frame(width: 4, height: 4)
+            }
+        }
+        .padding(DSSpacing.xs)
+        .background {
+            if !isOnDarkBackground {
+                RoundedRectangle(cornerRadius: DSRadius.xs, style: .continuous)
+                    .fill(DSColor.white.opacity(0.6))
             }
         }
         .accessibilityElement(children: .ignore)

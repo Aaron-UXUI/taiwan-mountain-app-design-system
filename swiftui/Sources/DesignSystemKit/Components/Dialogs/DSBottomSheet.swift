@@ -93,64 +93,70 @@ public struct DSFilterDiscoverSheet: View {
 }
 
 /// `style: Map_Info`
+///
+/// Figma's running order is title → salient chips → tag chips → crowdedness →
+/// further-info link → action row → photo → buy button. The earlier version
+/// put the photo first, replaced the action row with a bare heart glyph beside
+/// the title, and omitted the carousel indicators over the photo entirely.
 public struct DSMapInfoSheet: View {
     private let photoURL: URL?
+    private let photoCount: Int
+    private let currentPhoto: Int
     private let title: String
     private let statusLabel: String
+    private let isFamilyFriendly: Bool
     private let crowdedness: DSCrowdednessLevel
     private let tags: [String]
     @Binding private var isSaved: Bool
+    @Binding private var isFollowing: Bool
     private let onFurtherInfo: () -> Void
+    private let onDownloadOfflineMap: () -> Void
     private let onBuyTicket: () -> Void
 
     public init(
         photoURL: URL?,
+        photoCount: Int = 1,
+        currentPhoto: Int = 0,
         title: String,
         statusLabel: String,
+        isFamilyFriendly: Bool = false,
         crowdedness: DSCrowdednessLevel,
         tags: [String],
         isSaved: Binding<Bool>,
+        isFollowing: Binding<Bool> = .constant(false),
         onFurtherInfo: @escaping () -> Void = {},
+        onDownloadOfflineMap: @escaping () -> Void = {},
         onBuyTicket: @escaping () -> Void = {}
     ) {
         self.photoURL = photoURL
+        self.photoCount = photoCount
+        self.currentPhoto = currentPhoto
         self.title = title
         self.statusLabel = statusLabel
+        self.isFamilyFriendly = isFamilyFriendly
         self.crowdedness = crowdedness
         self.tags = tags
         self._isSaved = isSaved
+        self._isFollowing = isFollowing
         self.onFurtherInfo = onFurtherInfo
+        self.onDownloadOfflineMap = onDownloadOfflineMap
         self.onBuyTicket = onBuyTicket
     }
 
     public var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: DSSpacing.sm) {
-                AsyncImage(url: photoURL) { phase in
-                    if case .success(let image) = phase {
-                        image.resizable().scaledToFill()
-                    } else {
-                        Rectangle().fill(DSColor.gray200)
+                Text(title)
+                    .dsFont(.headline3)
+                    .foregroundStyle(DSColor.black)
+                    .accessibilityAddTraits(.isHeader)
+
+                HStack(spacing: DSSpacing.s) {
+                    DSSalientTag(statusLabel, kind: .general)
+                    if isFamilyFriendly {
+                        DSSalientTag("親子友善", kind: .special)
                     }
                 }
-                .frame(height: 236)
-                .clipShape(RoundedRectangle(cornerRadius: DSRadius.xs, style: .continuous))
-                .accessibilityHidden(true)
-
-                HStack {
-                    Text(title).dsFont(.headline3).foregroundStyle(DSColor.black)
-                    Spacer()
-                    Button {
-                        isSaved.toggle()
-                    } label: {
-                        Image(systemName: isSaved ? "heart.fill" : "heart")
-                            .symbolEffect(.bounce, value: isSaved)
-                    }
-                    .accessibilityLabel(isSaved ? "取消收藏" : "加入收藏")
-                }
-
-                DSSalientTag(statusLabel, kind: .general)
-                DSCrowdednessTag(level: crowdedness)
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: DSSpacing.s) {
@@ -160,12 +166,52 @@ public struct DSMapInfoSheet: View {
                     }
                 }
 
-                DSLinkFurtherInfo("查看更多資訊", action: onFurtherInfo)
+                DSCrowdednessTag(level: crowdedness)
+
+                VStack(alignment: .leading, spacing: DSSpacing.s) {
+                    DSLinkFurtherInfo("更多資訊", action: onFurtherInfo)
+                    // Figma's "Prototype Buttons" row; visually these are the
+                    // Secondary/Small button treatment, so it is reused rather
+                    // than duplicated as a new component.
+                    HStack(spacing: DSSpacing.s) {
+                        DSButton(isSaved ? "已收藏" : "收藏", emphasis: .secondary, size: .small) {
+                            isSaved.toggle()
+                        }
+                        .accessibilityAddTraits(isSaved ? .isSelected : [])
+                        DSButton(isFollowing ? "已追蹤" : "追蹤園區動態", emphasis: .secondary, size: .small) {
+                            isFollowing.toggle()
+                        }
+                        .accessibilityAddTraits(isFollowing ? .isSelected : [])
+                        DSButton("下載離線地圖", emphasis: .secondary, size: .small, action: onDownloadOfflineMap)
+                    }
+                }
+
+                photo
 
                 DSButton("購買票券", action: onBuyTicket)
             }
             .padding(.horizontal, DSSpacing.lm)
         }
+    }
+
+    private var photo: some View {
+        AsyncImage(url: photoURL) { phase in
+            if case .success(let image) = phase {
+                image.resizable().scaledToFill()
+            } else {
+                Rectangle().fill(DSColor.gray200)
+            }
+        }
+        .frame(height: 236)
+        .frame(maxWidth: .infinity)
+        .clipShape(RoundedRectangle(cornerRadius: DSRadius.xs, style: .continuous))
+        .overlay(alignment: .bottom) {
+            if photoCount > 1 {
+                DSPageIndicator(pageCount: photoCount, currentPage: currentPhoto)
+                    .padding(.bottom, DSSpacing.sm)
+            }
+        }
+        .accessibilityHidden(true)
     }
 }
 

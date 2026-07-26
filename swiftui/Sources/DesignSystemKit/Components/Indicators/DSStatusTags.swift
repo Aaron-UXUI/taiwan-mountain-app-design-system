@@ -95,11 +95,13 @@ public struct DSStatusLabel: View {
     }
 
     public var body: some View {
+        // Figma renders the label at 95% opacity over a blurred backdrop —
+        // these sit on top of photography, so they are never fully opaque.
         Text(status.text)
             .dsFont(.bodyS)
             .foregroundStyle(DSColor.white)
             .padding(DSSpacing.xs)
-            .background(status.fill)
-            .clipShape(RoundedRectangle(cornerRadius: DSRadius.xxs, style: .continuous))
+            .background(status.fill, in: RoundedRectangle(cornerRadius: DSRadius.xxs, style: .continuous))
+            .opacity(0.95)
     }
 }

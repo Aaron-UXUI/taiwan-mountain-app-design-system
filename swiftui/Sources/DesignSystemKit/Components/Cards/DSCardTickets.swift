@@ -26,61 +26,77 @@ public struct DSCardTickets: View {
         self.isDisabled = isDisabled
     }
 
-    private var ink: Color { isDisabled ? DSColor.gray400 : DSColor.black }
-    private var subInk: Color { isDisabled ? DSColor.gray400 : DSColor.gray800 }
+    /// Figma greys the whole card to gray-400 when used; otherwise each line
+    /// keeps its own ink (scene = brand green, ticket lines = black,
+    /// price/expiry = grey).
+    private func ink(_ enabled: Color) -> Color { isDisabled ? DSColor.gray400 : enabled }
+
+    /// The ticket silhouette: a 4pt radius on the stub side and a 16pt radius
+    /// on the open side, so the two edges of the card do not match.
+    private var shape: some InsettableShape {
+        UnevenRoundedRectangle(
+            topLeadingRadius: DSRadius.xxs,
+            bottomLeadingRadius: DSRadius.xxs,
+            bottomTrailingRadius: DSRadius.m,
+            topTrailingRadius: DSRadius.m,
+            style: .continuous
+        )
+    }
 
     public var body: some View {
-        HStack(spacing: 0) {
-            // Figma anchors the card with a solid brand-green stub down the
-            // leading edge; it greys out along with everything else when used.
-            Rectangle()
-                .fill(isDisabled ? DSColor.gray400 : DSColor.primaryGreen800)
-                .frame(width: 8)
-                .accessibilityHidden(true)
-
-            VStack(alignment: .leading, spacing: DSSpacing.sm) {
-                // Header: expiry on the left, "已使用" on the right when spent.
-                HStack {
-                    Text("使用期限 \(due)")
+        VStack(alignment: .leading, spacing: DSSpacing.s) {
+            // Header: expiry on the left, "已使用" on the right when spent.
+            HStack(spacing: DSSpacing.s) {
+                Text("使用期限 \(due)")
+                    .dsFont(.bodyS)
+                    .foregroundStyle(ink(DSColor.black))
+                Spacer(minLength: 0)
+                if isDisabled {
+                    Text("已使用")
                         .dsFont(.bodyS)
-                        .foregroundStyle(subInk)
-                    Spacer(minLength: DSSpacing.s)
-                    if isDisabled {
-                        Text("已使用")
-                            .dsFont(.bodyS)
-                            .foregroundStyle(subInk)
-                    }
+                        .foregroundStyle(DSColor.gray400)
                 }
+            }
 
-                Divider()
+            Divider()
 
-                Text(scene)
-                    .dsFont(.bodyM)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(ink)
-
-                HStack(alignment: .bottom) {
-                    VStack(alignment: .leading, spacing: DSSpacing.xs) {
+            HStack(alignment: .bottom, spacing: DSSpacing.sm) {
+                VStack(alignment: .leading, spacing: DSSpacing.xs) {
+                    Text(scene)
+                        .dsFont(.bodyM)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(ink(DSColor.primaryGreen800))
+                    // Ticket lines run flush against each other in Figma.
+                    VStack(alignment: .leading, spacing: 0) {
                         ForEach(ticketLines, id: \.self) { line in
                             Text(line)
                                 .dsFont(.bodyS)
-                                .foregroundStyle(subInk)
+                                .foregroundStyle(ink(DSColor.black))
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
-                    Spacer(minLength: DSSpacing.m)
-                    Text(price)
-                        .dsFont(.bodyM)
-                        .foregroundStyle(ink)
                 }
+                Text(price)
+                    .dsFont(.bodyS)
+                    .foregroundStyle(ink(DSColor.gray800))
             }
-            .padding(DSSpacing.m)
         }
-        .background(DSColor.white)
-        .clipShape(RoundedRectangle(cornerRadius: DSRadius.s, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: DSRadius.s, style: .continuous)
-                .strokeBorder(DSColor.gray200, lineWidth: 1)
-        )
+        .padding(DSSpacing.m)
+        .frame(maxWidth: 360, alignment: .leading)
+        .background(DSColor.white, in: shape)
+        .overlay(alignment: .leading) {
+            // Figma anchors the card with a 6pt stub down the leading edge,
+            // inset from the top and bottom rather than running full height.
+            Rectangle()
+                .fill(ink(DSColor.primaryGreen700))
+                .frame(width: 6)
+                .padding(.vertical, DSSpacing.s)
+                .accessibilityHidden(true)
+        }
+        .clipShape(shape)
+        .overlay {
+            shape.strokeBorder(ink(DSColor.primaryGreen700), lineWidth: 1)
+        }
         .disabled(isDisabled)
     }
 }

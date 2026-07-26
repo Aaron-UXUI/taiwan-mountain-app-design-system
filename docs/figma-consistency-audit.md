@@ -271,6 +271,107 @@ Figma 的字級變數命名會誤導:Chips 與 CheckBox 的標籤引用的是
 
 ---
 
+## I. 第五輪:把「尚未逐項比對」的元件全部補完(2026-07-26)
+
+前四輪把力氣花在已經看過的元件上,而 H 章結尾自己列出的那批
+「**只做過顏色比對**」的元件一直沒回頭處理——實際畫面與原稿差距明顯,主因就在
+這裡。這一輪針對那份清單逐一 `get_design_context` 取 Figma 精確 CSS,並且**重新
+複查**了幾個前幾輪宣稱已修好的元件,結果發現其中一項當初改錯了方向(I1)。
+
+### I1. `Cards / Scene` — 第三輪(G1)把它改成了錯的樣子 ⚠️
+
+G1 當時的結論是「底部說明列在 Figma 是整條齊邊貼底」,並據此移除了圓角與內縮。
+**這個結論是錯的。** 重新取 Figma 的實際 CSS:
+
+```
+Content: absolute; left:8 right:8 bottom:8;
+         background: rgba(0,0,0,0.5); backdrop-blur: 6px;
+         border-radius: 12px;
+```
+
+也就是說它**本來就是一塊四邊內縮 8pt、自帶 12pt 圓角的半透明浮動面板**,只是沒有
+漸層而已。G1 只對了「沒有漸層」那半句,卻把內縮與圓角一起拿掉了。已改回。
+
+同時修正:標題是 **Headline/3(20pt)** 而不是 G1 改成的 Headline/4(16pt);
+收藏鈕是 48pt 觸控區(12pt padding);卡片本身白底、16pt 圓角。
+
+### I2. `List / weather` — 根本不是一列,是一整欄
+
+Figma `Property 1=Default`(node 877:8425)是 **96pt 寬、568pt 高的垂直天氣欄**:
+天氣圖示 → 日期 + 星期 → 溫度 → 體感溫度 → 降雨機率 → 紫外線指數 + 等級 →
+日出 → 日落 → 相對濕度 → 風速 → 風向,共 11 組資料,設計上是橫向並排成一週預報。
+
+原本的 `DSWeatherRow` 是「日期 · 圖示 · 溫度」的**水平三欄列**,只有 3 個欄位。
+已重建為 `DSWeatherColumn`,補齊全部欄位與 12pt/4pt 內距、8pt 圓角白底。
+
+### I3. `OfflineMap` — 沒有卡片,是逐電信商的列
+
+Figma 是「[電信商標誌 20×14] [電信商名稱 126pt] [狀態色票]」的列堆疊,收合時只顯示
+第一列(帶 14pt chevron),展開時才出現其餘電信商;每一列**各自**有自己的訊號狀態
+與顏色。原本做成白底、8pt padding、圓角的卡片,標題是一個總結色票,展開後用
+SF Symbol 打勾/驚嘆號加「有訊號/無訊號」——卡片、總結色票、那種列格式在設計裡
+都不存在。已依 Figma 重建,`DSCarrierCoverage` 也從 `hasSignal: Bool` 改為帶
+各自的 `DSSignalCoverage`。
+
+### I4. `Bottom Bar` 的 `Type=2 Buttons` 不是兩顆按鈕
+
+Figma 這個 variant 是「**主要按鈕 + 一個 64pt 的分頁式捷徑**(24pt 圖示 + 12pt
+Semibold 說明,例如「地圖」)」,不是次要按鈕 + 主要按鈕。已改為
+`.buttonWithShortcut(...)`。順帶修正容器:白底 + Elevation/2 陰影 + **只有上方**
+8pt 內距(下緣是 home indicator,safe area 已經處理),原本是 `.bar` 材質、上下
+對稱 8pt、且完全沒有陰影。
+
+### I5. `Bottom Sheet / Map_Info` — 順序整個不同,還缺了一整排操作鈕
+
+Figma 順序:標題 → 醒目標籤列(今日開放/親子友善)→ 標籤 chips → 人潮狀況 →
+更多資訊 → **收藏 / 追蹤園區動態 / 下載離線地圖 三顆按鈕** → 照片(含輪播指示點)
+→ 購買票券。
+
+原本:照片放最上面、標題旁邊掛一顆愛心圖示、沒有那三顆操作鈕、照片上沒有輪播
+指示點。已依 Figma 重排並補齊。
+
+### I6. 其餘逐項修正
+
+| # | 元件 | 落差 | 處置 |
+|---|---|---|---|
+| I6a | `Carousel Indicators` | 點是 **4pt**、間距 **8pt**、外層有 4pt padding + 8pt 圓角;淺色背景版本外層還有一塊**白色 60% 底板**。原本是 6pt 點、4pt 間距、完全沒有底板 | 全部改正 |
+| I6b | `Cards / Notification` | 白底 + **1pt gray-200 外框** + 12pt 圓角;時間在**標題那一列的右端**(gray-800),不是另起一行的 gray-400;未讀是 **6pt** 圓點壓在左緣外框上,不是排在內容流裡的 8pt 圓點 | 全部改正 |
+| I6c | `Cards / Tickets` | 外框是 **green-700**(停用 gray-400)不是 gray-200;圓角**左 4 / 右 16** 不是四角 12;票根色條 **6pt** 且上下內縮,不是 8pt 滿高;景點名稱是 **green-800**;票種是黑色且行距 0;金額是 body/S gray-800 | 全部改正 |
+| I6d | `Cards / Saved Items` | 四張 **70pt** 圖、**4pt** 間隙、每張只有**外側那一角**是 12pt 圓角;標題與數量之間**沒有間距** | 全部改正 |
+| I6e | `Cards / Description` | 卡片內距 12pt、標題與內文間距 4pt、圖片固定 **240×180 / 12pt 圓角**。原本內距 8、間距 12、圖片滿版 160 高 8pt 圓角 | 全部改正 |
+| I6f | `Payment Info` | 金額是**兩種字級基線對齊**:`NT$` 是 Headline/3 Semibold、數字是 Headline/1 Regular。原本整串塞在一個 Headline/1 裡。內距應為左右 24 / 上 12 / 下 16 | 全部改正 |
+| I6g | `Progress Indicator` | 步驟文案在 Figma 是 **選擇票券 / 付款方式 / 付款資訊**,原本寫成「方案 / 付款方式 / 資訊確認」;每步固定 64pt 寬、連接線撐滿剩餘空間;容器缺少上下 12pt 內距 | 全部改正 |
+| I6h | `Tab` | 作用中底線是 **green-800** 不是 green-900;每個分頁固定 **44pt 高**;Small 的字級與 Medium 同為 **14pt**(原本 12pt);分頁之間**沒有間距**(底線要連成一條) | 全部改正 |
+| I6i | `Badge` | 計數徽章固定 **18pt** 高/最小寬,單一數字要是圓形;原本用上下 2pt padding,呈扁膠囊 | 改正 |
+| I6j | `Label` | 在 Figma 是 **95% 不透明 + 背景模糊**(它壓在照片上);原本全不透明 | 加上 opacity |
+| I6k | `Link` / `Link / Further Info` | 兩者文字都是 **Label/M(14pt Semibold)**,原本是 body/M(14pt Regular) | 改正 |
+| I6l | `Chips / Small` | Figma 是**固定 32pt 高、只有左右內距**;原本沿用 Large 的上下 8pt,高度偏矮 | 改正 |
+| I6m | `List / DownloadMap` / `List / Notification` | 分別缺少上下 **4pt** / **8pt** 內距 | 補上 |
+| I6n | `User Location` | Figma 是「方向扇形 + **20pt** info-700 圓點 + **3pt 白色外環** + Elevation/3」;原本是 SF Symbol 箭頭套在半透明光暈裡 | 依設計重繪 |
+
+### 驗證方式
+
+`swift build`(DesignSystemKit / GalleryKit / ComponentGallery 全部通過),並在
+iPhone 17 Pro 模擬器實機截圖逐區比對:Cards、Indicators、TabBar / PageIndicator /
+UserLocation、WeatherColumn 四組畫面都已對照 Figma 截圖確認。
+
+過程中另外抓到一個**只有跑起來才看得到**的問題:`DSOfflineMapCard` 在只有一家
+電信商時把整列包在 `disabled` 的 `Button` 裡,SwiftUI 會把整列變淡——Figma 的單列
+variant 是全彩的。已改為只有真的可展開時才包 `Button`。
+
+### 這一輪之後仍待處理(不在本次範圍)
+
+- **`docs/component-spec/` 有四份規格已與 Figma 不符**:`list-weather.md`(寫成
+  水平列)、`bottom-bar.md`(把 `2 Buttons` 寫成兩顆按鈕)、`offline-map.md`
+  (寫成卡片)、`progress-indicator.md`(步驟文案)。這次只改了 SwiftUI,規格文件
+  與 **React 端要跟著同步**,否則兩個平台會再次分歧。
+- `Segmented Controls`、`Toggle`、`Stepper`、`Navigation Bar`、`Search Bar`、
+  `App Bar` 維持原生控制項(見 E 章與 `swiftui/README.md`)。其中 **Toggle 的
+  Off 狀態**在 Figma 是 green-100 底 + 2pt green-800 外框 + green-800 滑鈕,和
+  iOS 原生的灰底白鈕差距不小——這是已記錄的平台取捨,但值得設計端知道。
+
+---
+
 ## E. 補充說明:刻意的偏離(非落差)
 
 以下項目與 Figma 不同,但都是有記錄的平台決策,不列為落差:

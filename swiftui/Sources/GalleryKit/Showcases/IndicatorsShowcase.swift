@@ -16,37 +16,46 @@ struct IndicatorsShowcase: View {
                     }
                 }
                 GallerySection(title: "Crowdedness / Status Label") {
-                    HStack(spacing: 12) {
+                    VStack(alignment: .leading, spacing: 8) {
                         DSCrowdednessTag(level: .comfortable)
+                        DSCrowdednessTag(level: .partial)
                         DSCrowdednessTag(level: .crowded)
-                        DSStatusLabel(.open)
-                        DSStatusLabel(.partial)
-                        DSStatusLabel(.closed)
-                        DSStatusLabel(.familyFriendly)
+                        HStack(spacing: 8) {
+                            DSStatusLabel(.open)
+                            DSStatusLabel(.partial)
+                            DSStatusLabel(.closed)
+                            DSStatusLabel(.familyFriendly)
+                        }
                     }
                 }
                 GallerySection(title: "OfflineMap") {
-                    VStack(spacing: 8) {
-                        DSOfflineMapCard(coverage: .noneMissing, carriers: [], isExpanded: .constant(false))
-                        DSOfflineMapCard(coverage: .mostMissing, carriers: [], isExpanded: .constant(false))
+                    VStack(alignment: .leading, spacing: 8) {
+                        DSOfflineMapCard(
+                            carriers: [.init(name: "中華電信", coverage: .noneMissing)],
+                            isExpanded: .constant(false)
+                        )
+                        DSOfflineMapCard(
+                            carriers: [.init(name: "中華電信", coverage: .mostMissing)],
+                            isExpanded: .constant(false)
+                        )
                     }
                     DSOfflineMapCard(
-                        coverage: .someMissing,
                         carriers: [
-                            .init(name: "中華電信", hasSignal: true),
-                            .init(name: "台灣大哥大", hasSignal: false),
-                            .init(name: "遠傳電信", hasSignal: true)
+                            .init(name: "中華電信", coverage: .someMissing),
+                            .init(name: "台灣大哥大", coverage: .someMissing),
+                            .init(name: "遠傳電信", coverage: .noneMissing)
                         ],
                         isExpanded: $offlineExpanded
                     )
                 }
                 GallerySection(title: "PaymentInfo") {
                     DSPaymentInfo(
-                        title: "訂單摘要",
-                        lineItems: [.init(label: "全票 x2", value: "NT$300"), .init(label: "接駁券 x2", value: "NT$100")],
-                        total: "NT$400",
+                        title: "內洞國家森林遊樂區",
+                        lineItems: [.init(label: "全票 x 2", value: "NT$300"), .init(label: "半票 x 1", value: "NT$125")],
+                        total: "425",
                         isSelected: true
                     )
+                    DSPaymentInfo(title: "內洞國家森林遊樂區", lineItems: [], total: "425")
                 }
                 GallerySection(title: "ProgressIndicator") {
                     DSStepProgressIndicator(current: .method)

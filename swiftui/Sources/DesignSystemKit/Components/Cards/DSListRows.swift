@@ -6,39 +6,121 @@ import SwiftUI
 /// they compose with `List`'s own separators, swipe actions, and section
 /// styling instead of re-drawing that chrome.
 
-/// `list-weather.md`
-public struct DSWeatherRow: View {
+/// `list-weather.md` — Figma `List / weather` (node 877:8425).
+///
+/// Despite the "list row" name this is a **vertical day column**, 96pt wide,
+/// meant to be laid out side by side in a horizontally scrolling forecast
+/// strip: condition glyph on top, then date/weekday, temperature, apparent
+/// temperature, precipitation, UV, sunrise, sunset, humidity and wind. The
+/// earlier port was a three-item horizontal row (date · glyph · temperature),
+/// which is a different component entirely.
+public struct DSWeatherColumn: View {
     private let date: String
+    private let weekday: String
     private let condition: DSIcon
     private let conditionText: String
     private let temperature: String
+    private let apparentTemperature: String
+    private let precipitationRate: String
+    private let uvIndex: String
+    private let uvLevel: String
+    private let sunrise: String
+    private let sunset: String
+    private let humidity: String
+    private let windSpeed: String
+    private let windDirection: String
 
-    public init(date: String, condition: DSIcon, conditionText: String, temperature: String) {
+    public init(
+        date: String,
+        weekday: String,
+        condition: DSIcon,
+        conditionText: String,
+        temperature: String,
+        apparentTemperature: String,
+        precipitationRate: String,
+        uvIndex: String,
+        uvLevel: String,
+        sunrise: String,
+        sunset: String,
+        humidity: String,
+        windSpeed: String,
+        windDirection: String
+    ) {
         self.date = date
+        self.weekday = weekday
         self.condition = condition
         self.conditionText = conditionText
         self.temperature = temperature
+        self.apparentTemperature = apparentTemperature
+        self.precipitationRate = precipitationRate
+        self.uvIndex = uvIndex
+        self.uvLevel = uvLevel
+        self.sunrise = sunrise
+        self.sunset = sunset
+        self.humidity = humidity
+        self.windSpeed = windSpeed
+        self.windDirection = windDirection
     }
 
     public var body: some View {
-        HStack {
-            Text(date)
-                .dsFont(.bodyL)
-                .foregroundStyle(DSColor.black)
-                .frame(width: 56, alignment: .leading)
-            Spacer()
-            // The glyph carries no accessible text of its own; the row's
+        VStack(spacing: 0) {
+            // The glyph carries no accessible text of its own; the column's
             // combined label below states the condition in words, which
             // `list-weather.md` requires (the icon must never be the only
             // carrier of the forecast).
             DSIconView(condition)
-            Spacer()
-            Text(temperature)
-                .dsFont(.bodyL)
-                .foregroundStyle(DSColor.black)
+                .frame(width: 24, height: 24)
+
+            VStack(spacing: DSSpacing.s) {
+                cell {
+                    primary(date)
+                    secondary(weekday)
+                }
+                cell { primary(temperature) }
+                cell { primary(apparentTemperature) }
+                cell { primary(precipitationRate) }
+                cell(spacing: 0) {
+                    primary(uvIndex)
+                    secondary(uvLevel)
+                }
+                cell { primary(sunrise) }
+                cell { primary(sunset) }
+                cell { primary(humidity) }
+                cell { primary(windSpeed) }
+                cell { secondary(windDirection) }
+            }
+            .padding(.horizontal, DSSpacing.sm)
+            .padding(.vertical, DSSpacing.xs)
         }
+        .padding(.vertical, DSSpacing.sm)
+        .frame(width: 96)
+        .background(DSColor.white, in: RoundedRectangle(cornerRadius: DSRadius.xs, style: .continuous))
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("\(date), \(conditionText), \(temperature)")
+        .accessibilityLabel(
+            "\(date) \(weekday), \(conditionText), 溫度 \(temperature), 體感 \(apparentTemperature), "
+            + "降雨機率 \(precipitationRate), 紫外線 \(uvIndex) \(uvLevel), 日出 \(sunrise), 日落 \(sunset), "
+            + "相對濕度 \(humidity), 風速 \(windSpeed), 風向 \(windDirection)"
+        )
+    }
+
+    private func cell<Content: View>(spacing: CGFloat = DSSpacing.xs, @ViewBuilder content: () -> Content) -> some View {
+        VStack(spacing: spacing, content: content)
+            .padding(.vertical, DSSpacing.s)
+            .frame(maxWidth: .infinity)
+    }
+
+    private func primary(_ text: String) -> some View {
+        Text(text)
+            .dsFont(.bodyL)
+            .foregroundStyle(DSColor.black)
+            .multilineTextAlignment(.center)
+    }
+
+    private func secondary(_ text: String) -> some View {
+        Text(text)
+            .dsFont(.bodyS)
+            .foregroundStyle(DSColor.black)
+            .multilineTextAlignment(.center)
     }
 }
 
@@ -86,11 +168,14 @@ public struct DSDownloadMapRow: View {
     }
 
     public var body: some View {
-        HStack {
+        // Figma: 4pt vertical padding around the row; the icon button supplies
+        // its own 12pt padding.
+        HStack(spacing: 0) {
             Text(regionName).dsFont(.bodyL).foregroundStyle(DSColor.black)
-            Spacer()
+            Spacer(minLength: DSSpacing.s)
             DSIconButton(.offlineMap(downloadState)) {}
         }
+        .padding(.vertical, DSSpacing.xs)
     }
 }
 
@@ -107,8 +192,10 @@ public struct DSNotificationSettingRow: View {
     }
 
     public var body: some View {
+        // Figma: 8pt vertical padding around the row.
         Toggle(label, isOn: $isOn)
             .dsFont(.bodyL)
             .tint(DSColor.primaryGreen800)
+            .padding(.vertical, DSSpacing.s)
     }
 }

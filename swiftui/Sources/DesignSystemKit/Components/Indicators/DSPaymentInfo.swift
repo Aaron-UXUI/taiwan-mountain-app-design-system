@@ -16,12 +16,22 @@ public struct DSPaymentLineItem: Identifiable {
 public struct DSPaymentInfo: View {
     private let title: String
     private let lineItems: [DSPaymentLineItem]
+    private let currency: String
     private let total: String
     private let isSelected: Bool
 
-    public init(title: String, lineItems: [DSPaymentLineItem], total: String, isSelected: Bool = false) {
+    /// `total` is the bare amount ("425"); `currency` is the symbol Figma sets
+    /// alongside it in its own, smaller type style.
+    public init(
+        title: String,
+        lineItems: [DSPaymentLineItem],
+        currency: String = "NT$",
+        total: String,
+        isSelected: Bool = false
+    ) {
         self.title = title
         self.lineItems = lineItems
+        self.currency = currency
         self.total = total
         self.isSelected = isSelected
     }
@@ -32,32 +42,43 @@ public struct DSPaymentInfo: View {
         // the total, Unselected collapses to the total alone. The previous
         // version always showed everything and drew a green outline instead,
         // which is not in the design at all.
-        HStack(alignment: .top) {
+        //
+        // The price is two type styles baseline-aligned, not one: the currency
+        // symbol is Headline/3 semibold and the amount Headline/1 regular.
+        HStack(alignment: .bottom, spacing: DSSpacing.sm) {
             if isSelected {
-                VStack(alignment: .leading, spacing: DSSpacing.s) {
+                VStack(alignment: .leading, spacing: DSSpacing.sm) {
                     Text(title)
                         .dsFont(.bodyM)
                         .fontWeight(.semibold)
                         .foregroundStyle(DSColor.black)
 
-                    VStack(alignment: .leading, spacing: DSSpacing.xs) {
+                    // The breakdown lines run flush against each other.
+                    VStack(alignment: .leading, spacing: 0) {
                         ForEach(lineItems) { item in
                             Text(item.label)
                                 .dsFont(.bodyS)
                                 .foregroundStyle(DSColor.gray800)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
                 }
-                Spacer(minLength: DSSpacing.m)
+                .frame(maxWidth: .infinity, alignment: .leading)
             } else {
                 Spacer(minLength: 0)
             }
 
-            Text(total)
-                .dsFont(.headline1)
-                .foregroundStyle(DSColor.black)
+            HStack(alignment: .firstTextBaseline, spacing: DSSpacing.xs) {
+                Text(currency)
+                    .dsFont(.headline3)
+                Text(total)
+                    .dsFont(.headline1)
+            }
+            .foregroundStyle(DSColor.black)
         }
-        .padding(DSSpacing.lm)
+        .padding(.horizontal, DSSpacing.lm)
+        .padding(.top, DSSpacing.sm)
+        .padding(.bottom, DSSpacing.m)
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }

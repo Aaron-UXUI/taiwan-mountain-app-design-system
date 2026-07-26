@@ -23,8 +23,9 @@ public struct DSLink: View {
 
 private struct DSLinkButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
+        // Figma sets the link in Label/M — 14pt Semibold, not Regular.
         configuration.label
-            .dsFont(.bodyM)
+            .dsFont(.labelM)
             .foregroundStyle(configuration.isPressed ? DSColor.accentYellow900 : DSColor.accentYellow700)
     }
 }

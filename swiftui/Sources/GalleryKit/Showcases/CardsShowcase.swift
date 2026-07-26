@@ -39,10 +39,26 @@ struct CardsShowcase: View {
                     DSCardSavedItems(title: "台灣北部", savedCount: 3, photoURLs: [])
                         .frame(height: 160)
                 }
+                GallerySection(title: "Weather Column") {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(alignment: .top, spacing: 8) {
+                            DSWeatherColumn(
+                                date: "08/11", weekday: "星期日", condition: .cloudSun, conditionText: "多雲時晴",
+                                temperature: "29 / 33℃", apparentTemperature: "29 / 33℃", precipitationRate: "90%",
+                                uvIndex: "5", uvLevel: "中量級", sunrise: "05:48", sunset: "17:37",
+                                humidity: "84%", windSpeed: "4", windDirection: "東南"
+                            )
+                            DSWeatherColumn(
+                                date: "08/12", weekday: "星期一", condition: .rain, conditionText: "陣雨",
+                                temperature: "27 / 31℃", apparentTemperature: "28 / 32℃", precipitationRate: "70%",
+                                uvIndex: "3", uvLevel: "低量級", sunrise: "05:49", sunset: "17:36",
+                                humidity: "88%", windSpeed: "5", windDirection: "南"
+                            )
+                        }
+                    }
+                }
                 GallerySection(title: "List Rows") {
                     VStack(spacing: 0) {
-                        DSWeatherRow(date: "週三", condition: .sunny, conditionText: "晴天", temperature: "28°")
-                        Divider()
                         DSSettingRowLabel("帳戶設定")
                         Divider()
                         DSDownloadMapRow(regionName: "北部地區", downloadState: .idle)

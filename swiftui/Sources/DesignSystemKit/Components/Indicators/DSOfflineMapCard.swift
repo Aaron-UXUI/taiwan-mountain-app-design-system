@@ -1,18 +1,16 @@
 import SwiftUI
 
-/// Native port of `offline-map.md`, built on `DisclosureGroup`.
-public struct DSCarrierCoverage: Identifiable {
-    public let id = UUID()
-    public let name: String
-    public let hasSignal: Bool
-    public init(name: String, hasSignal: Bool) {
-        self.name = name
-        self.hasSignal = hasSignal
-    }
-}
+/// Native port of `offline-map.md` — Figma `OfflineMap` (node 16343:7890).
+///
+/// Figma is **not** a card: it is a stack of per-carrier rows, each one
+/// "[carrier mark] [carrier name] [coloured coverage pill]", with a 14pt
+/// chevron on the first row that expands the rest. The earlier port wrapped a
+/// single summary pill in a white, padded, rounded card and listed the
+/// carriers underneath as SF-Symbol "有訊號 / 無訊號" rows — neither the card
+/// nor that row format exists in the design.
 
 /// Figma `Signal Missing=None | Some | Most` (node 16343:7890).
-/// `none` means nothing is missing — every area is stable.
+/// `noneMissing` means nothing is missing — every area is stable.
 public enum DSSignalCoverage: CaseIterable {
     case noneMissing, someMissing, mostMissing
 
@@ -33,48 +31,95 @@ public enum DSSignalCoverage: CaseIterable {
     }
 }
 
+public struct DSCarrierCoverage: Identifiable {
+    public let id = UUID()
+    public let name: String
+    public let coverage: DSSignalCoverage
+
+    public init(name: String, coverage: DSSignalCoverage) {
+        self.name = name
+        self.coverage = coverage
+    }
+}
+
 public struct DSOfflineMapCard: View {
-    private let coverage: DSSignalCoverage
+    /// The first entry is Figma's "Main Container" — the always-visible row
+    /// that carries the disclosure chevron; the rest are the "Side Container"
+    /// rows revealed on expand.
     private let carriers: [DSCarrierCoverage]
     @Binding private var isExpanded: Bool
 
-    public init(coverage: DSSignalCoverage, carriers: [DSCarrierCoverage], isExpanded: Binding<Bool>) {
-        self.coverage = coverage
+    public init(carriers: [DSCarrierCoverage], isExpanded: Binding<Bool>) {
         self.carriers = carriers
         self._isExpanded = isExpanded
     }
 
     public var body: some View {
-        DisclosureGroup(isExpanded: $isExpanded) {
-            VStack(alignment: .leading, spacing: DSSpacing.xs) {
-                ForEach(carriers) { carrier in
-                    HStack {
-                        Text(carrier.name).dsFont(.bodyM).foregroundStyle(DSColor.gray800)
-                        Spacer()
-                        Image(systemName: carrier.hasSignal ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
-                            .foregroundStyle(carrier.hasSignal ? DSColor.success700 : DSColor.accentYellow700)
-                            .accessibilityHidden(true)
-                        Text(carrier.hasSignal ? "有訊號" : "無訊號")
-                            .dsFont(.bodyS)
-                            .foregroundStyle(DSColor.gray800)
+        VStack(alignment: .leading, spacing: DSSpacing.xs) {
+            ForEach(Array(carriers.enumerated()), id: \.element.id) { index, carrier in
+                if index == 0 {
+                    // Only wrap the main row in a Button when there is
+                    // something to disclose — a disabled Button would dim the
+                    // whole row, and Figma's single-carrier variants are drawn
+                    // at full strength.
+                    if carriers.count > 1 {
+                        Button {
+                            isExpanded.toggle()
+                        } label: {
+                            row(carrier, showsChevron: true)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityHint(isExpanded ? "收合其他電信訊號" : "展開其他電信訊號")
+                    } else {
+                        row(carrier, showsChevron: false)
                     }
+                } else if isExpanded {
+                    row(carrier, showsChevron: false)
                 }
             }
-            .padding(.top, DSSpacing.xs)
-            .padding(.horizontal, DSSpacing.s)
-            .background(DSColor.gray100)
-        } label: {
-            Text(coverage.summary)
-                .dsFont(.bodyM)
-                .fontWeight(.semibold)
-                .foregroundStyle(DSColor.white)
-                .padding(.horizontal, DSSpacing.s)
-                .padding(.vertical, DSSpacing.xs)
-                .background(coverage.tint)
-                .clipShape(RoundedRectangle(cornerRadius: DSRadius.xxs, style: .continuous))
         }
-        .padding(DSSpacing.s)
-        .background(DSColor.white)
-        .clipShape(RoundedRectangle(cornerRadius: DSRadius.xs, style: .continuous))
+        .dsAnimation(DSMotion.standard, value: isExpanded)
+    }
+
+    private func row(_ carrier: DSCarrierCoverage, showsChevron: Bool) -> some View {
+        HStack(spacing: DSSpacing.s) {
+            HStack(spacing: DSSpacing.xs) {
+                carrierMark
+                Text("\(carrier.name)網路訊號")
+                    .dsFont(.bodyM)
+                    .foregroundStyle(DSColor.gray800)
+                    .frame(width: 126, alignment: .leading)
+            }
+            .padding(.vertical, DSSpacing.xs)
+
+            Text(carrier.coverage.summary)
+                .dsFont(.bodyM)
+                .foregroundStyle(DSColor.white)
+                .padding(.horizontal, DSSpacing.sm)
+                .padding(.vertical, DSSpacing.xs)
+                .background(carrier.coverage.tint, in: RoundedRectangle(cornerRadius: DSRadius.xs, style: .continuous))
+
+            if showsChevron {
+                DSIconView(.chevron)
+                    .rotationEffect(.degrees(isExpanded ? 180 : 0))
+                    .foregroundStyle(DSColor.black)
+                    .accessibilityHidden(true)
+            }
+        }
+        .padding(.vertical, DSSpacing.xs)
+        .contentShape(Rectangle())
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(carrier.name)網路訊號,\(carrier.coverage.summary)")
+    }
+
+    /// Figma shows the carriers' real trademarks in a 20×14 slot. Those are not
+    /// this project's marks to reproduce — the same call already made for
+    /// `DSLogo` / `DSPaymentBrandBadge` — so the slot keeps its exact geometry
+    /// and stays neutral; the carrier name beside it carries the meaning.
+    private var carrierMark: some View {
+        RoundedRectangle(cornerRadius: 2, style: .continuous)
+            .fill(DSColor.gray100)
+            .frame(width: 20, height: 14)
+            .accessibilityHidden(true)
     }
 }

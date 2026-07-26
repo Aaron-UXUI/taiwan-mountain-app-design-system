@@ -18,28 +18,42 @@ public struct DSCardNotification: View {
     }
 
     public var body: some View {
-        HStack(alignment: .top, spacing: DSSpacing.s) {
-            if isUnread {
-                Circle()
-                    .fill(DSColor.destruct600)
-                    .frame(width: 8, height: 8)
-                    .padding(.top, 6)
-                    .accessibilityHidden(true)
-            }
-            VStack(alignment: .leading, spacing: DSSpacing.xs) {
+        // Figma is a bordered white card: the timestamp sits at the *end of
+        // the headline row*, not on a line of its own below the body, and the
+        // unread marker is a 6pt dot straddling the leading border rather than
+        // an 8pt dot inset in the content flow.
+        VStack(alignment: .leading, spacing: DSSpacing.s) {
+            HStack(alignment: .top, spacing: DSSpacing.sm) {
                 Text(headline)
                     .dsFont(.bodyM)
                     .fontWeight(.semibold)
                     .foregroundStyle(DSColor.black)
-                Text(body_)
-                    .dsFont(.bodyS)
-                    .foregroundStyle(DSColor.gray800)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 Text(time)
                     .dsFont(.bodyS)
-                    .foregroundStyle(DSColor.gray400)
+                    .foregroundStyle(DSColor.gray800)
             }
+            Text(body_)
+                .dsFont(.bodyS)
+                .foregroundStyle(DSColor.gray800)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(DSSpacing.m)
+        .frame(maxWidth: 360, alignment: .leading)
+        .background(DSColor.white, in: RoundedRectangle(cornerRadius: DSRadius.s, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: DSRadius.s, style: .continuous)
+                .strokeBorder(DSColor.gray200, lineWidth: 1)
+        }
+        .overlay(alignment: .topLeading) {
+            if isUnread {
+                Circle()
+                    .fill(DSColor.destruct700)
+                    .frame(width: 6, height: 6)
+                    .offset(x: -3, y: 13)
+                    .accessibilityHidden(true)
+            }
+        }
         .accessibilityElement(children: .combine)
         .accessibilityLabel(isUnread ? "未讀,\(headline)" : headline)
     }

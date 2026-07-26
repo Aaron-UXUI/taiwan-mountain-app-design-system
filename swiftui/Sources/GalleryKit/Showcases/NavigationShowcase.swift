@@ -48,7 +48,13 @@ struct NavigationShowcase: View {
                     NavigationStack {
                         Text("內容區域")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .dsBottomBar(.twoButtons(secondaryTitle: "取消", secondaryAction: {}, primaryTitle: "確認", primaryAction: {}))
+                            .dsBottomBar(.buttonWithShortcut(
+                                title: "確認",
+                                action: {},
+                                shortcutTitle: "地圖",
+                                shortcutIcon: .map,
+                                shortcutAction: {}
+                            ))
                     }
                     .frame(height: 180)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
