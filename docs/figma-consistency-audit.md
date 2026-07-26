@@ -372,6 +372,61 @@ variant 是全彩的。已改為只有真的可展開時才包 `Button`。
 
 ---
 
+## J. 第六輪:表單控制項與 Accordion(2026-07-26)
+
+第五輪把「結構做錯」的元件處理完之後,剩下唯一沒有用**精確 CSS**(而不是截圖
+目測)核對過的,就是 G 章當年只改了單一顏色的表單控制項。這輪補完。
+
+### J1. `Text Field` — S/M/L/XL 是**寬度**,不是字級 ⚠️
+
+這是最容易誤讀的一項。Figma 的四個尺寸是 **88 / 120 / 180 / 327 的固定寬度**,
+四者的輸入文字**一律是 Label/L(16pt)**。原本的 `DSTextFieldSize` 把這個軸
+對應成三種字級(bodyS 12 / bodyM 14 / bodyL 16),等於把小尺寸欄位的文字縮成
+12pt——設計裡沒有這回事。已改為對應寬度。
+
+同一個元件另外四項:
+
+| 項目 | Figma | 原本 |
+|---|---|---|
+| 欄位標籤 | body/M **14pt、黑色** | 12pt、gray-800 |
+| 輸入框 | 固定 **40pt 高**、左右 8pt、上下 0 | 上下 8 / 左右 4,高度隨內容 |
+| 外框 | **一律 gray-800**,只有粗細變化(Default/Typed 1pt → Typing 2pt);Error 是 **2pt** destruct-600 | gray-400 → 聚焦時跳成純黑;Error 只有聚焦時才 2pt |
+| 錯誤訊息 | 前面有 **16pt exclamation 圖示** | 只有文字 |
+
+### J2. `Radio button` — 設計稿用的是**匯出的向量圖示**,不是手繪的圈
+
+Figma 每一列的控制項是 `icon / 24px, Type=Radio` 這個元件——而這個圖示**本來就
+在我們的 icon set 裡**(`ds-24-radio` / `ds-24-radio-fill`)。第三輪(G6)改成
+手繪兩個 `Circle`,線寬 1.5pt、未選用 gray-400,都是猜的。已改為直接用匯出資產。
+
+其餘:列高固定 **48pt**、圖示與標籤間距 **8pt**(原本 12)、右側 4pt 內距、
+每列下緣 1pt gray-200 分隔線;`expanded` 變體的輸入框應該是「24pt 空白縮排 +
+180pt 寬、40pt 高、4pt 圓角、1pt gray-400」的輸入框,原本用系統的
+`.roundedBorder`。
+
+### J3. `Accordion`(兩個)— 展開箭頭應該是品牌的 14pt chevron
+
+原本靠 `DisclosureGroup` 的系統箭頭,H8 當時只是把它 `.tint` 成墨色——但形狀、
+大小、位置仍然是系統的 SF Symbol,而且 `DisclosureGroup` 還會自己加一層列內距。
+已改為自訂 `DisclosureGroupStyle`,用 `DSIconView(.chevron)` 畫 14pt 箭頭、
+標題列固定 48pt。
+
+同時修正:`Accordion / CheckBox` 展開後的核取列在 Figma 是**緊貼標題列**堆疊
+(每列自帶 16pt 內距),原本多加了 4pt 的 `padding(.top)`。
+
+### 驗證方式
+
+`swift build` 通過,並在 iPhone 17 Pro 模擬器截圖比對 Inputs(CheckBox /
+Radio Default / Radio Expanded)、Text Field 四種狀態、Dialogs(兩個 Accordion)
+三組畫面。
+
+### 本輪確認**沒有**落差的元件
+
+`CheckBox`(H5/H6 的 20pt 方框 / 4pt 圓角 / gray-800 外框 / green-800 填色 /
+16pt 內距 / 8pt 間距 / 標籤 body/M gray-800 全部正確)、`Snackbar`、`Banner`。
+
+---
+
 ## E. 補充說明:刻意的偏離(非落差)
 
 以下項目與 Figma 不同,但都是有記錄的平台決策,不列為落差:

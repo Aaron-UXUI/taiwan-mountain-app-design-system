@@ -47,7 +47,9 @@ public struct DSRadioSelectionList: View {
                 Button {
                     selectedID = option.id
                 } label: {
-                    HStack(spacing: DSSpacing.sm) {
+                    // Figma: 48pt row, 8pt between mark and label, 12pt
+                    // vertical / 4pt trailing padding.
+                    HStack(spacing: DSSpacing.s) {
                         DSRadioMark(isOn: selectedID == option.id)
                         Text(option.label)
                             .dsFont(.bodyL)
@@ -55,34 +57,32 @@ public struct DSRadioSelectionList: View {
                         Spacer(minLength: 0)
                     }
                     .padding(.vertical, DSSpacing.sm)
+                    .padding(.trailing, DSSpacing.xs)
+                    .frame(minHeight: 48)
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
                 .accessibilityAddTraits(selectedID == option.id ? [.isSelected, .isButton] : .isButton)
-
-                Divider()
+                .overlay(alignment: .bottom) {
+                    DSColor.gray200.frame(height: 1)
+                }
             }
         }
         .accessibilityElement(children: .contain)
     }
 }
 
-/// The radio ring itself — Figma uses a 20pt ring with a filled centre.
+/// The radio control. Figma uses the `icon / 24px, Type=Radio` component —
+/// a real exported vector already in the icon set — inside a 24pt box, not a
+/// hand-drawn ring. The previous version approximated it with two `Circle`s
+/// at the wrong stroke weight and grey.
 struct DSRadioMark: View {
     let isOn: Bool
 
     var body: some View {
-        ZStack {
-            Circle()
-                .strokeBorder(isOn ? DSColor.primaryGreen800 : DSColor.gray400, lineWidth: 1.5)
-                .frame(width: 20, height: 20)
-            if isOn {
-                Circle()
-                    .fill(DSColor.primaryGreen800)
-                    .frame(width: 10, height: 10)
-            }
-        }
-        .accessibilityHidden(true)
+        DSIconView(isOn ? .radioFill : .radio)
+            .frame(width: 24, height: 24)
+            .accessibilityHidden(true)
     }
 }
 
@@ -117,7 +117,7 @@ public struct DSExpandableRadioSelectionList: View {
                 Button {
                     selectedID = option.id
                 } label: {
-                    HStack(spacing: DSSpacing.sm) {
+                    HStack(spacing: DSSpacing.s) {
                         DSRadioMark(isOn: selectedID == option.id)
                         Text(option.label)
                             .dsFont(.bodyL)
@@ -130,12 +130,30 @@ public struct DSExpandableRadioSelectionList: View {
                 .accessibilityAddTraits(selectedID == option.id ? .isSelected : [])
 
                 if selectedID == option.id, let placeholder = option.expandedPlaceholder {
-                    TextField(placeholder, text: $customValue)
-                        .dsFont(.bodyM)
-                        .textFieldStyle(.roundedBorder)
-                        .accessibilityLabel(placeholder)
+                    // Figma indents the field by a blank the width of the
+                    // radio mark, then draws the same 40pt / 4pt-radius input
+                    // as Text Field (at the L width) — not a system
+                    // `.roundedBorder` field.
+                    HStack(spacing: DSSpacing.s) {
+                        Color.clear.frame(width: 24, height: 24)
+                        TextField(placeholder, text: $customValue)
+                            .dsFont(.bodyL)
+                            .foregroundStyle(DSColor.black)
+                            .padding(.horizontal, DSSpacing.s)
+                            .frame(width: 180, height: 40)
+                            .background(DSColor.white)
+                            .clipShape(RoundedRectangle(cornerRadius: DSRadius.xxs, style: .continuous))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: DSRadius.xxs, style: .continuous)
+                                    .strokeBorder(DSColor.gray400, lineWidth: 1)
+                            )
+                            .accessibilityLabel(placeholder)
+                    }
                 }
             }
+            .padding(.vertical, DSSpacing.sm)
+            .padding(.trailing, DSSpacing.xs)
+            .overlay(alignment: .bottom) { DSColor.gray200.frame(height: 1) }
             .dsAnimation(DSMotion.standard, value: selectedID)
         }
     }

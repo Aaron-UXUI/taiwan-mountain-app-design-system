@@ -5,6 +5,46 @@ import SwiftUI
 /// provides the expanded/collapsed accessibility state and arrow rotation —
 /// so these are thin convenience initializers over it, not a rebuilt
 /// disclosure widget.
+
+/// Figma's disclosure indicator is the brand **14pt chevron**, right-aligned
+/// on a 48pt title row. `DisclosureGroup`'s default style draws the system
+/// SF Symbol chevron at its own size and adds its own row insets, so the
+/// indicator is replaced here via a style rather than left to the system.
+struct DSDisclosureStyle: DisclosureGroupStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        VStack(spacing: 0) {
+            Button {
+                configuration.isExpanded.toggle()
+            } label: {
+                HStack(spacing: DSSpacing.s) {
+                    configuration.label
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    DSIconView(.chevron)
+                        .foregroundStyle(DSColor.black)
+                        .rotationEffect(.degrees(configuration.isExpanded ? 180 : 0))
+                        .accessibilityHidden(true)
+                }
+                .frame(height: 48)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            // There is no "expanded" trait on iOS; VoiceOver conveys
+            // disclosure state through the value, as the system's own
+            // DisclosureGroup does.
+            .accessibilityAddTraits(.isButton)
+            .accessibilityValue(configuration.isExpanded ? "已展開" : "已收合")
+
+            if configuration.isExpanded {
+                configuration.content
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        // Routed through `dsAnimation` rather than a `withAnimation` in the
+        // button so it still honours Reduce Motion.
+        .dsAnimation(DSMotion.standard, value: configuration.isExpanded)
+    }
+}
+
 public struct DSAccordionCheckBox: View {
     private let title: String
     private let options: [String]
@@ -28,17 +68,15 @@ public struct DSAccordionCheckBox: View {
                     }
                 ))
             }
-            .padding(.top, DSSpacing.xs)
         } label: {
             header
         }
-        // The system disclosure chevron defaults to the accent colour; Figma
-        // draws it in the same ink as the title.
-        .tint(DSColor.black)
+        // Figma stacks the checkbox rows flush under the title row; the rows
+        // carry their own 16pt padding, so there is no extra gap here.
+        .disclosureGroupStyle(DSDisclosureStyle())
     }
 
     private var header: some View {
-        // Figma fixes the title row height at 48pt.
         HStack(spacing: DSSpacing.s) {
             Text(title).dsFont(.bodyM).foregroundStyle(DSColor.black)
             if !checkedOptions.isEmpty {
@@ -46,7 +84,6 @@ public struct DSAccordionCheckBox: View {
             }
             Spacer(minLength: 0)
         }
-        .frame(height: 48)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(checkedOptions.isEmpty ? title : "\(title), 已選 \(checkedOptions.count) 項")
     }
@@ -77,7 +114,9 @@ public struct DSAccordionChips: View {
                     ))
                 }
             }
-            .padding(.top, DSSpacing.xs)
+            // Chips sit in a padded content block, unlike the checkbox rows
+            // which carry their own padding.
+            .padding(.bottom, DSSpacing.m)
         } label: {
             HStack(spacing: DSSpacing.s) {
                 Text(title).dsFont(.bodyM).foregroundStyle(DSColor.black)
@@ -86,11 +125,10 @@ public struct DSAccordionChips: View {
                 }
                 Spacer(minLength: 0)
             }
-            .frame(height: 48)
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(selectedOptions.isEmpty ? title : "\(title), 已選 \(selectedOptions.count) 項")
         }
-        .tint(DSColor.black)
+        .disclosureGroupStyle(DSDisclosureStyle())
     }
 }
 

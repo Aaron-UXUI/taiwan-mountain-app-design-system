@@ -10,6 +10,7 @@ struct InputsShowcase: View {
     @State private var stepAmount = 2
     @State private var segment: DSSegmentSide = .left
     @State private var text = ""
+    @State private var errorText = "12"
 
     var body: some View {
         ScrollView {
@@ -43,7 +44,14 @@ struct InputsShowcase: View {
                     DSSegmentedControl(leftLabel: "距離", rightLabel: "熱門度", selected: $segment)
                 }
                 GallerySection(title: "TextField") {
-                    DSTextField("搜尋景點", text: $text, errorMessage: text.count > 20 ? "字數過長" : nil)
+                    // Figma's S/M/L/XL axis is the field's width, not its
+                    // type size — all four render at Label/L.
+                    VStack(alignment: .leading, spacing: 16) {
+                        DSTextField("卡片背面3碼(CVV)", text: $text, size: .s)
+                        DSTextField("卡片背面3碼(CVV)", text: $text, size: .m)
+                        DSTextField("卡片背面3碼(CVV)", text: $text, size: .l)
+                        DSTextField("卡片背面3碼(CVV)", text: $errorText, size: .l, errorMessage: "請完整輸入3碼數字")
+                    }
                 }
             }
             .padding()
