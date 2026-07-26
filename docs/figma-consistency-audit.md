@@ -706,6 +706,59 @@ E 章記錄過的平台決策,所以沒有改;但如果品牌一致性優先於�
 
 ---
 
+## P. 第十二輪:Toggle 改為品牌樣式,並繼續掃剩餘元件(2026-07-26)
+
+### P1. `Toggle` 依設計端決定改為自繪(SwiftUI)
+
+前一輪提出的取捨,設計端拍板**跟著 Figma**。SwiftUI 原本用系統開關 + 品牌
+tint,現在依 Figma 自繪:
+
+```
+軌道 52x32 capsule
+Off → green-100 底 + 2pt green-800 外框 + green-800 24pt 滑鈕
+On  → green-800 底 + 白色 24pt 滑鈕
+滑鈕內縮 4pt,在前緣與後緣之間移動
+```
+
+**行為仍然是原生的**:它還是一個 `Toggle`,只是換了 `ToggleStyle`,所以
+VoiceOver 依舊報讀為「切換開關,開/關」而不是「按鈕」,`.disabled(_:)` 與
+Dynamic Type 也照常運作。`DSNotificationSettingRow` 用的是同一個 Figma
+`Toggles` 元件,所以一併套用同一個 style。
+
+### P2. 本輪確認**沒有**落差的元件
+
+| 元件 | 結果 |
+|---|---|
+| `List / Notification` | 兩邊都對(py-8、label body/L 16pt black、52x32 開關) |
+| `List / Setting` | React ✅(px-24 py-12、body/L、14pt chevron) |
+| `Segmented Controls` | React ✅(gray-50 軌道、green-800 指示器 + Elevation/1、選項 py-8 px-24、body/M) |
+| `Toggle` | React ✅(本來就照 Figma 自繪) |
+
+### P3. 還有四個同類的取捨等設計端決定
+
+`Toggle` 這個決定同時也適用於 SwiftUI 其餘幾個**刻意改用原生控制項**的元件——
+它們和 Figma 的差距是同一種性質(品牌樣式 vs 原生慣例),而且 React 那邊都已經
+照 Figma 自繪了,所以目前是**跨平台不一致**:
+
+| 元件 | Figma | SwiftUI 現況 | 看得出差別嗎 |
+|---|---|---|---|
+| `Segmented Controls` | gray-50 軌道 + **green-800** 實心指示器 + 白字 | 原生:灰軌道 + **白色**指示器 + 黑字 | 很明顯 |
+| `Stepper` | 待驗 | 原生 `Stepper` | 中等 |
+| `Search Bar` | 待驗 | `.searchable` | 中等 |
+| `App Bar` | 待驗 | `.toolbar` | 較小 |
+
+`Segmented Controls` 的落差最明顯(指示器整塊顏色相反)。要不要一起改成品牌
+樣式,需要設計端一併拍板——`Toggle` 已經開了先例。
+
+### 仍未用精確 CSS 驗過
+
+`Accordion / Chips`、`Stepper`、`Search Bar`、`App Bar`、`Spinner / On White`、
+`Spinner / On Dark`、`Motion / Transaction`、`Motion / Success`、
+`Bottom Sheet` 的 `Filter_Discover`、`Link`、`Logo` / `Logos`(刻意不重製商標)、
+六組 icon set、`iOS System` 四件。
+
+---
+
 ## E. 補充說明:刻意的偏離(非落差)
 
 以下項目與 Figma 不同,但都是有記錄的平台決策,不列為落差:
@@ -716,4 +769,4 @@ E 章記錄過的平台決策,所以沒有改;但如果品牌一致性優先於�
   HomeIndicator 在真機上由 OS 繪製。
 - **`CheckBox/Navigation` 已從 SwiftUI 移除**:`TabView` 只讀取 `.tabItem` 的
   image + text,自訂樣式會被丟棄。React 端保留(其 `NavigationBar` 有用到)。
-- **多個元件改用原生控制項**:見 `swiftui/README.md` 的對照表。
+- **多個元件改用原生控制項**:見 `swiftui/README.md` 的對照表。**例外:`Toggle` 已於第十二輪依設計端決定改為依 Figma 自繪**(見 P1)。

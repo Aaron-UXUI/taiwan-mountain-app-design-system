@@ -192,10 +192,12 @@ public struct DSNotificationSettingRow: View {
     }
 
     public var body: some View {
-        // Figma: 8pt vertical padding around the row.
+        // Figma: 8pt vertical padding around the row. The switch is the same
+        // `Toggles` component as `DSToggle`, so it uses the same brand style
+        // rather than the native one.
         Toggle(label, isOn: $isOn)
             .dsFont(.bodyL)
-            .tint(DSColor.primaryGreen800)
+            .toggleStyle(DSSwitchStyle())
             .padding(.vertical, DSSpacing.s)
     }
 }
