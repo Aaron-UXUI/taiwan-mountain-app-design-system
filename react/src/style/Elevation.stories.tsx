@@ -120,7 +120,7 @@ function ElevationSwatches() {
 }
 
 const meta: Meta = {
-  title: "Foundations/Elevation",
+  title: "Style/Elevation",
   tags: ["autodocs"],
   parameters: {
     layout: "padded",

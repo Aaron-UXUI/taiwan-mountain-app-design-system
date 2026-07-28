@@ -234,7 +234,7 @@ function TypographyTable() {
 }
 
 const meta: Meta = {
-  title: "Foundations/Typography",
+  title: "Style/Typography",
   tags: ["autodocs"],
   parameters: {
     layout: "padded",
