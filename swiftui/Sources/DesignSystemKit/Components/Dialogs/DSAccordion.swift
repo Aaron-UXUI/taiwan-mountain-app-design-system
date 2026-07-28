@@ -80,7 +80,7 @@ public struct DSAccordionCheckBox: View {
         HStack(spacing: DSSpacing.s) {
             Text(title).dsFont(.bodyM).foregroundStyle(DSColor.black)
             if !checkedOptions.isEmpty {
-                DSBadge(count: checkedOptions.count)
+                DSBadge(.accordion(count: checkedOptions.count))
             }
             Spacer(minLength: 0)
         }
@@ -123,7 +123,7 @@ public struct DSAccordionChips: View {
             HStack(spacing: DSSpacing.s) {
                 Text(title).dsFont(.bodyM).foregroundStyle(DSColor.black)
                 if !selectedOptions.isEmpty {
-                    DSBadge(count: selectedOptions.count)
+                    DSBadge(.accordion(count: selectedOptions.count))
                 }
                 Spacer(minLength: 0)
             }

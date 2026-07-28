@@ -22,7 +22,22 @@ No interactive state — value-driven only (the number/presence it displays).
 | Axis | Values | Purpose |
 |---|---|---|
 | `for` | Accordion / Notification | Selects context-appropriate styling for where the badge is hosted. |
-| `attribute` (size) | Small / Large / Maximum | Matches badge prominence/capacity (e.g. "Maximum" for capping a very large count, such as "99+"). |
+| `attribute` (size) | Small / Large / Maximum | Matches badge prominence/capacity ("Maximum" caps a very large count as "99+"). |
+
+**The two axes are not freely combinable.** Figma authors 4 of the 6:
+
+| Combination | Form |
+|---|---|
+| `Small` / `Accordion` | Counted pill, brand green |
+| `Small` / `Notification` | Bare dot, no number |
+| `Large` / `Notification` | Counted pill, alert red |
+| `Maximum` / `Notification` | Capped "99+" pill |
+
+`Large/Accordion` and `Maximum/Accordion` do not exist in the design. Both
+implementations model this as a single variant union, so those two are
+unrepresentable rather than merely undocumented. Note that `Small` means two
+different things by context — the dot on a Notification badge, a counted pill
+on an Accordion one — which is the design's own shape, not a simplification.
 
 ## Animation
 None.
