@@ -1,0 +1,12 @@
+/* Default ink for the shared Figma glyphs. The artwork uses `currentColor`,
+   so this is the resting colour, and any ancestor that sets `color` on the
+   icon (see `.tmads-icon-button--primary`) tints it instead. */
+.tmads-icon {
+  color: var(--color-gray-black);
+  flex-shrink: 0;
+}
+
+/* Figma draws the weather set in gray-800 rather than the near-black ink. */
+.tmads-icon--weather {
+  color: var(--color-gray-800);
+}
