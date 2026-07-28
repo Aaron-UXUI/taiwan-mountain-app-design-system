@@ -200,15 +200,3 @@
   height: 60px;
 }
 
-.tmads-bottom-sheet__home-indicator {
-  flex-shrink: 0;
-}
-
-/* Map_Info's sheet has 24px left/right padding (unlike the other two
-   variants), but Figma's Home Indicator there is still full 375px wide
-   (node 12288:16213, x=0) — it escapes the padding rather than inheriting
-   the TopBar/Content inset. */
-.tmads-bottom-sheet--map-info .tmads-bottom-sheet__home-indicator {
-  width: calc(100% + 2 * var(--spacing-lm));
-  margin: 0 calc(-1 * var(--spacing-lm));
-}

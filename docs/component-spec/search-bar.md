@@ -1,5 +1,10 @@
 # SearchBar
 
+> **Figma is the source of truth for anything visual.** Node `376:456` (`Search Bar`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A text search entry point with a filter action, a cancel action, and a dropdown of search history/suggestion items shown while the field holds focus. Distinct from TextField in that it's a dedicated search entry surface with its own filter/cancel actions and result-suggestion list rather than a generic form input.
 

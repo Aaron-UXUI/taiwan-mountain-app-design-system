@@ -1,5 +1,10 @@
 # LocationPin
 
+> **Figma is the source of truth for anything visual.** Node `11129:12159` (`Location Pin`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A map marker representing a place. Carries a short label (typically a number or short code) and can represent either a plain location marker or an "info" marker style that indicates the pin currently has an open information card associated with it. Includes an optional badge to indicate a secondary indicator (e.g. unread/notification) on the pin.
 

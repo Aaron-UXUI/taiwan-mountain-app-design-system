@@ -8,11 +8,11 @@ import SwiftUI
 /// OfflineMap are `Type=Tertiary` (bare glyph, no background). So the
 /// emphasis is derived from the purpose rather than exposed separately.
 ///
-/// Figma also defines a `State=Loading...` alongside `State=Loading`; the two
-/// render identically in the file, so only `Loading` is modelled here.
+/// Figma's `State=Loading` / `Loading...` are prototype-only scaffolding — the
+/// design side confirmed they exist to drive the Figma prototype, not as real
+/// product states — so neither is modelled here.
 public enum DSIconButtonDownloadState: Equatable {
     case idle
-    case downloading(progress: Double)
     case downloaded
 }
 
@@ -64,17 +64,6 @@ public struct DSIconButton: View {
         case .offlineMap(.idle):
             button(icon: .download, label: "離線地圖下載")
 
-        case .offlineMap(.downloading(let progress)):
-            Button(action: {}) {
-                Text("\(Int(progress * 100))%")
-                    // Figma sets these in Label/M — 14pt Semibold.
-                    .dsFont(.labelM)
-                    .frame(minWidth: 48, minHeight: 48)
-            }
-            .buttonStyle(DSIconButtonStyle(emphasis: .tertiary, tint: nil))
-            .disabled(true)
-            .accessibilityLabel("下載中")
-            .accessibilityValue(Text("\(Int(progress * 100))%"))
 
         case .offlineMap(.downloaded):
             Button(action: {}) {

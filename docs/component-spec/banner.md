@@ -1,5 +1,10 @@
 # Banner
 
+> **Figma is the source of truth for anything visual.** Node `15301:14557` (`Banner`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A full-width, persistent notice bar (e.g. an offline-mode indicator) shown at a fixed position in the layout — distinct from Snackbar, which is transient and dismissible. A Banner communicates an ongoing condition that remains true until the underlying condition changes.
 

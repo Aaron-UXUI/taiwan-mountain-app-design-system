@@ -1,5 +1,10 @@
 # ChipsLarge
 
+> **Figma is the source of truth for anything visual.** Node `812:5259` (`Chips / Large`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A large, tappable filter/selection chip carrying a single short text label. Used where filter options need higher visual prominence than a standard small chip (e.g. a primary category selector). Selection is binary and toggled by direct interaction with the chip itself.
 

@@ -1,5 +1,10 @@
 # Crowdedness
 
+> **Figma is the source of truth for anything visual.** Node `15975:7322` (`Crowdedness`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A status label communicating a place's current real-time crowd level, on a three-point scale from comfortable to crowded (e.g. shown inside BottomSheet's Map_Info layout for a trail or scenic spot).
 

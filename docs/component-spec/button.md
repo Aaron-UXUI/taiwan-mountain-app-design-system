@@ -1,5 +1,10 @@
 # Button
 
+> **Figma is the source of truth for anything visual.** Node `425:5337` (`Buttons`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A single-action trigger control carrying one short text label. It represents the primary way a user commits to an action (confirm, submit, proceed). Only one label is shown at a time; when the action is in flight, the label is replaced by a loading indicator rather than shown alongside it. A Button never carries navigational state (it is not a toggle) — activating it fires an action and the control returns to its resting appearance unless the surrounding flow puts it into a new state (e.g. Loading, then Disabled).
 
@@ -26,6 +31,11 @@ A single-action trigger control carrying one short text label. It represents the
 | Disabled | Action currently unavailable; no input accepted. |
 
 ## Variant
+
+> Figma authors **19 of the 24** Type × Size × State combinations. Small has no
+> Loading at any emphasis, and Tertiary/Small exists only as Default. The
+> missing five are not built — both platforms now express the real matrix in
+> their types, so asking for one no longer compiles.
 | Axis | Values | Purpose |
 |---|---|---|
 | Emphasis (`type`) | Primary / Secondary / Tertiary | Communicates the relative importance of the action among others on screen — Primary for the one recommended action, Secondary for an alternative, Tertiary for the least prominent. |

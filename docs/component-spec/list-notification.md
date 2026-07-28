@@ -1,5 +1,10 @@
 # ListNotification
 
+> **Figma is the source of truth for anything visual.** Node `13452:15906` (`List / Notification`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A settings row that pairs a text label with an embedded on/off switch (visually resembling Toggle, implemented as a native binary control), used specifically for notification preference rows.
 

@@ -1,5 +1,10 @@
 # Logos
 
+> **Figma is the source of truth for anything visual.** Node `8503:22571` (`Logos`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A set of third-party brand mark placeholders (payment/login providers — credit card networks, LINE Pay, etc.), used where the UI needs to indicate which payment or login methods are supported. Renders exactly one brand mark at a time, selected by name.
 

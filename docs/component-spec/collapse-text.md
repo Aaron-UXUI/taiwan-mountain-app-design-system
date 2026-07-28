@@ -1,5 +1,10 @@
 # CollapseText
 
+> **Figma is the source of truth for anything visual.** Node `502:1918` (`Collapse / Text`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A long text passage that is initially clamped to a limited number of lines with a "show more"/"show less" affordance to expand or re-collapse the full text in place.
 

@@ -1,5 +1,10 @@
 # BottomSheet
 
+> **Figma is the source of truth for anything visual.** Node `495:540` (`Bottom Sheets`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A panel that slides up from the bottom edge of the screen to present contextual content without leaving the current screen. It is the design system's single largest composition surface, supporting three distinct content layouts selected by a style setting:
 - **Filter_Discover** — a scrollable set of filter groups (segmented control, checkbox accordions, chip accordions) ending in a fixed "apply" action bar.

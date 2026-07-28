@@ -1,5 +1,10 @@
 # Logo
 
+> **Figma is the source of truth for anything visual.** Node `12649:28641` (`Logo`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 The app's own brand mark (wordmark/simplified mark), used in places like a splash screen, an About section, or an AppBar. Unlike the icon sets, this represents a specific, singular piece of brand identity rather than a selectable glyph from a set.
 

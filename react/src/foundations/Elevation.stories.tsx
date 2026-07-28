@@ -41,18 +41,7 @@ const ROWS: Row[] = [
   },
 ];
 
-const UNMAPPED = [
-  {
-    component: "ios-system/Keyboard",
-    value: "0 1px 0 rgba(0,0,0,.3)",
-    note: "Keycap bottom-edge shadow — no blur radius, doesn't match any Elevation level. Likely intentional OS-chrome mimicry rather than a design-system elevation.",
-  },
-  {
-    component: "ios-system/KeyboardNumbers",
-    value: "0 1px 0 rgba(0,0,0,.35)",
-    note: "Same keycap-shadow pattern as Keyboard, but with a different opacity (.35 vs .3) — inconsistent even between the two keyboard components.",
-  },
-];
+const UNMAPPED: { component: string; value: string; note: string }[] = [];
 
 function ElevationSwatches() {
   return (

@@ -85,10 +85,10 @@
 
 | Figma 元件 | 變體 | node id | 對應程式碼元件 | 檔案路徑 |
 |---|---|---|---|---|
-| Keyboard | 單一元件 | 1631:21178 | `Keyboard` | `react/src/components/ios-system/Keyboard/Keyboard.tsx` |
-| Keyboard - Numbers | 單一元件 | 6272:63852 | `KeyboardNumbers` | `react/src/components/ios-system/KeyboardNumbers/KeyboardNumbers.tsx` |
-| Home Indicator | 單一元件 | 367:21084 | `HomeIndicator` | `react/src/components/ios-system/HomeIndicator/HomeIndicator.tsx` |
-| Status bar / Default | 單一元件 | 309:5865 | `StatusBar` | `react/src/components/ios-system/StatusBar/StatusBar.tsx` |
+| Keyboard | 單一元件 | 1631:21178 | `Keyboard` | — *(未實作，見下方說明)* |
+| Keyboard - Numbers | 單一元件 | 6272:63852 | `KeyboardNumbers` | — *(未實作，見下方說明)* |
+| Home Indicator | 單一元件 | 367:21084 | `HomeIndicator` | — *(未實作，見下方說明)* |
+| Status bar / Default | 單一元件 | 309:5865 | `StatusBar` | — *(未實作，見下方說明)* |
 
 ## Indicators / 指示器
 
@@ -116,3 +116,13 @@
 2. 存進 repo（例如 `docs/figma-mapping.md`），跟 tokens 一起管理版本。
 3. node id 可以直接餵給 Figma 的 `get_design_context`（或任何支援 Figma Dev Mode 的工具）去產生該元件的參考程式碼／截圖，適合當作實作起點。
 4. 之後如果團隊升級到 Organization/Enterprise 方案、有 Full 或 Dev seat，這張表可以直接轉成正式的 Code Connect CLI 映射。
+
+## iOS System 四件為何沒有實作
+
+`Keyboard`、`Keyboard - Numbers`、`Home Indicator`、`Status bar / Default` 在
+Figma 是為了讓設計稿看起來像真實螢幕而放的**系統外框模擬**。真機上這四樣都由
+OS 自己繪製,重刻一份只會和系統行為打架(例如自繪鍵盤會失去輸入法、聽寫、
+自動修正與各種無障礙輸入支援)。
+
+SwiftUI 從一開始就沒有移植;React 曾經有四個模擬元件,已於 2026-07-26 移除,
+理由相同。兩個平台現在一致。

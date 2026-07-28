@@ -1,5 +1,10 @@
 # Icon16
 
+> **Figma is the source of truth for anything visual.** Node `10787:61593` (`icon / 16px`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A fixed 16px glyph renderer covering exclamation, external-link (arrow-up-right), notification-bell (notified/non-notified), and heart (outline/filled) glyphs. Renders exactly one glyph at a time, selected by name.
 

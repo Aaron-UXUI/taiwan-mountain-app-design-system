@@ -1,5 +1,10 @@
 # AppBar
 
+> **Figma is the source of truth for anything visual.** Node `495:426` (`App Bar`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 The top header bar for a screen, in one of two forms: a standard navigation bar (optional back action, title, optional settings action) or a profile-info bar (user avatar and name plus a settings action). Provides the primary "where am I / how do I go back" context at the top of a screen.
 

@@ -1,5 +1,10 @@
 # Icon24
 
+> **Figma is the source of truth for anything visual.** Node `486:5205` (`icon / 24px`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 The largest and most general-purpose glyph set (fixed 24px), covering 22 glyphs spanning navigation (map, search, notify, member), map/location actions (heart, radio/gps), and other general-purpose iconography, including matching outline/filled pairs for glyphs that need an active/inactive visual distinction. Renders exactly one glyph at a time, selected by name.
 

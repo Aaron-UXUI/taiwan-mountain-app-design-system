@@ -1,5 +1,10 @@
 # AccordionChips
 
+> **Figma is the source of truth for anything visual.** Node `1242:16464` (`Accordion / Chips`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A collapsible filter group functionally parallel to AccordionCheckBox, but revealing a wrapped/flowing set of selectable chip options (each rendered as a small Badge-style toggle) rather than a vertical CheckBox list. Header shows the title and a count of currently selected chips.
 

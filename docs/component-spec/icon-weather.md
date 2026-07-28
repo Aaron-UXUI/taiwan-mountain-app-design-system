@@ -1,5 +1,10 @@
 # IconWeather
 
+> **Figma is the source of truth for anything visual.** Node `1743:13737` (`icon / 24px / weather`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A fixed 24px glyph set covering weather conditions: cloud-sun, sunny, rain, lightning-rain, windy, typhoon, cloud-snow. Renders exactly one glyph at a time, selected by name, typically driven by forecast data (see ListWeather).
 

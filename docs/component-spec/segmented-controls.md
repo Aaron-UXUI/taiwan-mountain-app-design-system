@@ -1,5 +1,10 @@
 # SegmentedControls
 
+> **Figma is the source of truth for anything visual.** Node `598:6408` (`Segmented Controls`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A two-option exclusive switch (e.g. sort order: distance vs. popularity) rendered as a single track with a sliding indicator behind whichever option is currently selected. Exactly one of the two options is selected at all times — there is no "neither selected" state.
 

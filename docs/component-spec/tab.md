@@ -1,5 +1,10 @@
 # Tab
 
+> **Figma is the source of truth for anything visual.** Node `13518:14481` (`Tab`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A single item in a set of tabs used to switch between mutually-exclusive content panels (e.g. categories within a screen). Carries a label and an optional count badge; exactly one tab in a given set is active at a time.
 

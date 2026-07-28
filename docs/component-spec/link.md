@@ -1,5 +1,10 @@
 # Link
 
+> **Figma is the source of truth for anything visual.** Node `12469:18515` (`Link`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 Inline, text-only navigational or action trigger, used where an action needs to read as part of the surrounding text flow rather than as a boxed control (e.g. "了解更多" inside a sentence).
 

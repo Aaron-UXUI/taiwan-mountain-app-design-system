@@ -1,5 +1,10 @@
 # PaymentInfo
 
+> **Figma is the source of truth for anything visual.** Node `12561:16649` (`Payment Info`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A summary card presenting a title, a set of ticket/line-item entries, and a total amount — used to confirm what's being purchased before checkout. Can be shown in a Selected or Unselected visual state, e.g. when presented as one of several payment/order options.
 

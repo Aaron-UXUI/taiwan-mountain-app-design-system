@@ -903,6 +903,75 @@ Bottom Bar
 
 ---
 
+## S. 第十五輪:設計端指示的六項後續處理(2026-07-26)
+
+第十四輪結尾我列出的未處理項目,設計端逐項給了指示,全部照辦:
+
+### S1. React 圖示改用 Figma 真實向量 ⚠️ 最大的一項
+
+React 的 48 個 glyph 全是**手寫的 `<path d="M…">` 近似值**。已證實其中
+`radio` 是錯的(16pt 環 + 8pt 內圓 / gray-800,Figma 是 20pt 環 + 12pt 內圓 /
+gray-black),其餘 47 個用同樣方式畫,從未核對。
+
+SwiftUI 早就有真實圖稿:`swiftui/Tools/extract.mjs` 把 frame 層級的 Figma 匯出
+切成 per-glyph SVG,再打包成 imageset。新增 `react/scripts/generate-icons.mjs`
+讀**同一批檔案**產生 `glyphs.generated.tsx`,兩個平台從此畫的是同一份向量。
+
+- 墨色(`#1D1F1B` / `#494C44`)→ `currentColor`,呼叫端可以 tint;
+  白色挖空與語意色(黃/綠/紅)維持固定,對應 SwiftUI 的 `DSIcon.defaultTint`。
+- `icons.css` 給預設墨色:一般 gray-black、weather 組 gray-800(Figma 如此)。
+- **順帶修好 IconButton 的 tint**:它的 CSS 註解宣稱圖示用 `currentColor`,
+  但實際的 path 寫死 gray-800,所以 Primary 的白色 tint **從來沒生效過**。
+
+視覺確認時看到好幾個 glyph 明顯改變,證實舊的手繪版本確實有偏差:
+`back` 原本是**實心三角形**、現在是 chevron;`member` / `heart` 的線框版
+現在才真的和實心版不同。
+
+> **驗證時抓到的 bug**:把來源 `<svg>` 剝掉時連 `fill="none"` 也一起沒了,
+> 於是只有 `stroke` 的 path 退回 SVG 預設的黑色填充,`radio` 變成一坨黑球。
+> 產生的元件已在根節點補上 `fill="none"`。
+
+### S2. `swiftui/README.md` 的原生控制項對照表(過時 6 列)
+
+表格已重寫成兩塊:**仍為原生**與**改為依 Figma 自繪**,並說明每一個改動的理由
+與保留的原生語意。`RadioButton` 那列從第三輪起就不再是 `Picker(.inline)`,
+也一併更正。
+
+### S3. 移除 React 的 iOS System 四件
+
+`Keyboard`、`KeyboardNumbers`、`HomeIndicator`、`StatusBar` 已刪除。連帶清掉
+`BottomSheet` 與 `BottomBar` 裡的 `HomeIndicator` 用法、孤兒 CSS,以及
+foundations 文件裡的引用。`docs/figma-mapping.md` 的四列改為「未實作」並補上
+理由。**兩個平台現在一致**——先前只有 SwiftUI 沒移植,React 還留著模擬元件。
+
+### S4. 60 份 spec 全部標上 Figma 節點
+
+每一份檔頭都加上該元件的 node id 與「視覺以 Figma 為準,本文件只記 behavior /
+a11y」的聲明(節點是從 `figma-mapping.md` 程式化對出來的,不是手寫)。
+iOS System 四份另外標明兩個平台都不實作。
+
+### S5. 移除 Icon Buttons 的 Loading 狀態(兩平台)
+
+設計端確認 `State=Loading` / `Loading...` 只是為了跑 Figma 原型,不是產品狀態。
+React 的 `"Loading"` state 與 `progress` prop、SwiftUI 的
+`.downloading(progress:)` case 都已刪除,story 與 showcase 一併清掉。
+這也關閉了長期掛著的 C3。
+
+### S6. Buttons 只保留 Figma 真的有的 19 種組合
+
+先前兩個平台的 props 完全正交,可以做出設計裡不存在的 5 種樣式。
+
+- **React**:`ButtonVariant` 改成聯集型別,Small 沒有 Loading、Tertiary/Small
+  只有 Default——寫錯**編譯不過**。(這個型別立刻抓到 all-variants story 在跑
+  完整 24 格笛卡兒積。)
+- **SwiftUI**:拆成兩個 initializer,帶 `isLoading` 的那個把 size 釘死在
+  `.large`,所以「Small + Loading」無法表達。Pressing / Disabled 來自
+  environment 而非參數,不在此約束範圍。
+
+這關閉了 C5。
+
+---
+
 ## E. 補充說明:刻意的偏離(非落差)
 
 以下項目與 Figma 不同,但都是有記錄的平台決策,不列為落差:

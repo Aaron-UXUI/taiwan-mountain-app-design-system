@@ -8,7 +8,6 @@ export type IconButtonState =
   | "Pressing"
   | "Enabled"
   | "Clicked"
-  | "Loading"
   | "Downloaded";
 
 /**
@@ -25,13 +24,12 @@ const TYPE_FOR: Record<IconButtonFor, IconButtonType> = {
 const STATES_FOR: Record<IconButtonFor, IconButtonState[]> = {
   Location: ["Default", "Pressing", "Enabled"],
   Save: ["Default", "Clicked"],
-  OfflineMap: ["Default", "Loading", "Downloaded"],
+  OfflineMap: ["Default", "Downloaded"],
 };
 
 export type IconButtonProps = {
   for: IconButtonFor;
   state?: IconButtonState;
-  progress?: number;
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type">;
 
 /** GPS crosshair. `Filled?=yes` in Figma is the actively-locating look. */
@@ -80,13 +78,13 @@ const DownloadGlyph = () => (
  * circle with a **white** glyph, `Type=Tertiary` is a bare glyph with no
  * background. Save's `Clicked` glyph is white too (it sits over a photo).
  *
- * Figma also defines a `State=Loading...` alongside `State=Loading`; the two
- * render identically in the file, so only `Loading` is implemented.
+ * Figma's `State=Loading` / `Loading...` are prototype-only scaffolding — the
+ * design side confirmed they exist to drive the Figma prototype, not as real
+ * product states — so neither is implemented.
  */
 export function IconButton({
   for: iconFor,
   state = "Default",
-  progress = 0,
   className,
   disabled,
   ...rest
@@ -134,13 +132,6 @@ export function IconButton({
     );
   }
 
-  if (state === "Loading") {
-    return (
-      <button type="button" className={classes} disabled aria-label="下載中" {...rest}>
-        {Math.round(progress)}%
-      </button>
-    );
-  }
 
   if (state === "Downloaded") {
     return (

@@ -1,5 +1,12 @@
 # StatusBar
 
+> **Figma is the source of truth for anything visual.** Node `309:5865` (`Status bar / Default`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+> **Not implemented on either platform.** The OS already draws this chrome;
+> reproducing it would work against native behaviour rather than with it.
+
+
 ## Component Behavior
 A mockup of the device's own system status row (time, signal, battery), used purely to compose realistic full-screen mockups/screenshots of the app. It does not reflect the real device clock or real signal/battery level — it's a static visual reference, not a live system readout.
 

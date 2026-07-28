@@ -1,5 +1,10 @@
 # Toggle
 
+> **Figma is the source of truth for anything visual.** Node `10291:14552` (`Toggles`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A binary on/off switch, used for settings that take effect immediately upon change (unlike CheckBox, which is typically used inside a form submitted later). Has no text label of its own — the label lives in the surrounding row (see ListNotification, ListSetting).
 

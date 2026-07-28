@@ -1,5 +1,10 @@
 # Icon14
 
+> **Figma is the source of truth for anything visual.** Node `507:4429` (`icon / 14px`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A fixed 14px glyph renderer covering a small set of compact glyphs (chevron, secured/lock) used inline with small text (e.g. inside a Badge or a caption). Renders exactly one glyph at a time, selected by name; it has no independent visual states.
 

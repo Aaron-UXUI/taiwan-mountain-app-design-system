@@ -1,5 +1,10 @@
 # SpinnerOnWhite
 
+> **Figma is the source of truth for anything visual.** Node `12469:18532` (`Spinner / On White`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A loading indicator made of dots arranged in a ring that fade in sequence, designed for use on light-colored surfaces (e.g. inside a filled Button in its Loading state). Purely a busy/waiting signal — carries no other information.
 

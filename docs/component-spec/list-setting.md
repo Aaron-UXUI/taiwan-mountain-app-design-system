@@ -1,5 +1,10 @@
 # ListSetting
 
+> **Figma is the source of truth for anything visual.** Node `493:1903` (`List / Setting`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A single row in a settings list, showing a text label and an optional trailing chevron indicating the row navigates to a deeper screen. The entire row is a single activation target.
 

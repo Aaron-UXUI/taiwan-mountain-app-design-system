@@ -32,7 +32,6 @@ struct ButtonsShowcase: View {
                         DSIconButton(.location(isLocating: true)) {}
                         DSIconButton(.save(isSaved: false)) {}
                         DSIconButton(.offlineMap(.idle)) {}
-                        DSIconButton(.offlineMap(.downloading(progress: 0.6))) {}
                         DSIconButton(.offlineMap(.downloaded)) {}
                     }
                 }
