@@ -9,10 +9,11 @@ struct IndicatorsShowcase: View {
             VStack(alignment: .leading, spacing: 24) {
                 GallerySection(title: "Badge") {
                     HStack(spacing: 12) {
-                        DSBadge(count: 3)                                    // Accordion / Large
-                        DSBadge(count: 3, kind: .notification)               // Notification / Large
-                        DSBadge(count: 128, kind: .notification, size: .maximum) // Maximum → "99+"
-                        DSBadge.dot                                          // Notification / Small
+                        // The 4 combinations Figma actually authors.
+                        DSBadge(.accordion(count: 3))       // Small / Accordion
+                        DSBadge.dot                         // Small / Notification
+                        DSBadge(.notification(count: 3))    // Large / Notification
+                        DSBadge(.notificationMaximum)       // Maximum / Notification
                     }
                 }
                 GallerySection(title: "Crowdedness / Status Label") {

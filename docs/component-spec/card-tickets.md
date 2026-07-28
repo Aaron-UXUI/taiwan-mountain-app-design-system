@@ -31,9 +31,10 @@ None.
 | Role | Token |
 |---|---|
 | Card fill | `color.gray-white` |
-| Corner radius | `radius.m` |
+| Corner radius | Asymmetric: `radius.xxs` on the stub edge, `radius.m` on the open edge |
 | Divider / border / ticket stub | `color.primary.green-700` (all three share one colour); `color.gray-400` throughout when disabled |
-| Price/emphasis text | `color.primary.green-700` / `green-800` |
+| Scene title | `color.primary.green-800` |
+| Price | `color.gray-800` |
 | Body text | `color.gray-800` / `color.gray-black` |
 | Typography | `typography.body-m` / `body-s`, `font-weight.regular` / `semibold` |
 | Spacing | `spacing.m`, `spacing.s`, `spacing.sm`, `spacing.xs` |

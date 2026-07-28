@@ -34,8 +34,8 @@ Sliding indicator transition: **0.15s, ease**, moving between the two option pos
 | Role | Token |
 |---|---|
 | Track fill | `color.gray-50` |
-| Indicator fill | `color.gray-white` |
-| Selected label text | `color.primary.green-800` |
+| Indicator fill | `color.primary.green-800` |
+| Selected label text | `color.gray-white` |
 | Unselected label text | `color.gray-800` |
 | Corner radius | `radius.xs` |
 | Padding | `spacing.s`, `spacing.lm` |

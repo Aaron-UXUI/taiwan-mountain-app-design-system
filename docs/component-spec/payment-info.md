@@ -31,6 +31,6 @@ None.
 | Role | Token |
 |---|---|
 | Text | `color.gray-800` / `color.gray-black` |
-| Total emphasis typography | `typography.headline-1` / `headline-3`, `font-weight.semibold` |
+| Total emphasis typography | Currency symbol `typography.headline-3` **semibold**; amount `typography.headline-1` **regular** — the two differ in weight, baseline-aligned |
 | Line-item typography | `typography.body-m` / `body-s`, `font-weight.regular` |
 | Spacing | `spacing.lm`, `spacing.m`, `spacing.sm`, `spacing.xs` |

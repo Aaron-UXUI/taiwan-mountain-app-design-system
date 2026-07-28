@@ -41,8 +41,9 @@ None defined — amount changes render instantly.
 ## Token Mapping
 | Role | Token |
 |---|---|
-| Button border / icon | `color.gray-800` / `color.gray-black` |
-| Disabled | `color.gray-200` |
+| Container border | Default `color.gray-200` (1pt) / Error `color.semantic.destruct-600` (2pt) / Disabled `color.gray-100` (1pt) |
+| Icons | `color.gray-black`, `color.gray-200` when that end is at its limit |
+| Disabled amount text | `color.gray-200` |
 | Error text/border | `color.semantic.destruct-600` / `destruct-700` |
 | Corner radius | `radius.s` |
 | Spacing | `spacing.s`, `spacing.xs` |

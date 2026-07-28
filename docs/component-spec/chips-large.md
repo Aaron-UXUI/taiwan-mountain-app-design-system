@@ -32,7 +32,7 @@ None defined — selection state changes are instantaneous.
 | Role | Token |
 |---|---|
 | Unselected fill | `color.gray-white` / border `color.gray-100` |
-| Selected fill | `color.primary.green-50` / border `color.primary.green-900` |
+| Selected fill | `color.primary.green-50` / border `color.primary.green-100` |
 | Label text | `color.gray-800` (unselected) / `color.primary.green-900` (selected) |
 | Corner radius | `radius.xs` |
 | Internal padding | `spacing.s`, `spacing.m` |

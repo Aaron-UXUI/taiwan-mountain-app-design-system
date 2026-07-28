@@ -37,7 +37,7 @@ None — state change is instantaneous (no transition defined).
 |---|---|
 | Box border / checked fill | `color.primary.green-800` |
 | Checkmark color | `color.gray-white` |
-| Label text color | `color.gray-800` |
+| Label text color | `color.gray-800`, turning `color.primary.green-800` once checked |
 | Box corner radius | `radius.xxs` |
 | Label-to-box spacing | `spacing.s` |
 | Row spacing | `spacing.m` |

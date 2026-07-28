@@ -33,7 +33,7 @@ None.
 ## Token Mapping
 | Role | Token |
 |---|---|
-| Fill | `color.gray-50` |
+| Fill | `color.gray-white` |
 | Text | `color.gray-black` |
 | Corner radius (avatar) | `radius.rounded` |
 | Typography | `typography.body-l` / `body-m` |

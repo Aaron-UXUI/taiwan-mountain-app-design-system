@@ -98,7 +98,7 @@ public struct DSTabBar: View {
                         // Spec `tab.md` maps the tab badge to the
                         // error-adjacent `semantic.destruct-700` fill, i.e.
                         // the Notification kind — not the Accordion green.
-                        DSBadge(count: count, kind: .notification)
+                        DSBadge(.notification(count: count))
                             .alignmentGuide(.top) { $0[.top] - 7 }
                             .alignmentGuide(.trailing) { $0[.trailing] + 2 }
                     }

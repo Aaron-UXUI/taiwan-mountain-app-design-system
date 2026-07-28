@@ -27,7 +27,7 @@ None defined at the component level — any rotation is driven by live heading d
 ## Token Mapping
 | Role | Token |
 |---|---|
-| Pin/dot fill | `color.gray-white` |
-| Direction cone | `color.semantic.info-700` |
+| Pin/dot fill | `color.semantic.info-700`, with a 3pt `color.gray-white` ring |
+| Direction cone | `color.semantic.info-700`, fading out away from the pin |
 | Corner radius | `radius.rounded` |
 | Elevation | `elevation.3` |

@@ -3,14 +3,28 @@ import "./Badge.css";
 export type BadgeAttribute = "Small" | "Large" | "Maximum";
 export type BadgeFor = "Accordion" | "Notification";
 
+/**
+ * Figma authors 4 of the 6 `Attribute × For` combinations, so the props are a
+ * union rather than two free axes — `Large/Accordion` and `Maximum/Accordion`
+ * do not exist in the design and are not expressible here.
+ */
+export type BadgeVariant =
+  | { for?: "Accordion"; attribute?: "Small" }
+  | { for: "Notification"; attribute?: BadgeAttribute };
+
 export type BadgeProps = {
-  attribute?: BadgeAttribute;
-  for?: BadgeFor;
   count?: string;
   className?: string;
-};
+} & BadgeVariant;
 
-/** Figma: Badge (node 8233:6131) — Attribute=Small/Large/Maximum × For=Accordion/Notification. */
+/**
+ * Figma: Badge (node 8233:6131) — `Small/Accordion`, `Small/Notification`,
+ * `Large/Notification`, `Maximum/Notification`.
+ *
+ * `Small` means two different things by context, which is the design's own
+ * shape: on a Notification badge it is the bare dot (no number), on an
+ * Accordion badge it is the counted pill.
+ */
 export function Badge({ attribute = "Small", for: badgeFor = "Accordion", count, className }: BadgeProps) {
   const isNotification = badgeFor === "Notification";
 

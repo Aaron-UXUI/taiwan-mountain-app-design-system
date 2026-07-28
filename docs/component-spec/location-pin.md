@@ -34,9 +34,10 @@ None defined — state changes are instantaneous.
 ## Token Mapping
 | Role | Token |
 |---|---|
-| Fill | `color.primary.green-800` |
-| Focused fill | `color.semantic.info-600` / `info-700` |
-| Label text | `color.gray-white` |
+| Pin fill | `Type=Default` `color.primary.green-800` / `Type=Info` `color.semantic.info-600` — **one fill per Type, unchanged by focus** |
+| Label text | `Type=Default` `color.primary.green-800` / `Type=Info` `color.semantic.info-700` — note Info's label and pin are *different* tokens |
+| Focused | Changes the pin's **size** (24pt → 48pt), not its colour |
+| Ring | 2pt `color.gray-white` |
 | Corner radius | `radius.rounded` |
 | Elevation | `elevation.4` |
 | Typography | `typography.headline-4`, `font-weight.semibold` |
