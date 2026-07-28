@@ -36,10 +36,11 @@ None defined — state and dropdown appearance/disappearance render instantly.
 ## Token Mapping
 | Role | Token |
 |---|---|
-| Fill | `color.gray-50` / `color.gray-white` |
-| Border | `color.gray-200` / `color.gray-400` |
+| Field fill | `color.gray-white` |
+| Border | 1pt `color.gray-200` |
+| Placeholder | `color.gray-400` |
 | Text | `color.gray-800` / `color.gray-black` |
-| Corner radius | `radius.m` / `radius.s` |
+| Corner radius | `radius.s` |
 | Elevation (suggestion dropdown) | `elevation.3` / `elevation.5` |
 | Typography | `typography.body-l` / `body-s` |
 | Spacing | `spacing.s`, `spacing.sm` |

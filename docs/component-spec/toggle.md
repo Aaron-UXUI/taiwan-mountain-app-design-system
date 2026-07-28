@@ -33,5 +33,6 @@ Knob/track transition: **0.15s, ease** when switching between off and on.
 |---|---|
 | Off track | `color.primary.green-100` |
 | On track | `color.primary.green-800` |
-| Knob | `color.gray-white` |
+| Knob | On `color.gray-white` / Off `color.primary.green-800` |
+| Off track border | 2pt `color.primary.green-800` |
 | Corner radius | `radius.rounded` |

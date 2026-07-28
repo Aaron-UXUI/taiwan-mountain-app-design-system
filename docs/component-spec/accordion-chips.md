@@ -38,7 +38,7 @@ Expand-arrow rotation: **0.15s, ease**.
 | Role | Token |
 |---|---|
 | Text | `color.gray-black` |
-| Chip fill (unselected/selected) | `color.gray-100` / `color.primary.green-800` |
+| Chip | The row is filled with **Chips/Large**, not Chips/Small — see [chips-large.md](chips-large.md). `gray-100` is the unselected *border*, not a fill, and `green-800` appears nowhere on it. |
 | Corner radius | `radius.xs` |
 | Typography | `typography.body-m`, `font-weight.regular` |
 | Spacing | `spacing.m`, `spacing.s`, `spacing.xs` |

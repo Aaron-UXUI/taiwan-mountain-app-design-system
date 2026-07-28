@@ -33,8 +33,9 @@ None.
 | Comfortable | `color.semantic.success-700` |
 | Partial Crowded | `color.accent.yellow-700` |
 | Crowded | `color.semantic.destruct-700` |
-| Fill | `color.gray-white` |
-| Text | `color.gray-800` |
+| Status pill fill | The level's own colour above — the pill is **solid**, with white text. There is no white fill and no coloured border. |
+| Caption text | `color.gray-800` |
+| Pill text | `color.gray-white` |
 | Corner radius | `radius.xs` |
 | Typography | `typography.body-m`, `font-weight.regular` |
 | Spacing | `spacing.s`, `spacing.sm`, `spacing.xs` |

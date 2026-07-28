@@ -34,7 +34,7 @@ None defined.
 | Role | Token |
 |---|---|
 | Inactive fill | `color.gray-white` / border `color.gray-100` |
-| Active fill | `color.primary.green-50` / border `color.primary.green-900` |
+| Active fill | `color.primary.green-50` / border `color.primary.green-100` |
 | Label text | `color.gray-800` (inactive) / `color.primary.green-900` (active) |
 | Corner radius | `radius.xs` |
 | Padding | `spacing.m` |

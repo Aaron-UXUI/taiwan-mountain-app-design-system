@@ -972,6 +972,50 @@ React 的 `"Loading"` state 與 `progress` prop、SwiftUI 的
 
 ---
 
+## S. 第十五輪:Badge 收斂 + 逐份查證 spec 的數值(2026-07-28)
+
+### S1. `Badge` 依 Figma 只保留 4 種組合
+
+與 Buttons 同一類:`Attribute × For` 當成兩個自由軸會得到 6 種,Figma 只畫了 4 種。
+`Large/Accordion` 與 `Maximum/Accordion` 沒有設計依據。React 改用 props union、
+SwiftUI 改用單一 `Variant` enum,兩邊都變成**無法表達**,而不只是文件上註明。
+
+順帶記錄一件設計本身的形狀:`Small` 在不同 context 意義不同——Notification 上是
+沒有數字的圓點,Accordion 上是有數字的膠囊。這是原稿如此,不是實作簡化。
+
+### S2. 47 份只加了標頭的 spec,逐份核對數值 → **16 份是錯的**
+
+前一輪把「以 Figma 為準」的標頭加到全部 60 份,但只有 13 份實際查證過數值。
+這輪把剩下 47 份的 Token Mapping 逐一對照**已驗證的實作**,約三分之一有實質錯誤:
+
+| spec | 錯在哪 |
+|---|---|
+| `accordion-chips` | 把 `gray-100` 寫成 chip 的**填色**(其實是未選取的**外框**),還說選取填 `green-800`(根本沒用到)。而且這排用的是 **Chips/Large** 不是 Small |
+| `chips-large` / `chips-small` | 選取態外框寫 `green-900`,實際是 **`green-100`** |
+| `crowdedness` | 寫「白底 + 灰字」,實際是**實心色票 + 白字**——這正是第四輪 H9 修掉的錯誤,spec 一直沒跟上 |
+| `location-pin` | 寫「Focused 換成 info 色」,實際 focus 改的是**尺寸**(24→48pt);標籤寫白色,實際是 green-800 / info-700。而且 Info 的**標籤與圖釘是不同 token** |
+| `user-location` | 圓點與外環寫反了——實際是 **info-700 圓點 + 3pt 白環** |
+| `segmented-controls` | 指示器寫白色、選取文字寫 green-800——**整組相反**。這份描述的其實是 iOS 原生控制項,不是 Figma |
+| `search-bar` | 底色寫 `gray-50`、圓角寫 `radius.m`,實際是**白底 + `radius.s`** |
+| `app-bar` | 底色寫 `gray-50`,實際是**白色** |
+| `card-tickets` | 圓角寫單一 `radius.m`,實際是**左 xxs / 右 m 的非對稱**;金額寫 green-700,實際是 **gray-800** |
+| `stepper` | 外框寫 `gray-800`,實際依狀態是 gray-200 / destruct-600 / gray-100 |
+| `spinner-on-white` | 寫「不是共用色 token 的深色」,實際就是 **`green-800`** |
+| `toggle` / `list-notification` | 只寫了白色滑鈕,漏掉 **Off 是 green-800 滑鈕 + 2pt green-800 外框** |
+| `check-box` | 漏掉勾選後標籤轉 **green-800** |
+| `payment-info` | 把貨幣符號與數字都寫成 semibold,實際是 **H3 semibold + H1 regular** |
+
+### 一個模式
+
+錯得最有代表性的是 `segmented-controls` 和 `crowdedness`:兩份寫的都是**實作曾經
+長的樣子**(原生控制項、白底彩框),而不是 Figma。spec 是照著當時的程式碼回填的,
+所以程式碼改對之後,spec 反而變成錯的那一方——這正是「spec 不能當視覺依據」的
+具體證據。
+
+剩下 31 份對照後與實作一致,未改動。
+
+---
+
 ## E. 補充說明:刻意的偏離(非落差)
 
 以下項目與 Figma 不同,但都是有記錄的平台決策,不列為落差:

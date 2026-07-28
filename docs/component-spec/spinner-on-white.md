@@ -27,5 +27,5 @@ No variant axis — single style, tuned for light backgrounds.
 ## Token Mapping
 | Role | Token |
 |---|---|
-| Dot color | dark tone appropriate to a light surface (component-local, not a shared color token) |
+| Dot color | `color.primary.green-800` |
 | Dot shape | `radius.rounded` |
