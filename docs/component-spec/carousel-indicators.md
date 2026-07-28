@@ -1,5 +1,10 @@
 # CarouselIndicators
 
+> **Figma is the source of truth for anything visual.** Node `7297:14580` (`Carousel Indicators`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A row of dots indicating position within a paged carousel (e.g. the hero photo carousel inside BottomSheet's Map_Info layout), with one dot emphasized to reflect the currently visible page. Purely a positional readout — it does not itself control paging.
 

@@ -1,5 +1,10 @@
 # CardSavedItems
 
+> **Figma is the source of truth for anything visual.** Node `473:4929` (`Cards / Saved Items`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A collection-summary card representing a user's saved-items folder/list, shown as a title with a liked/favorited marker and a 2×2 grid of up to four thumbnail photos drawn from the collection's contents.
 

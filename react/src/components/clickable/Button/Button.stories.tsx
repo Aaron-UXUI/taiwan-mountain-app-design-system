@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./Button";
+import type { ButtonProps } from "./Button";
 
 const meta: Meta<typeof Button> = {
   title: "Clickable/Button",
@@ -46,10 +47,11 @@ export const AllVariants: Story = {
           {states.map((state) => (
             <Button
               key={`${type}-${size}-${state}`}
-              type={type}
-              size={size}
-              state={state}
               label={`${type}/${size}`}
+              // FIGMA_MATRIX above *is* Figma's 19-combination set, so every
+              // row here is valid — but TypeScript cannot correlate size/type/
+              // state across a mapped heterogeneous union, so it widens them.
+              {...({ type, size, state } as ButtonProps)}
             />
           ))}
         </div>

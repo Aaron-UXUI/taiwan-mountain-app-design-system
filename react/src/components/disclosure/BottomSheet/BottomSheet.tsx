@@ -7,7 +7,6 @@ import { LinkFurtherInfo } from "../../clickable/LinkFurtherInfo";
 import { CardScene } from "../../containers/CardScene";
 import { Crowdedness } from "../../indicators/Crowdedness";
 import { CarouselIndicators } from "../../indicators/CarouselIndicators";
-import { HomeIndicator } from "../../ios-system/HomeIndicator";
 import { AccordionCheckBox } from "../AccordionCheckBox";
 import { AccordionChips } from "../AccordionChips";
 import heroPlaceholder from "../../../assets/containers/scene-photo-placeholder.svg";
@@ -66,7 +65,6 @@ function FilterDiscoverContent() {
       </div>
       <div className="tmads-bottom-sheet__bottom-bar">
         <Button label="套用" type="Secondary" size="Large" className="tmads-bottom-sheet__apply" />
-        <HomeIndicator className="tmads-bottom-sheet__home-indicator" />
       </div>
     </>
   );
@@ -108,7 +106,6 @@ function MapInfoContent() {
         </div>
         <Button label="購買票券" size="Large" className="tmads-bottom-sheet__apply" />
       </div>
-      <HomeIndicator className="tmads-bottom-sheet__home-indicator" />
     </>
   );
 }
@@ -122,7 +119,6 @@ function FilterMapSearchContent() {
         ))}
         <div className="tmads-bottom-sheet__scroll-spacer" aria-hidden="true" />
       </div>
-      <HomeIndicator className="tmads-bottom-sheet__home-indicator" />
     </>
   );
 }
@@ -132,7 +128,7 @@ function FilterMapSearchContent() {
  * The sheet chrome (drag handle, container, home indicator) reproduces the Figma
  * structure; each style's content nests the real catalogued components it uses in
  * Figma (SegmentedControls, AccordionCheckBox/AccordionChips, ChipsSalient/ChipsSmall,
- * Crowdedness, LinkFurtherInfo, CardScene, CarouselIndicators, Button, HomeIndicator)
+ * Crowdedness, LinkFurtherInfo, CardScene, CarouselIndicators, Button)
  * rather than reimplementing their markup. The three "收藏/追蹤園區動態/下載離線地圖"
  * pill buttons in Map_Info aren't one of the 60 catalogued components (Figma's own
  * reference groups them ad hoc as "PrototypeButtons", with a for-set that doesn't

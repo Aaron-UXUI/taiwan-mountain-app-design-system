@@ -1,5 +1,10 @@
 # ListDownloadMap
 
+> **Figma is the source of truth for anything visual.** Node `13452:15899` (`List / DownloadMap`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A row offering to download an offline map region by name, with a dedicated download action at the trailing edge.
 

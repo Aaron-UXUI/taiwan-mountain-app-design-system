@@ -1,5 +1,10 @@
 # MotionSuccess
 
+> **Figma is the source of truth for anything visual.** Node `4188:21162` (`Motion / Success`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A full-motion success confirmation — a checkmark that draws itself inside a circle, looping — used to confirm that an action completed successfully (e.g. after a payment or a submission).
 

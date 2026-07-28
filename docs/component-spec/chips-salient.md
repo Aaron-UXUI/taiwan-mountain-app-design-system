@@ -1,5 +1,10 @@
 # ChipsSalient
 
+> **Figma is the source of truth for anything visual.** Node `12554:9489` (`Chips / Salient`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A non-interactive, high-emphasis status label used to call attention to important contextual information about the content it's attached to (e.g. a special notice or a warning about a place or item). Unlike a chip used for filtering, this is read-only — it is never toggled by the user.
 

@@ -1,5 +1,10 @@
 # LinkFurtherInfo
 
+> **Figma is the source of truth for anything visual.** Node `11167:23076` (`Link / Further Info`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A boxed, bordered action control (white fill, colored border, trailing arrow icon) used to point to supplementary information (e.g. "查看更多資訊" linking out from a place detail sheet). Sits between Link (plain text) and Button (filled, high emphasis) in visual weight.
 

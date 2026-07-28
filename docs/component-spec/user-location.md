@@ -1,5 +1,10 @@
 # UserLocation
 
+> **Figma is the source of truth for anything visual.** Node `12846:34701` (`User Location`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A map overlay marker representing the device's own current position, combining a directional cone (showing heading) and a center dot. Purely a live status indicator — it is not something the user selects or acts on directly.
 

@@ -1,5 +1,10 @@
 # CheckBox
 
+> **Figma is the source of truth for anything visual.** Node `7813:28478` (`CheckBox`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A binary selection control paired with a text label, used when a user can independently select any number of items in a list (non-exclusive choice). The label is part of the control's hit target — activating either the box or its label toggles the same value.
 

@@ -1,5 +1,12 @@
 # HomeIndicator
 
+> **Figma is the source of truth for anything visual.** Node `367:21084` (`Home Indicator`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+> **Not implemented on either platform.** The OS already draws this chrome;
+> reproducing it would work against native behaviour rather than with it.
+
+
 ## Component Behavior
 A thin horizontal bar mimicking the system's home-gesture indicator at the bottom of the screen. Used to reserve visual space and provide a realistic bottom edge in mockups that include screens with a gesture-based home affordance (e.g. at the bottom of BottomSheet, BottomBar, or Keyboard mockups).
 

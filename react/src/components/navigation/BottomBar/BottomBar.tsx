@@ -2,7 +2,6 @@ import type { HTMLAttributes } from "react";
 import { Button } from "../../clickable/Button";
 import { CheckBoxNavigation } from "../CheckBoxNavigation";
 import { NavigationBar, type NavigationBarState } from "../NavigationBar";
-import { HomeIndicator } from "../../ios-system/HomeIndicator";
 import "./BottomBar.css";
 
 export type BottomBarType = "Button" | "2 Buttons" | "Navigation" | "Place Order";
@@ -30,7 +29,7 @@ export type BottomBarProps = {
 
 /**
  * Figma: Bottom Bar (node 1480:37613) — Type=Button/2 Buttons/Navigation/Place Order.
- * Reuses Button, CheckBoxNavigation, NavigationBar and HomeIndicator rather than
+ * Reuses Button, CheckBoxNavigation, NavigationBar rather than
  * re-implementing their markup/styles.
  */
 export function BottomBar({
@@ -100,8 +99,6 @@ export function BottomBar({
           <Button label={buttonLabel} onClick={onButtonClick} className="tmads-bottom-bar__button" />
         </div>
       )}
-
-      <HomeIndicator />
     </div>
   );
 }

@@ -1,5 +1,10 @@
 # AccordionCheckBox
 
+> **Figma is the source of truth for anything visual.** Node `7813:29373` (`Accordion / CheckBox`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A collapsible filter group: a header (title + count of currently selected options) that expands to reveal a list of CheckBox options, and collapses to hide them again. The header additionally reflects whether any option within it is currently selected, independent of its expanded/collapsed state.
 

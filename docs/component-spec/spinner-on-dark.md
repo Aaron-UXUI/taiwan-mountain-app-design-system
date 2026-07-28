@@ -1,5 +1,10 @@
 # SpinnerOnDark
 
+> **Figma is the source of truth for anything visual.** Node `12469:18955` (`Spinner / On Dark`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 The dark-surface counterpart to SpinnerOnWhite — same dot-ring fade animation, using light-colored dots so it remains visible against a dark/filled background (e.g. inside a Primary Button's Loading state).
 

@@ -1,5 +1,10 @@
 # IconMap
 
+> **Figma is the source of truth for anything visual.** Node `11129:12166` (`icon / 24px / Map`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A fixed 24px glyph set specialized for map/place-context iconography: tree, camera, walk (trail), and info. Renders exactly one glyph at a time, selected by name.
 

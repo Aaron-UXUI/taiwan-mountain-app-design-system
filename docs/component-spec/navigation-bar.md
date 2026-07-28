@@ -1,5 +1,10 @@
 # NavigationBar
 
+> **Figma is the source of truth for anything visual.** Node `490:22853` (`Navigation Bar`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 The app's primary bottom navigation bar, presenting four top-level destinations (activity/map/notify/member). Exactly one destination is active at a time, reflecting the currently displayed top-level screen. Internally composed of four CheckBoxNavigation items.
 

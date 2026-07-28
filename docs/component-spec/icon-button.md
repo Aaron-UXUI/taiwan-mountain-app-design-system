@@ -1,5 +1,10 @@
 # IconButton
 
+> **Figma is the source of truth for anything visual.** Node `7297:15056` (`Icon Buttons`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A compact, icon-only action control dedicated to one of three specific purposes: centering the map on the user's location, saving/favoriting an item, or downloading an offline map region. Because the icon alone is ambiguous, each purpose carries its own fixed accessible label baked into the component — the consumer selects a purpose, not a generic icon. The Offline-Map purpose additionally tracks download progress and communicates a distinct "already downloaded" end state.
 
@@ -15,6 +20,10 @@ A compact, icon-only action control dedicated to one of three specific purposes:
 - Loading and Downloaded sub-states of the Offline-Map purpose are both exposed as non-operable once the action is no longer available to repeat.
 
 ## State
+
+> Figma's `State=Loading` / `Loading...` are prototype-only scaffolding — they
+> exist to drive the Figma prototype, not as product states — so neither is
+> implemented on either platform.
 Each purpose has its own state set — the axes are not a free cross-product.
 
 | Purpose (`for`) | `type` | States |

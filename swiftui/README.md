@@ -7,32 +7,48 @@ it ports and, where it deviates from the spec, explains why in a doc comment.
 
 ## Why this isn't a 1:1 port
 
-Several spec components turned out to have a *native, first-party* Apple
-equivalent that already satisfies HIG, Dynamic Type, Accessibility, and
-native interaction — reusing it beats rebuilding it:
+**Figma is the source of truth for anything visual** (see
+[`docs/workflow.md`](../docs/workflow.md)). Where a first-party Apple control
+matches the design closely enough, it is reused — it already satisfies HIG,
+Dynamic Type, Accessibility and native interaction. Where the design and the
+native control genuinely differ, the design wins and the control is drawn from
+Figma, keeping the native *semantics* underneath.
+
+### Still native
 
 | Spec component(s) | Native replacement |
 |---|---|
-| `SegmentedControls` | `Picker(.segmented)` |
-| `Stepper` | native `Stepper` |
-| `TextField`, `Toggle` | native `TextField` / `Toggle` |
+| `TextField` | native `TextField` |
 | `AccordionCheckBox`, `AccordionChips` | `DisclosureGroup` |
 | `BottomSheet` | `.sheet` + `.presentationDetents` + `.presentationDragIndicator` |
 | `Tooltip` | `.popover` (iOS has no hover; popover is the touch/VoiceOver-reachable equivalent) |
-| `SearchBar` | `.searchable` + `.searchSuggestions` |
 | `NavigationBar` (bottom tabs) | `TabView` + `.badge(_:)` |
-| `AppBar` | `NavigationStack` + `.toolbar` (back button is automatic) |
-| `CarouselIndicators` | `TabView(.page)`'s built-in page dots |
-| `SpinnerOnWhite` / `SpinnerOnDark` | `ProgressView` (tinted) |
-| `MotionSuccess` / `MotionTransaction` | rebuilt from the Figma storyboards as real interpolated motion over the extracted artwork (checkmark wipe; card sliding across the payment terminal) — these were also SF Symbols before, depicting something else entirely |
-| `Icon14/16/20/24`, `IconMap`, `IconWeather` | one `DSIcon` enum over the **real Figma vector art**, bundled as SVG imagesets in `Resources/DSIcons.xcassets` (see `Tools/README.md`) — an earlier revision mapped these onto SF Symbols, which kept a system-native look but silently substituted different artwork |
-| `RadioButton` (Default style) | `Picker(.inline)` — iOS has no standalone radio control; this is HIG's own "choice list" idiom |
+| `AppBar` | `NavigationStack` + `.toolbar` — Figma is a 48pt bar with a centred 16pt regular title against iOS's 44pt/17pt semibold. Closing that would cost the depth-linked back button, swipe-back, large-title collapse and toolbar safe-area handling, so the title is pinned inline and the buttons use brand glyphs instead |
+| `CarouselIndicators` | `TabView(.page)`'s built-in page dots (`DSPageIndicator` is the standalone fallback) |
+| `MotionSuccess` / `MotionTransaction` | rebuilt from the Figma storyboards as real interpolated motion over the extracted artwork (checkmark wipe; card sliding across the payment terminal) |
+| `Icon14/16/20/24`, `IconMap`, `IconWeather` | one `DSIcon` enum over the **real Figma vector art**, bundled as SVG imagesets in `Resources/DSIcons.xcassets` (see `Tools/README.md`) |
 | `UserLocation` | MapKit's native `UserAnnotation()` (this kit's version is a non-MapKit fallback only) |
 
+### Drawn from Figma instead
+
+These started out native and were changed once the gap to the design proved
+visible side by side. Each keeps its native semantics — a custom `ToggleStyle`
+is still a `Toggle`, so VoiceOver still says "switch, on/off".
+
+| Component | Why the native control wasn't enough |
+|---|---|
+| `Toggle` | Figma's Off state is a green-100 track with a 2pt green-800 outline and a **green-800** knob; iOS draws a grey track with a white knob |
+| `SegmentedControls` | Figma fills the selected indicator green-800 with a white label; the native control is the inverse — white indicator, dark label |
+| `Stepper` | Figma is one bordered pill holding `[− 48][value 48][+ 48]`; the native control puts the value *outside* a small −/+ pair — structural, not a tint |
+| `SearchBar` | Figma's is a 48pt bordered, elevated field with a mic button **and a separate filter button beside it**; `.searchable` renders a nav-bar capsule that can host neither. `DSSearchBar` is the port; `dsSearchable` remains for screens that genuinely want the system affordance |
+| `RadioButton` | iOS has no standalone radio control. This was `Picker(.inline)` (a trailing-checkmark list), which is the HIG idiom but visibly not the designed control — now drawn with the exported `icon/24px` glyph |
+| `SpinnerOnWhite` / `SpinnerOnDark` | Figma is eight 8pt dots fading in a trail around a 40pt box; `ProgressView` is a gapped spinning ring. Reduce Motion is preserved explicitly — the trail holds static instead of spinning |
+
 The **4 `ios-system` mockup components** (`StatusBar`, `Keyboard`,
-`KeyboardNumbers`, `HomeIndicator`) are **not ported at all** — on a real
-device the OS already renders all of them; reimplementing system chrome
-would violate the "Native Interaction" requirement, not satisfy it.
+`KeyboardNumbers`, `HomeIndicator`) are **not implemented on either platform** —
+on a real device the OS already renders all of them, so reimplementing system
+chrome would violate the "Native Interaction" requirement, not satisfy it.
+React used to carry mockups of them; they were removed for the same reason.
 
 `CheckBoxNavigation` has **no SwiftUI component**. iOS's `TabView` only reads
 image + text out of whatever is passed to `.tabItem` and draws its own chrome

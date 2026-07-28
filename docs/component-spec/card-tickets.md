@@ -1,5 +1,10 @@
 # CardTickets
 
+> **Figma is the source of truth for anything visual.** Node `1373:16817` (`Cards / Tickets`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A ticket summary card showing the scene/venue name, ticket type, an optional additional item, a due date/deadline, and a price, separated by a visual divider. Used in checkout/order-summary contexts. Can be shown in a Disabled state (e.g. a ticket type no longer available).
 

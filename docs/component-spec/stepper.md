@@ -1,5 +1,10 @@
 # Stepper
 
+> **Figma is the source of truth for anything visual.** Node `12190:23425` (`Stepper`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A numeric quantity control with decrement and increment actions flanking a numeric display (e.g. selecting ticket count). Supports an error sub-state that surfaces an inline error message below the control (e.g. exceeding available quantity).
 

@@ -1,5 +1,10 @@
 # Icon20
 
+> **Figma is the source of truth for anything visual.** Node `490:21891` (`icon / 20px`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A fixed 20px glyph renderer covering search, microphone, check, info, credit-card, and password-visibility (open-eye/close-eye) glyphs. Renders exactly one glyph at a time, selected by name.
 

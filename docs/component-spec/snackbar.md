@@ -1,5 +1,10 @@
 # Snackbar
 
+> **Figma is the source of truth for anything visual.** Node `16014:7927` (`Snackbar`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A transient, bottom-anchored message bar (e.g. confirming an action just completed), optionally dismissible via a close control, that disappears on its own after a short duration or when dismissed — distinct from Banner, which persists as long as its underlying condition holds.
 

@@ -11,9 +11,10 @@ import SwiftUI
 /// value — no custom gesture recognizer is needed to get press feedback.
 ///
 /// Figma defines 19 of the 24 Type × Size × State combinations. Small has no
-/// Loading state at any emphasis, and Tertiary/Small exists only as Default;
-/// the props stay orthogonal for ergonomics, but combinations outside that set
-/// have no design behind them.
+/// Loading state at any emphasis, so the loading initializer below pins the
+/// size to Large — asking for a Small spinner no longer compiles. (Tertiary/
+/// Small exists only as Default, but Pressing and Disabled come from the
+/// environment rather than a parameter, so they are not constrained here.)
 public enum DSButtonEmphasis {
     case primary, secondary, tertiary
 }
@@ -45,12 +46,27 @@ public struct DSButton: View {
         _ title: String,
         emphasis: DSButtonEmphasis = .primary,
         size: DSButtonSize = .large,
-        isLoading: Bool = false,
         action: @escaping () -> Void
     ) {
         self.title = title
         self.emphasis = emphasis
         self.size = size
+        self.isLoading = false
+        self.action = action
+    }
+
+    /// Loading is authored only at Large in Figma, so this overload pins the
+    /// size rather than letting a caller ask for a Small spinner that has no
+    /// design behind it.
+    public init(
+        _ title: String,
+        emphasis: DSButtonEmphasis = .primary,
+        isLoading: Bool,
+        action: @escaping () -> Void
+    ) {
+        self.title = title
+        self.emphasis = emphasis
+        self.size = .large
         self.isLoading = isLoading
         self.action = action
     }

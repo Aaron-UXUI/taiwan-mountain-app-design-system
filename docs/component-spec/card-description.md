@@ -1,5 +1,10 @@
 # CardDescription
 
+> **Figma is the source of truth for anything visual.** Node `11441:11209` (`Cards / Description`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A text-first informational card (optional title, supporting body text, optional image) used for descriptive content that doesn't need the photo emphasis of CardScene — e.g. an explanatory blurb about a feature or place. Title and image are each independently toggleable so the same card can flex between a plain text block and a text+image layout.
 

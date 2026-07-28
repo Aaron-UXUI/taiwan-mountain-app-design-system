@@ -9,9 +9,8 @@ const meta: Meta<typeof IconButton> = {
     for: { control: "radio", options: ["Location", "Save", "OfflineMap"] },
     state: {
       control: "radio",
-      options: ["Default", "Pressing", "Enabled", "Clicked", "Loading", "Downloaded"],
+      options: ["Default", "Pressing", "Enabled", "Clicked", "Downloaded"],
     },
-    progress: { control: "number" },
   },
   args: {
     for: "Location",
@@ -45,10 +44,6 @@ export const OfflineMapDefault: Story = {
   args: { for: "OfflineMap", state: "Default" },
 };
 
-export const OfflineMapLoading: Story = {
-  args: { for: "OfflineMap", state: "Loading", progress: 42 },
-};
-
 export const OfflineMapDownloaded: Story = {
   args: { for: "OfflineMap", state: "Downloaded" },
 };
@@ -66,7 +61,6 @@ export const AllVariants: Story = {
         <IconButton for="Save" state="Clicked" />
       </span>
       <IconButton for="OfflineMap" state="Default" />
-      <IconButton for="OfflineMap" state="Loading" progress={42} />
       <IconButton for="OfflineMap" state="Downloaded" />
     </div>
   ),

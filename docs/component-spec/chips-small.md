@@ -1,5 +1,10 @@
 # ChipsSmall
 
+> **Figma is the source of truth for anything visual.** Node `10125:9787` (`Chips / Small`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A compact, tappable filter chip carrying a short text label, used for secondary/dense filter groups (e.g. a horizontally scrolling row of filter tags under a map or list). Functionally equivalent to ChipsLarge but sized for higher density contexts.
 

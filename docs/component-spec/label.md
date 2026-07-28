@@ -1,5 +1,10 @@
 # Label
 
+> **Figma is the source of truth for anything visual.** Node `9037:15126` (`Label`).
+> This document records behaviour and accessibility decisions only — for
+> sizes, spacing, colour and type, read the node with `get_design_context`.
+
+
 ## Component Behavior
 A general-purpose status label used for conditions such as a place's open/partial/closed hours state. Semantically similar to Crowdedness but for a different fact (operating status rather than crowd level).
 
