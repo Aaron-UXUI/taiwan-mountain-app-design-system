@@ -32,7 +32,7 @@
 }
 
 .tmads-text-field__input::placeholder {
-  color: var(--color-gray-400);
+  color: var(--color-gray-600);
 }
 
 .tmads-text-field__icon {

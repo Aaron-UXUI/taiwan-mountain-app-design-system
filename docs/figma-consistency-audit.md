@@ -1125,3 +1125,82 @@ Figma 變數的字面值是 `10000`。9999 是實作端自己填的慣用值。�
   Color 22 個色票、標籤 96px 靠右 24px/600;Elevation 五級 box-shadow
   與 Figma 字面值逐字相同;Typography 十一列的 size / line-height / weight
   全中,H1 `letter-spacing` 實測 `0.8px`(40 × 2%)
+
+---
+
+## U. 第十七輪:設計端四項指示 — 逐項回 Figma 查證的結果
+
+設計端在對話中交代四件事,並說「已經在 Figma 改好了」。逐項去查,**Figma 只有兩項
+真的改了**,另兩項與檔案現況不符。四項都照指示做完,但落差必須留紀錄,否則下一輪
+稽核會把它們當成錯誤「改回去」。
+
+### U1. NavigationBar(TabView)Default → green-800、Enabled → green-900
+
+**Figma 現況:未改。** `Navigation Bar`(490:22853)與 `CheckBox / Navigation`
+(355:60400)的標籤都還是 gray-800(未選)/ black(選取)。
+
+實作上還撞到一個更硬的限制:**iOS 26 的浮動式 tab bar 不吃 `UITabBarAppearance`**。
+先用 `stackedLayoutAppearance.normal` 設 green-800,再退回舊的
+`unselectedItemTintColor`,兩者都無效。iPhone 17 / iOS 26.5 實機採樣:
+
+| Tab | 實測顏色 |
+|---|---|
+| 活動(未選) | `#191919`(系統預設) |
+| 通知(未選) | `#191919` |
+| 會員(未選) | `#191919` |
+| 地圖(選取) | `#2A321B`(`.tint()` 有效,經 tab bar 混色後偏深) |
+
+原生 `TabView` 只開放選取色。要兩色就只能自繪——與 `Toggle`、`Segmented Controls`、
+`Stepper`、`Search Bar` 同一個決定。`DSAppTabView` 因此改為依 Figma 自繪:56pt 高、
+24pt 圖示 + 4pt + Label/S、選取時 green-50 的 56×32 膠囊指示器、徽章掛在圖示右上。
+圖示同時從 SF Symbols 換成 Figma 抽出的真實向量。
+
+**代價**:失去 iOS 26 的玻璃 tab bar 與捲動收合。**保留**:透過
+`accessibilityRepresentation` 仍以真正的 tab bar 語意曝露給 VoiceOver。
+
+改完實測:green-800 2083 px(三個未選)、green-900 517 px(一個選取),同落在
+tab bar 的 y 帶,比例約 4:1。
+
+### U2. Placeholder 一律改 Gray-600
+
+**Figma 現況:部分已改。** `Gray Scale/Gray-600 = #717569` 這個變數是新增的,
+`Search Bar` 的 Default placeholder(490:4169)與 `Text Field` 的
+`Input / M` Default(12190:16603)都已經套上;但 `Text Field` 的
+**S / L / XL 以及全部 Error 狀態**仍是 gray-800。依指示全部統一成 gray-600。
+
+順帶發現 **SwiftUI 的 `DSTextField` 根本沒有 placeholder**(`TextField("", …)`),
+Figma 的 Default 狀態是有的,一併補上。SwiftUI 只認 styled `prompt` 才能換色,
+把字串當 title 傳會沿用系統的 placeholder 顏色。
+
+### U3. CardScene 移除底部漸層
+
+**Figma 現況:已改,而且不只移除漸層。** `Filter_MapSearch` 的 Cards/Scene 實例
+(9528:34104)已經不再輸出任何 `linear-gradient`;文字區改成
+`rgba(0,0,0,0.5)` + `backdrop-blur(6px)`、radius 12、左右下內縮 8pt 的浮動面板。
+React 端的面板早就是這樣,只要拿掉 scrim;SwiftUI 端拿掉 `LinearGradient` overlay。
+
+這正好推翻第 K/G 輪的結論。當時的教訓是「元件本體沒有 ≠ 設計裡沒有」——這次相反:
+實例裡真的沒有了。**兩邊都要看,而且要看當下的版本。**
+
+### U4. `Type Scale/body/L` = 16?
+
+**變數本身仍是 14。** 但這不是錯誤,原因終於查清楚了:**Figma 的變數名稱比樣式名稱
+整體低一階**。
+
+| 樣式 | 綁定的變數 | 實際值 |
+|---|---|---|
+| `body/L` | `Type Scale/Label/L` + `Line Height/H4` | **16 / 24** ✅ |
+| `body/M` | `Type Scale/body/L` + `Line Height/body/L` | **14 / 20** ✅ |
+| `body/S` | `Type Scale/body/M` + `Line Height/body/M` | **12 / 18** ✅ |
+
+也就是說 `Type Scale/body/L = 14` 餵的是**樣式 `body/M`**。三個樣式解析出來的值
+(16 / 14 / 12)與 Typography 說明表完全一致,也與我們的 token 一致——**程式碼本來
+就是對的,不需要改**。第 T5 輪記的那個「檔案內部不一致」到此有了完整解釋。
+
+### 驗證
+
+- `npm run typecheck`、`swift build`、iOS `xcodebuild` 皆通過
+- 模擬器實機採樣(非目視):tab bar 兩色如上表
+- Storybook 量測 DOM:CardScene 全頁 **0 個** gradient 元素、`__scrim` 不存在、
+  內容面板 `rgba(0,0,0,0.5)` / `blur(6px)` / radius 12;SearchBar placeholder
+  實測 `rgb(113,117,105)` = `#717569`

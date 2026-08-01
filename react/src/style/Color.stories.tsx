@@ -53,6 +53,7 @@ const ROWS: Row[] = [
       { shade: "100", variable: "--color-gray-100", light: true },
       { shade: "200", variable: "--color-gray-200", light: true },
       { shade: "400", variable: "--color-gray-400", light: true },
+      { shade: "600", variable: "--color-gray-600" },
       { shade: "800", variable: "--color-gray-800" },
       { shade: "900", variable: "--color-gray-black", tokenName: "gray-black" },
     ],

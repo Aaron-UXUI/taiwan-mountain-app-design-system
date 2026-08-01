@@ -29,5 +29,6 @@ public enum DSColor {
     public static let gray100 = Color(hex: 0xDBDED5)
     public static let gray200 = Color(hex: 0xC5C8BE)
     public static let gray400 = Color(hex: 0x989C91)
+    public static let gray600 = Color(hex: 0x717569)
     public static let gray800 = Color(hex: 0x494C44)
 }
