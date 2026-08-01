@@ -31,12 +31,12 @@ struct NavigationShowcase: View {
                     .overlay(RoundedRectangle(cornerRadius: 8).strokeBorder(.secondary.opacity(0.2)))
                 }
                 GallerySection(title: "NavigationBar (TabView)") {
-                    DSAppTabView(selection: $tabSelection, notifyBadgeCount: 2) {
-                        Text("活動內容")
+                    DSAppTabView(selection: $tabSelection, newsBadgeCount: 2) {
+                        Text("探索內容")
                     } map: {
                         Text("地圖內容")
-                    } notify: {
-                        Text("通知內容")
+                    } news: {
+                        Text("消息內容")
                     } member: {
                         Text("會員內容")
                     }

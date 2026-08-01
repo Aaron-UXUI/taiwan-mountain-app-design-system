@@ -1134,32 +1134,30 @@ Figma 變數的字面值是 `10000`。9999 是實作端自己填的慣用值。�
 真的改了**,另兩項與檔案現況不符。四項都照指示做完,但落差必須留紀錄,否則下一輪
 稽核會把它們當成錯誤「改回去」。
 
-### U1. NavigationBar(TabView)Default → green-800、Enabled → green-900
+### U1. NavigationBar(TabView)兩色 + Tabs 順序
 
-**Figma 現況:未改。** `Navigation Bar`(490:22853)與 `CheckBox / Navigation`
-(355:60400)的標籤都還是 gray-800(未選)/ black(選取)。
+**設計端的定位**:Figma 的 `Navigation Bar` 是給非 iOS 平台畫的,**iOS 端一律用原生
+`TabView`**,所以這個元件不會在 Figma 上一比一對應——平台控制項優先。
 
-實作上還撞到一個更硬的限制:**iOS 26 的浮動式 tab bar 不吃 `UITabBarAppearance`**。
-先用 `stackedLayoutAppearance.normal` 設 green-800,再退回舊的
-`unselectedItemTintColor`,兩者都無效。iPhone 17 / iOS 26.5 實機採樣:
+顏色查下來的結論是**做不到,因此不改**。`.tint(_:)` 只吃選取項;iOS 26 的浮動式
+tab bar 連 `UITabBarAppearance.stackedLayoutAppearance.normal` 和舊的
+`unselectedItemTintColor` 都完全忽略。iPhone 17 / iOS 26.5 逐格採樣:
 
 | Tab | 實測顏色 |
 |---|---|
-| 活動(未選) | `#191919`(系統預設) |
-| 通知(未選) | `#191919` |
-| 會員(未選) | `#191919` |
-| 地圖(選取) | `#2A321B`(`.tint()` 有效,經 tab bar 混色後偏深) |
+| 未選(三項) | `#191919`(系統預設,設什麼都沒用) |
+| 選取 | `#2A321B`(`.tint()` 有效,經 tab bar 混色後偏深) |
 
-原生 `TabView` 只開放選取色。要兩色就只能自繪——與 `Toggle`、`Segmented Controls`、
-`Stepper`、`Search Bar` 同一個決定。`DSAppTabView` 因此改為依 Figma 自繪:56pt 高、
-24pt 圖示 + 4pt + Label/S、選取時 green-50 的 56×32 膠囊指示器、徽章掛在圖示右上。
-圖示同時從 SF Symbols 換成 Figma 抽出的真實向量。
+依設計端指示「若原生元件無法改文字與圖示顏色,那就不要改顏色」,`.tint()` 維持原本的
+green-800,不做只有一半的兩色方案。
 
-**代價**:失去 iOS 26 的玻璃 tab bar 與捲動收合。**保留**:透過
-`accessibilityRepresentation` 仍以真正的 tab bar 語意曝露給 VoiceOver。
+**真正修正的是 Tabs 的文案與順序**:應為 **探索 → 地圖 → 消息 → 會員**,原本寫成
+活動 / 地圖 / 通知 / 會員。第一項的圖示也跟著從 `figure.hiking` 換成
+`magnifyingglass`(Figma 的 `CheckBox / Navigation` 第一格用的就是 search 字形)。
+enum case 一併改為 `explore / map / news / member`。
 
-改完實測:green-800 2083 px(三個未選)、green-900 517 px(一個選取),同落在
-tab bar 的 y 帶,比例約 4:1。
+> 我一度把這個 tab bar 改成依 Figma 自繪以強行達成兩色,方向是錯的——已還原。
+> 平台原生控制項的取捨,不該由「Figma 上有這個元件」單方面決定。
 
 ### U2. Placeholder 一律改 Gray-600
 
@@ -1200,7 +1198,8 @@ React 端的面板早就是這樣,只要拿掉 scrim;SwiftUI 端拿掉 `LinearGr
 ### 驗證
 
 - `npm run typecheck`、`swift build`、iOS `xcodebuild` 皆通過
-- 模擬器實機採樣(非目視):tab bar 兩色如上表
+- 模擬器實機採樣(非目視):tab bar 未選 `#191919` / 選取 `#2A321B`,證實原生控制項
+  無法套用兩色;Tabs 順序與文案改為 探索 / 地圖 / 消息 / 會員
 - Storybook 量測 DOM:CardScene 全頁 **0 個** gradient 元素、`__scrim` 不存在、
   內容面板 `rgba(0,0,0,0.5)` / `blur(6px)` / radius 12;SearchBar placeholder
   實測 `rgb(113,117,105)` = `#717569`
