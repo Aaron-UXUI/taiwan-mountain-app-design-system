@@ -22,17 +22,11 @@
   object-fit: cover;
 }
 
-/* The scrim is part of the image node's fill stack in Figma, so it only shows
-   up in generated CSS for nodes that actually carry a photo — every Cards/Scene
-   instance in Filter_MapSearch (4685:53295) has it, while the empty standalone
-   component (374:3819) does not. Reading the component alone is what made an
-   earlier pass delete this. */
-.tmads-card-scene__scrim {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 66.83%, rgba(0, 0, 0, 1) 100%);
-}
+/* The photo used to carry a bottom scrim in its fill stack. Design has since
+   removed it — the caption gets its contrast from its own translucent panel
+   below, so a second darkening layer would only muddy the photo. Verified on
+   the Filter_MapSearch instances (9528:34104), which no longer emit any
+   linear-gradient. */
 
 .tmads-card-scene__status {
   position: absolute;

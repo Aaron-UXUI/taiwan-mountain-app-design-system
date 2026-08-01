@@ -25,13 +25,21 @@ public enum DSTextFieldSize {
 public struct DSTextField: View {
     private let label: String
     @Binding private var text: String
+    private let placeholder: String?
     private let size: DSTextFieldSize
     private let errorMessage: String?
     @FocusState private var isFocused: Bool
 
-    public init(_ label: String, text: Binding<String>, size: DSTextFieldSize = .m, errorMessage: String? = nil) {
+    public init(
+        _ label: String,
+        text: Binding<String>,
+        placeholder: String? = nil,
+        size: DSTextFieldSize = .m,
+        errorMessage: String? = nil
+    ) {
         self.label = label
         self._text = text
+        self.placeholder = placeholder
         self.size = size
         self.errorMessage = errorMessage
     }
@@ -44,7 +52,14 @@ public struct DSTextField: View {
                 .foregroundStyle(DSColor.black)
 
             // Fixed 40pt tall, 8pt horizontal padding, no vertical padding.
-            TextField("", text: $text)
+            // Figma's Default state shows a gray-600 placeholder; SwiftUI only
+            // honours that colour through a styled `prompt`, and the title
+            // argument has to stay empty or it would draw the label twice.
+            TextField(
+                "",
+                text: $text,
+                prompt: placeholder.map { Text($0).foregroundColor(DSColor.gray600) }
+            )
                 .dsFont(.bodyL)
                 .foregroundStyle(DSColor.black)
                 .focused($isFocused)

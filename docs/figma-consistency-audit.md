@@ -1125,3 +1125,98 @@ Figma 變數的字面值是 `10000`。9999 是實作端自己填的慣用值。�
   Color 22 個色票、標籤 96px 靠右 24px/600;Elevation 五級 box-shadow
   與 Figma 字面值逐字相同;Typography 十一列的 size / line-height / weight
   全中,H1 `letter-spacing` 實測 `0.8px`(40 × 2%)
+
+---
+
+## U. 第十七輪:設計端四項指示 — 逐項回 Figma 查證的結果
+
+設計端在對話中交代四件事,並說「已經在 Figma 改好了」。逐項去查,**Figma 只有兩項
+真的改了**,另兩項與檔案現況不符。四項都照指示做完,但落差必須留紀錄,否則下一輪
+稽核會把它們當成錯誤「改回去」。
+
+### U1. NavigationBar(TabView)兩色 + Tabs 順序
+
+**設計端的定位**:Figma 的 `Navigation Bar` 是給非 iOS 平台畫的,**iOS 端一律用原生
+`TabView`**,所以這個元件不會在 Figma 上一比一對應——平台控制項優先。
+
+顏色查下來的結論是**做不到,因此不改**。`.tint(_:)` 只吃選取項;iOS 26 的浮動式
+tab bar 連 `UITabBarAppearance.stackedLayoutAppearance.normal` 和舊的
+`unselectedItemTintColor` 都完全忽略。iPhone 17 / iOS 26.5 逐格採樣:
+
+| Tab | 實測顏色 |
+|---|---|
+| 未選(三項) | `#191919`(系統預設,設什麼都沒用) |
+| 選取 | `#2A321B`(`.tint()` 有效,經 tab bar 混色後偏深) |
+
+依設計端指示「若原生元件無法改文字與圖示顏色,那就不要改顏色」,`.tint()` 維持原本的
+green-800,不做只有一半的兩色方案。
+
+**真正修正的是 Tabs 的文案與順序**:應為 **探索 → 地圖 → 消息 → 會員**,原本寫成
+活動 / 地圖 / 通知 / 會員。第一項的圖示也跟著從 `figure.hiking` 換成
+`magnifyingglass`(Figma 的 `CheckBox / Navigation` 第一格用的就是 search 字形)。
+enum case 一併改為 `explore / map / news / member`。
+
+> 我一度把這個 tab bar 改成依 Figma 自繪以強行達成兩色,方向是錯的——已還原。
+> 平台原生控制項的取捨,不該由「Figma 上有這個元件」單方面決定。
+
+### U2. Placeholder 一律改 Gray-600
+
+**Figma 現況:部分已改。** `Gray Scale/Gray-600 = #717569` 這個變數是新增的,
+`Search Bar` 的 Default placeholder(490:4169)與 `Text Field` 的
+`Input / M` Default(12190:16603)都已經套上;但 `Text Field` 的
+**S / L / XL 以及全部 Error 狀態**仍是 gray-800。依指示全部統一成 gray-600。
+
+順帶發現 **SwiftUI 的 `DSTextField` 根本沒有 placeholder**(`TextField("", …)`),
+Figma 的 Default 狀態是有的,一併補上。SwiftUI 只認 styled `prompt` 才能換色,
+把字串當 title 傳會沿用系統的 placeholder 顏色。
+
+### U3. CardScene 移除底部漸層
+
+**Figma 現況:已改,而且不只移除漸層。** `Filter_MapSearch` 的 Cards/Scene 實例
+(9528:34104)已經不再輸出任何 `linear-gradient`;文字區改成
+`rgba(0,0,0,0.5)` + `backdrop-blur(6px)`、radius 12、左右下內縮 8pt 的浮動面板。
+React 端的面板早就是這樣,只要拿掉 scrim;SwiftUI 端拿掉 `LinearGradient` overlay。
+
+這正好推翻第 K/G 輪的結論。當時的教訓是「元件本體沒有 ≠ 設計裡沒有」——這次相反:
+實例裡真的沒有了。**兩邊都要看,而且要看當下的版本。**
+
+### U4. `Type Scale/body/L` = 16?
+
+查證當下**變數仍是 14**,原因是 **Figma 的變數名稱比樣式名稱整體低一階**:
+
+| 樣式 | 綁定的變數 | 解析值 |
+|---|---|---|
+| `body/L` | `Type Scale/Label/L`(16) | 16 / 24 |
+| `body/M` | `Type Scale/body/L`(14) | 14 / 20 |
+| `body/S` | `Type Scale/body/M`(12) | 12 / 18 |
+
+三個樣式解析出來與說明表一致,token 也一致,所以當時**沒有改任何程式碼**。
+
+> **後續(設計端已把變數與說明表一起修好)**:`Type Scale/body/L` 改成 **16**、
+> `Type Scale/Label/L` 改成 **14**,樣式 `body/L` 重新指向 `Type Scale/body/L`,
+> 說明表的 Body 三列同步改成 **L 16/24、M 14/18、S 12/16**。
+>
+> 中間一度只動變數沒動樣式綁定,導致樣式 `body/M` 跟著跳到 16/20(它與 `body/L`
+> 共用同一個 size 變數);設計端隨後補正。最終狀態:
+>
+> | 樣式 | Size | Line height | 對照說明表 |
+> |---|---|---|---|
+> | `body/L` | 16 | 24 | ✅ |
+> | `body/M` | 14 | **18**(原 20) | ✅ |
+> | `body/S` | 12 | **16**(原 18) | ✅ |
+>
+> **字級沒變,變的是 M / S 的行高。** token 的 `lineHeight` 隨之更新;
+> `size` 與 `swiftRelativeTo` 維持不動。
+>
+> 這只影響 CSS 端——SwiftUI 端刻意不重現固定行高(見 `DSTypography.swift`:
+> 固定行高在大字級下會擠在一起,改用系統字體自己的 leading),所以
+> `DSTypography+Tokens.swift` 不受影響。
+
+### 驗證
+
+- `npm run typecheck`、`swift build`、iOS `xcodebuild` 皆通過
+- 模擬器實機採樣(非目視):tab bar 未選 `#191919` / 選取 `#2A321B`,證實原生控制項
+  無法套用兩色;Tabs 順序與文案改為 探索 / 地圖 / 消息 / 會員
+- Storybook 量測 DOM:CardScene 全頁 **0 個** gradient 元素、`__scrim` 不存在、
+  內容面板 `rgba(0,0,0,0.5)` / `blur(6px)` / radius 12;SearchBar placeholder
+  實測 `rgb(113,117,105)` = `#717569`

@@ -84,7 +84,7 @@
   min-width: 0;
   font-size: var(--type-scale-body-l);
   line-height: var(--line-height-body-l);
-  color: var(--color-gray-400);
+  color: var(--color-gray-600);
 }
 
 .tmads-search-bar__value {

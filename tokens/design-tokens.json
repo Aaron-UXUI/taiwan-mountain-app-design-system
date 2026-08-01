@@ -55,6 +55,7 @@
       "gray-100": { "value": "#DBDED5", "figmaName": "Gray Scale/Gray-100", "cssVar": "--color-gray-100", "swiftName": "gray100" },
       "gray-200": { "value": "#C5C8BE", "figmaName": "Gray Scale/Gray-200", "cssVar": "--color-gray-200", "swiftName": "gray200" },
       "gray-400": { "value": "#989C91", "figmaName": "Gray Scale/Gray-400", "cssVar": "--color-gray-400", "swiftName": "gray400" },
+      "gray-600": { "value": "#717569", "figmaName": "Gray Scale/Gray-600", "cssVar": "--color-gray-600", "swiftName": "gray600" },
       "gray-800": { "value": "#494C44", "figmaName": "Gray Scale/Gray-800", "cssVar": "--color-gray-800", "swiftName": "gray800" }
     }
   },
@@ -79,8 +80,8 @@
     "headline3": { "size": 20, "lineHeight": 30, "weight": "semibold", "family": "pingfang-tc", "cssSizeVar": "--type-scale-headline-3", "cssLineHeightVar": "--line-height-h3", "swiftName": "headline3", "swiftRelativeTo": "title2" },
     "headline4": { "size": 16, "lineHeight": 24, "weight": "semibold", "family": "pingfang-tc", "cssSizeVar": "--type-scale-headline-4", "cssLineHeightVar": "--line-height-h4", "swiftName": "headline4", "swiftRelativeTo": "headline" },
     "bodyL": { "size": 16, "lineHeight": 24, "weight": "regular", "family": "pingfang-tc", "cssSizeVar": "--type-scale-body-l", "cssLineHeightVar": "--line-height-body-l", "swiftName": "bodyL", "swiftRelativeTo": "body" },
-    "bodyM": { "size": 14, "lineHeight": 20, "weight": "regular", "family": "pingfang-tc", "cssSizeVar": "--type-scale-body-m", "cssLineHeightVar": "--line-height-body-m", "swiftName": "bodyM", "swiftRelativeTo": "subheadline" },
-    "bodyS": { "size": 12, "lineHeight": 18, "weight": "regular", "family": "pingfang-tc", "cssSizeVar": "--type-scale-body-s", "cssLineHeightVar": "--line-height-body-s", "swiftName": "bodyS", "swiftRelativeTo": "footnote" },
+    "bodyM": { "size": 14, "lineHeight": 18, "weight": "regular", "family": "pingfang-tc", "cssSizeVar": "--type-scale-body-m", "cssLineHeightVar": "--line-height-body-m", "swiftName": "bodyM", "swiftRelativeTo": "subheadline" },
+    "bodyS": { "size": 12, "lineHeight": 16, "weight": "regular", "family": "pingfang-tc", "cssSizeVar": "--type-scale-body-s", "cssLineHeightVar": "--line-height-body-s", "swiftName": "bodyS", "swiftRelativeTo": "footnote" },
     "labelM": { "size": 14, "lineHeight": 20, "weight": "semibold", "family": "pingfang-tc", "cssSizeVar": "--type-scale-label-m", "cssLineHeightVar": "--line-height-label-m", "swiftName": "labelM", "swiftRelativeTo": "subheadline" },
     "labelS": { "size": 12, "lineHeight": 18, "weight": "semibold", "family": "pingfang-tc", "cssSizeVar": "--type-scale-label-s", "cssLineHeightVar": "--line-height-label-s", "swiftName": "labelS", "swiftRelativeTo": "caption" },
     "numberL": {

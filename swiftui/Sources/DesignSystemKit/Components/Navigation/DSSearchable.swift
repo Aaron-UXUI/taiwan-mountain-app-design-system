@@ -73,7 +73,10 @@ public struct DSSearchBar: View {
                 .foregroundStyle(DSColor.black)
                 .accessibilityHidden(true)
 
-            TextField(prompt, text: $text)
+            // The placeholder is gray-600 in Figma, which SwiftUI will only
+            // honour through a styled `prompt` — passing the string as the
+            // title leaves it on the system's own placeholder colour.
+            TextField("", text: $text, prompt: Text(prompt).foregroundColor(DSColor.gray600))
                 .dsFont(.bodyL)
                 .foregroundStyle(DSColor.black)
                 .focused($isFocused)
