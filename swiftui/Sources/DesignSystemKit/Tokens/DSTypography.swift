@@ -23,12 +23,23 @@ public struct DSTypeStyle {
     public let relativeTo: Font.TextStyle
     public let weight: Font.Weight
     public let design: Font.Design
+    /// Figma's `Spacing` column, as a fraction of the font size (2% → 0.02).
+    /// Kept relative rather than as points so it scales with Dynamic Type
+    /// alongside the size it is a percentage of.
+    public let letterSpacing: CGFloat
 
-    public init(baseSize: CGFloat, relativeTo: Font.TextStyle, weight: Font.Weight, design: Font.Design = .default) {
+    public init(
+        baseSize: CGFloat,
+        relativeTo: Font.TextStyle,
+        weight: Font.Weight,
+        design: Font.Design = .default,
+        letterSpacing: CGFloat = 0
+    ) {
         self.baseSize = baseSize
         self.relativeTo = relativeTo
         self.weight = weight
         self.design = design
+        self.letterSpacing = letterSpacing
     }
 }
 
@@ -36,15 +47,19 @@ private struct DSTypeStyleModifier: ViewModifier {
     @ScaledMetric private var size: CGFloat
     let weight: Font.Weight
     let design: Font.Design
+    let letterSpacing: CGFloat
 
     init(style: DSTypeStyle) {
         self._size = ScaledMetric(wrappedValue: style.baseSize, relativeTo: style.relativeTo)
         self.weight = style.weight
         self.design = style.design
+        self.letterSpacing = style.letterSpacing
     }
 
     func body(content: Content) -> some View {
-        content.font(.system(size: size, weight: weight, design: design))
+        content
+            .font(.system(size: size, weight: weight, design: design))
+            .tracking(size * letterSpacing)
     }
 }
 

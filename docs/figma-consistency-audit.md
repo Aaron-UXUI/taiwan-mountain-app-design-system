@@ -1027,3 +1027,101 @@ SwiftUI 改用單一 `Variant` enum,兩邊都變成**無法表達**,而不只是
 - **`CheckBox/Navigation` 已從 SwiftUI 移除**:`TabView` 只讀取 `.tabItem` 的
   image + text,自訂樣式會被丟棄。React 端保留(其 `NavigationBar` 有用到)。
 - **多個元件改用原生控制項**:見 `swiftui/README.md` 的對照表。**例外:`Toggle` 已於第十二輪依設計端決定改為依 Figma 自繪**(見 P1)。
+
+---
+
+## T. 第十六輪:Token 層與 Style Guide 排版(前十五輪從未查過的一層)
+
+前十五輪查的都是**元件**。這一輪改查 Figma `Style` section(node `2308:36025`)
+底下的 Style Guide 本身——也就是 token 的定義來源,以及 Storybook 上重現它的
+`Style` 區塊排版。這一層過去只有「值對不對」被間接驗證過(元件 CSS 的字級、
+色碼),**定義本身、以及跨平台換算規則從來沒有直接對過 Figma**。
+
+先講結論:**色票 22 個、字級 11 級、Elevation 5 級、Radius 6 級、Spacing 11 級,
+數值全部正確**。錯的是三件「值以外」的事。
+
+### T1. `Headline/1` 的 2% 字距,兩邊都沒有實作
+
+Figma Typography 表格有一欄 `Spacing`,H1 是 **2%**,其餘全部 0%。
+`design-tokens.json` 的註解**寫到了**這件事,但整條 pipeline 從來沒有輸出過
+letter-spacing——React 沒有變數,SwiftUI 的 `DSTypeStyle` 連這個欄位都沒有。
+等於「記錄了、但沒做」。
+
+修正方式刻意保持相對值而非絕對點數:
+
+- token 新增 `letterSpacing: 0.02`(em),只有非 0 的層級會輸出 CSS 變數
+  `--letter-spacing-h1`
+- SwiftUI `DSTypeStyle` 新增 `letterSpacing`,modifier 用
+  `.tracking(size * letterSpacing)`——`size` 是 `@ScaledMetric` 之後的值,
+  所以字距會跟著 Dynamic Type 一起縮放,而不是在大字級下變得過窄
+- React 兩個用到 H1 的地方(`PaymentInfo` 金額、`BottomBar` 價格)補上
+  `letter-spacing: var(--letter-spacing-h1)`
+
+### T2. SwiftUI 的陰影模糊半徑,五級用了兩套換算
+
+Figma 的 drop-shadow radius 就是 CSS 的 blur-radius,兩者同一個數字。
+但 CSS 的 blur-radius 定義是 **2σ**,SwiftUI `.shadow(radius:)` 收的是 **σ**,
+所以轉 Swift 必須除以 2。
+
+原本 `design-tokens.json` 裡:
+
+| | Figma blur | 舊 Swift radius | 換算 |
+|---|---|---|---|
+| Elevation/1 | 2 | 1 | ÷2 ✅ |
+| Elevation/2 | 4 / 8 | 4 / 8 | ×1 ❌ |
+| Elevation/3 | 1 / 12 | 1 / 12 | ×1 ❌ |
+| Elevation/4 | 20 | 20 | ×1 ❌ |
+| Elevation/5 | 32 / 4 | 32 / 4 | ×1 ❌ |
+
+只有 level1 換算對了,其餘四級的陰影在 iOS 上**擴散程度是設計稿的兩倍**。
+之所以一直沒被抓到,是因為前十五輪比對的是「有沒有陰影 / 是哪一級」,
+沒有比對過模糊程度。
+
+修法不是逐條改數字,而是把 JSON 欄位從 `radius`(已換算)改成
+`blur`(Figma 原值),換算規則收斂成 `build-tokens.mjs` 裡的一行
+`blur / 2`——JSON 從此就是 Figma 的鏡像,平台換算只有一處、且寫明理由。
+
+### T3. `Radius/rounded` 是 10000,不是 9999
+
+Figma 變數的字面值是 `10000`。9999 是實作端自己填的慣用值。視覺上沒有差別,
+但既然 Figma 是唯一依據,就沒有理由讓它保留一個不存在於設計檔的數字。
+(SwiftUI 端維持不輸出這個常數,改用 `Capsule()`——這是有記錄的平台決策。)
+
+### T4. Storybook `Style` 區塊的排版與 Figma 不符
+
+`Style` 五頁是上一輪新建的,值都對,但**排版是自己想的**,不是照 Style Guide。
+逐頁對過 Figma 之後:
+
+| 頁面 | Figma | 修正前 |
+|---|---|---|
+| (全部) | 每個 frame 都有 H1 標題 | `Typography`、`Elevation` 沒有標題 |
+| (全部) | 標題 H1 **Semibold** | 寫成 `fontWeight: 400` |
+| `Color` | 群組標籤 96px **靠右**、Headline/2 | 16px、靠左 |
+| `Color` | 色票裡的階數 Headline/2(24) | 16px |
+| `Elevation` | 60×60 方塊、Headline/3(20) | 72×72、16px |
+| `Radius` | 邊框 **black**、另帶 Elevation/1 陰影 | gray-400、無陰影 |
+| `Radius` | 數字 Headline/3、`Rounded` Headline/4 靠右 | 全部 16px 置中 |
+| `Spacing` | 白底、radius `xs`、Elevation/1 陰影 | gray-400 外框、無陰影 |
+| `Typography` | 表格有 `Spacing`(字距)欄 | 沒有這一欄 |
+
+順帶清掉 `Elevation` 頁一段死碼:`UNMAPPED` 是空陣列,卻仍然渲染出
+「Not mapped to any Elevation level」標題和一張空表。
+
+五頁共用的樣式抽到 `react/src/style/styleGuide.ts`,避免下次再各自漂移。
+
+### T5. 查證後**不是**落差的兩項
+
+- **`Type Scale/body/L` 變數的值是 14**,但 Typography 說明表寫 Body L = **16**
+  (M=14、S=12)。這是 Figma 檔案內部變數命名與說明文件對不上,不是程式錯誤;
+  實作採用說明表(也是各元件實際渲染的字級),維持不動。
+- **`DSBottomSheet` 沒有 elevation**,React 端有 `elevation-3`。SwiftUI 用原生
+  `.sheet` + `.presentationDetents`,面板陰影由系統繪製,不該再疊一層。
+
+### 驗證
+
+- `npm run typecheck` 通過;`swift build` 通過
+- Storybook 實際量測 DOM(非目視):Radius 六格邊框 `rgb(29,31,27)`、
+  陰影 `rgb(219,222,213) 0 1px 2px`、字級 20/20/20/20/20/16;
+  Color 22 個色票、標籤 96px 靠右 24px/600;Elevation 五級 box-shadow
+  與 Figma 字面值逐字相同;Typography 十一列的 size / line-height / weight
+  全中,H1 `letter-spacing` 實測 `0.8px`(40 × 2%)

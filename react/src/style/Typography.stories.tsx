@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { STYLE_PAGE_TITLE } from "./styleGuide";
 
 type Row = {
   category: string;
@@ -7,6 +8,8 @@ type Row = {
   lineHeightVar: string;
   weight: string;
   family: string;
+  /** Figma's `Spacing` column. Only H1 is non-zero. */
+  letterSpacing: string;
   usedBy: string[];
   note?: string;
 };
@@ -19,8 +22,9 @@ const ROWS: Row[] = [
     lineHeightVar: "--line-height-h1",
     weight: "Regular",
     family: "PingFang TC",
+    letterSpacing: "2%",
     usedBy: ["indicators/PaymentInfo", "navigation/BottomBar"],
-    note: "Style Guide documents this level as Regular weight + 2% letter-spacing, unlike every other Heading level (all Semibold/0%) — likely a documentation error, kept as-is pending confirmation in Figma.",
+    note: "The only level the Style Guide gives a Regular weight and non-zero tracking; every other Heading level is Semibold/0%. Reproduced as documented rather than normalised.",
   },
   {
     category: "Heading",
@@ -29,6 +33,7 @@ const ROWS: Row[] = [
     lineHeightVar: "--line-height-h2",
     weight: "Semibold",
     family: "PingFang TC",
+    letterSpacing: "0%",
     usedBy: [],
     note: "Defined for completeness; no component uses it yet.",
   },
@@ -39,6 +44,7 @@ const ROWS: Row[] = [
     lineHeightVar: "--line-height-h3",
     weight: "Semibold",
     family: "PingFang TC",
+    letterSpacing: "0%",
     usedBy: ["containers/CardDescription", "containers/CardScene", "disclosure/BottomSheet", "indicators/PaymentInfo", "navigation/BottomBar"],
   },
   {
@@ -48,6 +54,7 @@ const ROWS: Row[] = [
     lineHeightVar: "--line-height-h4",
     weight: "Semibold",
     family: "PingFang TC",
+    letterSpacing: "0%",
     usedBy: ["clickable/Button", "clickable/LocationPin", "disclosure/Tab"],
   },
   {
@@ -57,6 +64,7 @@ const ROWS: Row[] = [
     lineHeightVar: "--line-height-body-l",
     weight: "Regular",
     family: "PingFang TC",
+    letterSpacing: "0%",
     usedBy: [
       "clickable/RadioButton",
       "clickable/TextField",
@@ -77,6 +85,7 @@ const ROWS: Row[] = [
     lineHeightVar: "--line-height-body-m",
     weight: "Regular",
     family: "PingFang TC",
+    letterSpacing: "0%",
     usedBy: [
       "clickable/Button",
       "clickable/CheckBox",
@@ -112,6 +121,7 @@ const ROWS: Row[] = [
     lineHeightVar: "--line-height-body-s",
     weight: "Regular",
     family: "PingFang TC",
+    letterSpacing: "0%",
     usedBy: [
       "clickable/ChipsSalient",
       "clickable/ChipsSmall",
@@ -140,6 +150,7 @@ const ROWS: Row[] = [
     lineHeightVar: "--line-height-label-m",
     weight: "Semibold",
     family: "PingFang TC",
+    letterSpacing: "0%",
     usedBy: [],
     note: "Defined for completeness; no component uses it yet.",
   },
@@ -150,6 +161,7 @@ const ROWS: Row[] = [
     lineHeightVar: "--line-height-label-s",
     weight: "Semibold",
     family: "PingFang TC",
+    letterSpacing: "0%",
     usedBy: [],
     note: "Defined for completeness; no component uses it yet.",
   },
@@ -160,6 +172,7 @@ const ROWS: Row[] = [
     lineHeightVar: "--line-height-number",
     weight: "Semibold",
     family: "SF Mono",
+    letterSpacing: "0%",
     usedBy: ["clickable/Stepper"],
   },
   {
@@ -169,6 +182,7 @@ const ROWS: Row[] = [
     lineHeightVar: "--line-height-number",
     weight: "Regular",
     family: "SF Mono",
+    letterSpacing: "0%",
     usedBy: [],
     note: "Style Guide documents identical 16/24 values as Number/L — only the weight differs; may be a copy-paste artifact in the source file. No component uses this level yet.",
   },
@@ -177,6 +191,7 @@ const ROWS: Row[] = [
 function TypographyTable() {
   return (
     <div style={{ fontFamily: "var(--typeface-pingfang-tc)", color: "var(--color-gray-black)" }}>
+      <h2 style={STYLE_PAGE_TITLE}>Typography</h2>
       <p style={{ marginBottom: 16, color: "var(--color-gray-800)" }}>
         Every Typography combination defined in <code>src/tokens.css</code>, sourced from the Figma file's
         🔶 Design System → Style Guide → Typography frame (node 12948:43690). "Used by" lists every
@@ -190,6 +205,7 @@ function TypographyTable() {
             <th style={{ padding: "8px 12px" }}>Sample</th>
             <th style={{ padding: "8px 12px" }}>Size / Line-height</th>
             <th style={{ padding: "8px 12px" }}>Weight</th>
+            <th style={{ padding: "8px 12px" }}>Spacing</th>
             <th style={{ padding: "8px 12px" }}>Family</th>
             <th style={{ padding: "8px 12px", minWidth: 280 }}>Used by</th>
           </tr>
@@ -207,6 +223,7 @@ function TypographyTable() {
                     fontWeight: row.weight === "Semibold" ? "var(--font-weight-semibold)" : "var(--font-weight-regular)",
                     fontSize: `var(${row.sizeVar})`,
                     lineHeight: `var(${row.lineHeightVar})`,
+                    letterSpacing: row.letterSpacing === "0%" ? undefined : "var(--letter-spacing-h1)",
                     whiteSpace: "nowrap",
                   }}
                 >
@@ -217,6 +234,7 @@ function TypographyTable() {
                 {row.sizeVar} / {row.lineHeightVar}
               </td>
               <td style={{ padding: "12px" }}>{row.weight}</td>
+              <td style={{ padding: "12px" }}>{row.letterSpacing}</td>
               <td style={{ padding: "12px" }}>{row.family}</td>
               <td style={{ padding: "12px", fontSize: 12, color: "var(--color-gray-800)" }}>
                 {row.usedBy.length > 0 ? row.usedBy.join(", ") : <em>none yet</em>}

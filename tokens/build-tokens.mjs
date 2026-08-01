@@ -83,6 +83,11 @@ function buildSrcTokensCss() {
     }
     const note = entry.note ? ` /* ${entry.note} */` : "";
     lines.push(`  ${entry.cssSizeVar}: ${entry.size}px;${note}`);
+    // Figma documents letter-spacing on every level but only H1 is non-zero;
+    // emitting a `0em` var for the rest would just be noise at the call sites.
+    if (entry.letterSpacing) {
+      lines.push(`  ${entry.cssLetterSpacingVar}: ${entry.letterSpacing}em;`);
+    }
     // Number/L and Number/M share one line-height var — only emit it once.
     const alreadyEmitted = lines.some((l) => l.trimStart().startsWith(`${entry.cssLineHeightVar}:`));
     if (!alreadyEmitted) {
@@ -156,9 +161,13 @@ function buildSwiftTypography() {
     }
     const weight = entry.weight === "semibold" ? ".semibold" : ".regular";
     const design = entry.family === "sf-mono" ? ", design: .monospaced" : "";
+    // Figma's letter-spacing is a percentage of the font size, so it has to
+    // stay relative for Dynamic Type — `DSTypeStyle` multiplies it by the
+    // scaled size rather than baking in a point value here.
+    const tracking = entry.letterSpacing ? `, letterSpacing: ${entry.letterSpacing}` : "";
     if (entry.note) lines.push(`    /// ${entry.note}`);
     lines.push(
-      `    static let ${entry.swiftName} = DSTypeStyle(baseSize: ${entry.size}, relativeTo: .${entry.swiftRelativeTo}, weight: ${weight}${design})`
+      `    static let ${entry.swiftName} = DSTypeStyle(baseSize: ${entry.size}, relativeTo: .${entry.swiftRelativeTo}, weight: ${weight}${design}${tracking})`
     );
   }
   lines.push("}");
@@ -180,7 +189,10 @@ function buildSwiftElevation() {
       .map((l) => {
         const color = SWIFT_COLOR_REFS[l.colorRef];
         if (!color) throw new Error(`Unknown swiftColorRef "${l.colorRef}" in elevation.${key}`);
-        return `(${color}, ${l.radius}, ${l.x}, ${l.y})`;
+        // Figma/CSS express a drop shadow's blur as 2σ; SwiftUI's
+        // `.shadow(radius:)` takes σ. Halving here keeps every level on one
+        // conversion instead of each entry guessing its own.
+        return `(${color}, ${l.blur / 2}, ${l.x}, ${l.y})`;
       })
       .join(", ");
     lines.push(`    static let ${entry.swiftName} = DSElevationStyle(layers: [${layers}])`);

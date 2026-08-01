@@ -23,7 +23,7 @@
   --radius-xs: 8px;
   --radius-s: 12px;
   --radius-m: 16px;
-  --radius-rounded: 9999px; /* Figma 裡是「Radius/rounded」，實際數值請在 Figma 裡確認（通常代表 pill / 全圓角） */
+  --radius-rounded: 10000px; /* Figma 變數 Radius/rounded 的值就是 10000，代表 pill / 全圓角 */
 
   /* Color — primary */
   --color-primary-green-50: #ECF0E4;

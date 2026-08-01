@@ -5,7 +5,7 @@ import SwiftUI
 
 public extension DSTypeStyle {
     /// Figma Style Guide 本身標記 Regular/2% letter-spacing，跟 H2–H4（皆 Semibold/0%）不一致，疑似文件錯誤，忠實保留而非逕自修正
-    static let headline1 = DSTypeStyle(baseSize: 40, relativeTo: .largeTitle, weight: .regular)
+    static let headline1 = DSTypeStyle(baseSize: 40, relativeTo: .largeTitle, weight: .regular, letterSpacing: 0.02)
     static let headline2 = DSTypeStyle(baseSize: 24, relativeTo: .title, weight: .semibold)
     static let headline3 = DSTypeStyle(baseSize: 20, relativeTo: .title2, weight: .semibold)
     static let headline4 = DSTypeStyle(baseSize: 16, relativeTo: .headline, weight: .semibold)

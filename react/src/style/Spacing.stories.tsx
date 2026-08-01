@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { STYLE_PAGE_NOTE, STYLE_PAGE_TITLE, STYLE_TILE, STYLE_TILE_CAPTION, STYLE_TILE_ROW } from "./styleGuide";
 
 /**
  * Figma: Style Guide → Spacing (node `12948:43828`).
@@ -27,34 +28,29 @@ const SPACING: SpacingToken[] = [
 function SpacingScale() {
   return (
     <div style={{ fontFamily: "var(--typeface-pingfang-tc)", color: "var(--color-gray-black)" }}>
-      <h2 style={{ fontSize: 40, fontWeight: 400, margin: "0 0 24px" }}>Spacing</h2>
+      <h2 style={STYLE_PAGE_TITLE}>Spacing</h2>
 
-      <div style={{ display: "flex", gap: 32, flexWrap: "wrap" }}>
+      <div style={STYLE_TILE_ROW}>
         {SPACING.map((s) => (
           <div key={s.variable} style={{ textAlign: "center" }}>
-            <div
-              title={`var(${s.variable})`}
-              style={{
-                width: 60,
-                height: 60,
-                border: "1px solid var(--color-gray-400)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 16,
-                boxSizing: "border-box",
-              }}
-            >
+            <div title={`var(${s.variable})`} style={STYLE_TILE}>
               {s.label}
             </div>
-            <code style={{ display: "block", marginTop: 6, fontSize: 10, color: "var(--color-gray-800)" }}>
-              {s.token}
-            </code>
+            <code style={STYLE_TILE_CAPTION}>{s.token}</code>
           </div>
         ))}
       </div>
 
-      <h3 style={{ fontSize: 20, fontWeight: 600, margin: "40px 0 12px" }}>Relative scale</h3>
+      <h3
+        style={{
+          fontSize: "var(--type-scale-headline-3)",
+          lineHeight: "var(--line-height-h3)",
+          fontWeight: "var(--font-weight-semibold)",
+          margin: "40px 0 12px",
+        }}
+      >
+        Relative scale
+      </h3>
       <div style={{ display: "flex", flexDirection: "column", gap: 8, maxWidth: 720 }}>
         {SPACING.filter((s) => s.label !== "0").map((s) => (
           <div key={s.variable} style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -72,7 +68,7 @@ function SpacingScale() {
         ))}
       </div>
 
-      <p style={{ marginTop: 32, fontSize: 12, lineHeight: 1.6, color: "var(--color-gray-800)", maxWidth: 720 }}>
+      <p style={STYLE_PAGE_NOTE}>
         The Style Guide illustrates <code>spacing.lm</code> (24) as the screen gutter — it is the standard left/right
         inset for screen-level containers such as BottomSheet, ProgressIndicator and PaymentInfo, which is why it
         appears far more often than its neighbours.
