@@ -1182,18 +1182,36 @@ React 端的面板早就是這樣,只要拿掉 scrim;SwiftUI 端拿掉 `LinearGr
 
 ### U4. `Type Scale/body/L` = 16?
 
-**變數本身仍是 14。** 但這不是錯誤,原因終於查清楚了:**Figma 的變數名稱比樣式名稱
-整體低一階**。
+查證當下**變數仍是 14**,原因是 **Figma 的變數名稱比樣式名稱整體低一階**:
 
-| 樣式 | 綁定的變數 | 實際值 |
+| 樣式 | 綁定的變數 | 解析值 |
 |---|---|---|
-| `body/L` | `Type Scale/Label/L` + `Line Height/H4` | **16 / 24** ✅ |
-| `body/M` | `Type Scale/body/L` + `Line Height/body/L` | **14 / 20** ✅ |
-| `body/S` | `Type Scale/body/M` + `Line Height/body/M` | **12 / 18** ✅ |
+| `body/L` | `Type Scale/Label/L`(16) | 16 / 24 |
+| `body/M` | `Type Scale/body/L`(14) | 14 / 20 |
+| `body/S` | `Type Scale/body/M`(12) | 12 / 18 |
 
-也就是說 `Type Scale/body/L = 14` 餵的是**樣式 `body/M`**。三個樣式解析出來的值
-(16 / 14 / 12)與 Typography 說明表完全一致,也與我們的 token 一致——**程式碼本來
-就是對的,不需要改**。第 T5 輪記的那個「檔案內部不一致」到此有了完整解釋。
+三個樣式解析出來與說明表一致,token 也一致,所以當時**沒有改任何程式碼**。
+
+> **後續(設計端已修正變數,但產生副作用)**:設計端把 `Type Scale/body/L` 改成
+> **16**、`Type Scale/Label/L` 改成 **14**,並把樣式 `body/L` 重新指向
+> `Type Scale/body/L`。`body/L` 因此正確變成 16/24。
+>
+> 但**樣式 `body/M` 也綁在同一個 `Type Scale/body/L` 上**,沒有一起改指向,於是被
+> 一起帶上去:
+>
+> | 樣式 | size 綁定 | line-height 綁定 | 現在解析值 | 說明表 |
+> |---|---|---|---|---|
+> | `body/L` | `Type Scale/body/L` = 16 | `Line Height/H4` = 24 | 16 / 24 | ✅ |
+> | `body/M` | `Type Scale/body/L` = **16** | `Line Height/body/L` = 20 | **16 / 20** | ❌ 應 14 / 20 |
+> | `body/S` | `Type Scale/body/M` = 12 | `Line Height/body/M` = 18 | 12 / 18 | ✅ |
+>
+> 證據:`List / Setting`(493:1903)的 `body/L` 與 `Crowdedness`(15975:7322)的
+> `body/M` 現在都輸出 `--type-scale/body/l` = 16px;Typography 說明表(截圖比對)
+> 則完全沒變,仍是 L 16/24、M 14/20、S 12/18。
+>
+> body/M 是全系統用最多的一級(約 25 個元件)。**token 維持 14 不動** —— 追這個值
+> 等於跟著副作用走。要讓 Figma 自洽,`body/M` 的 size 需要改指向現在值為 14 的
+> `Type Scale/Label/L`。
 
 ### 驗證
 
