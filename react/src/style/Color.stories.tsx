@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { STYLE_PAGE_NOTE, STYLE_PAGE_TITLE, STYLE_TILE_CAPTION } from "./styleGuide";
 
 /**
  * Figma: Style Guide → Color (node `12948:43694`).
@@ -82,11 +83,23 @@ const ROWS: Row[] = [
 function ColorPalette() {
   return (
     <div style={{ fontFamily: "var(--typeface-pingfang-tc)", color: "var(--color-gray-black)" }}>
-      <h2 style={{ fontSize: 40, fontWeight: 400, margin: "0 0 24px" }}>Color</h2>
+      <h2 style={STYLE_PAGE_TITLE}>Color</h2>
       <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
         {ROWS.map((row) => (
           <div key={row.group} style={{ display: "flex", alignItems: "center", gap: 24 }}>
-            <div style={{ width: 96, flexShrink: 0, fontSize: 16, fontWeight: 600 }}>{row.group}</div>
+            {/* Figma sets the label column to 96px of right-aligned Headline/2. */}
+            <div
+              style={{
+                width: 96,
+                flexShrink: 0,
+                textAlign: "right",
+                fontSize: "var(--type-scale-headline-2)",
+                lineHeight: "var(--line-height-h2)",
+                fontWeight: "var(--font-weight-semibold)",
+              }}
+            >
+              {row.group}
+            </div>
             <div style={{ display: "flex", gap: 30, flexWrap: "wrap" }}>
               {row.swatches.map((s) => (
                 <div key={s.variable} style={{ textAlign: "center" }}>
@@ -101,8 +114,10 @@ function ColorPalette() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      fontSize: 16,
-                      fontWeight: 600,
+                      // Figma prints the shade inside the swatch in Headline/2.
+                      fontSize: "var(--type-scale-headline-2)",
+                      lineHeight: "var(--line-height-h2)",
+                      fontWeight: "var(--font-weight-semibold)",
                       // The `0` swatch is white on a white page; without this it
                       // would be invisible rather than merely subtle.
                       border: "1px solid var(--color-gray-100)",
@@ -111,9 +126,7 @@ function ColorPalette() {
                   >
                     {s.shade}
                   </div>
-                  <code style={{ display: "block", marginTop: 6, fontSize: 10, color: "var(--color-gray-800)" }}>
-                    {s.tokenName ?? s.variable.replace("--color-", "")}
-                  </code>
+                  <code style={STYLE_TILE_CAPTION}>{s.tokenName ?? s.variable.replace("--color-", "")}</code>
                 </div>
               ))}
             </div>
@@ -121,7 +134,7 @@ function ColorPalette() {
         ))}
       </div>
 
-      <p style={{ marginTop: 32, fontSize: 12, lineHeight: 1.6, color: "var(--color-gray-800)", maxWidth: 720 }}>
+      <p style={STYLE_PAGE_NOTE}>
         Values come from <code>tokens/design-tokens.json</code>, generated from the Figma variable export. The ramps are
         deliberately sparse — Primary skips 200/400, Accent skips 200/400/800, and the semantic colours only define
         600 and 700 — so a missing step means the design has no such shade, not that one was left out here.

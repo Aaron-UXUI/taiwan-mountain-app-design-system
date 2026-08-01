@@ -21,6 +21,7 @@
 
   /* Headline */
   --type-scale-headline-1: 40px; /* Figma Style Guide 本身標記 Regular/2% letter-spacing，跟 H2–H4（皆 Semibold/0%）不一致，疑似文件錯誤，忠實保留而非逕自修正 */
+  --letter-spacing-h1: 0.02em;
   --line-height-h1: 56px;
   --type-scale-headline-2: 24px;
   --line-height-h2: 36px;

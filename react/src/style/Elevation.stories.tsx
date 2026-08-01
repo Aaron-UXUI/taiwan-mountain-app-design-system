@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { STYLE_PAGE_TITLE, STYLE_TILE, STYLE_TILE_CAPTION, STYLE_TILE_ROW } from "./styleGuide";
 
 type Row = {
   level: number;
@@ -41,35 +42,19 @@ const ROWS: Row[] = [
   },
 ];
 
-const UNMAPPED: { component: string; value: string; note: string }[] = [];
-
 function ElevationSwatches() {
   return (
     <div style={{ fontFamily: "var(--typeface-pingfang-tc)", color: "var(--color-gray-black)" }}>
-      <p style={{ marginBottom: 16, color: "var(--color-gray-800)" }}>
+      <h2 style={STYLE_PAGE_TITLE}>Elevation</h2>
+      <p style={{ marginBottom: 24, color: "var(--color-gray-800)" }}>
         Every Elevation level defined in <code>src/tokens.css</code>, sourced from the Figma file's
         🔶 Design System → Style Guide → Elevation frame (node 12948:43756).
       </p>
-      <div style={{ display: "flex", gap: 32, marginBottom: 32, flexWrap: "wrap" }}>
+      <div style={{ ...STYLE_TILE_ROW, marginBottom: 32 }}>
         {ROWS.map((row) => (
           <div key={row.level} style={{ textAlign: "center" }}>
-            <div
-              style={{
-                width: 72,
-                height: 72,
-                borderRadius: "var(--radius-xs)",
-                background: "var(--color-gray-white)",
-                boxShadow: `var(--elevation-${row.level})`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontWeight: 600,
-                marginBottom: 8,
-              }}
-            >
-              {row.level}
-            </div>
-            <div style={{ fontSize: 12, fontWeight: 600 }}>Elevation/{row.level}</div>
+            <div style={{ ...STYLE_TILE, boxShadow: `var(--elevation-${row.level})` }}>{row.level}</div>
+            <code style={STYLE_TILE_CAPTION}>Elevation/{row.level}</code>
           </div>
         ))}
       </div>
@@ -88,28 +73,6 @@ function ElevationSwatches() {
               <td style={{ padding: "12px", fontFamily: "monospace", fontSize: 12 }}>{row.cssValue}</td>
               <td style={{ padding: "12px", fontSize: 12, color: "var(--color-gray-800)" }}>
                 {row.usedBy.join(", ")}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <h3 style={{ marginTop: 32, fontSize: 16 }}>Not mapped to any Elevation level</h3>
-      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
-        <thead>
-          <tr style={{ textAlign: "left", borderBottom: "2px solid var(--color-gray-200)" }}>
-            <th style={{ padding: "8px 12px" }}>Component</th>
-            <th style={{ padding: "8px 12px" }}>box-shadow</th>
-            <th style={{ padding: "8px 12px" }}>Note</th>
-          </tr>
-        </thead>
-        <tbody>
-          {UNMAPPED.map((row) => (
-            <tr key={row.component} style={{ borderBottom: "1px solid var(--color-gray-100)" }}>
-              <td style={{ padding: "12px", fontWeight: 600 }}>{row.component}</td>
-              <td style={{ padding: "12px", fontFamily: "monospace", fontSize: 12 }}>{row.value}</td>
-              <td style={{ padding: "12px", fontSize: 12, color: "var(--color-semantic-destruct-700)" }}>
-                {row.note}
               </td>
             </tr>
           ))}

@@ -90,4 +90,6 @@
   font-family: var(--typeface-pingfang-tc);
   font-size: var(--type-scale-headline-1);
   line-height: var(--line-height-h1);
+  /* H1 is the one level the Style Guide gives non-zero tracking (2%). */
+  letter-spacing: var(--letter-spacing-h1);
 }
