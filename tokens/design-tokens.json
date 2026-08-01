@@ -80,8 +80,8 @@
     "headline3": { "size": 20, "lineHeight": 30, "weight": "semibold", "family": "pingfang-tc", "cssSizeVar": "--type-scale-headline-3", "cssLineHeightVar": "--line-height-h3", "swiftName": "headline3", "swiftRelativeTo": "title2" },
     "headline4": { "size": 16, "lineHeight": 24, "weight": "semibold", "family": "pingfang-tc", "cssSizeVar": "--type-scale-headline-4", "cssLineHeightVar": "--line-height-h4", "swiftName": "headline4", "swiftRelativeTo": "headline" },
     "bodyL": { "size": 16, "lineHeight": 24, "weight": "regular", "family": "pingfang-tc", "cssSizeVar": "--type-scale-body-l", "cssLineHeightVar": "--line-height-body-l", "swiftName": "bodyL", "swiftRelativeTo": "body" },
-    "bodyM": { "size": 14, "lineHeight": 20, "weight": "regular", "family": "pingfang-tc", "cssSizeVar": "--type-scale-body-m", "cssLineHeightVar": "--line-height-body-m", "swiftName": "bodyM", "swiftRelativeTo": "subheadline" },
-    "bodyS": { "size": 12, "lineHeight": 18, "weight": "regular", "family": "pingfang-tc", "cssSizeVar": "--type-scale-body-s", "cssLineHeightVar": "--line-height-body-s", "swiftName": "bodyS", "swiftRelativeTo": "footnote" },
+    "bodyM": { "size": 14, "lineHeight": 18, "weight": "regular", "family": "pingfang-tc", "cssSizeVar": "--type-scale-body-m", "cssLineHeightVar": "--line-height-body-m", "swiftName": "bodyM", "swiftRelativeTo": "subheadline" },
+    "bodyS": { "size": 12, "lineHeight": 16, "weight": "regular", "family": "pingfang-tc", "cssSizeVar": "--type-scale-body-s", "cssLineHeightVar": "--line-height-body-s", "swiftName": "bodyS", "swiftRelativeTo": "footnote" },
     "labelM": { "size": 14, "lineHeight": 20, "weight": "semibold", "family": "pingfang-tc", "cssSizeVar": "--type-scale-label-m", "cssLineHeightVar": "--line-height-label-m", "swiftName": "labelM", "swiftRelativeTo": "subheadline" },
     "labelS": { "size": 12, "lineHeight": 18, "weight": "semibold", "family": "pingfang-tc", "cssSizeVar": "--type-scale-label-s", "cssLineHeightVar": "--line-height-label-s", "swiftName": "labelS", "swiftRelativeTo": "caption" },
     "numberL": {

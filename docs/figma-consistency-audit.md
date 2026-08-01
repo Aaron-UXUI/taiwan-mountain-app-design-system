@@ -1192,26 +1192,25 @@ React 端的面板早就是這樣,只要拿掉 scrim;SwiftUI 端拿掉 `LinearGr
 
 三個樣式解析出來與說明表一致,token 也一致,所以當時**沒有改任何程式碼**。
 
-> **後續(設計端已修正變數,但產生副作用)**:設計端把 `Type Scale/body/L` 改成
-> **16**、`Type Scale/Label/L` 改成 **14**,並把樣式 `body/L` 重新指向
-> `Type Scale/body/L`。`body/L` 因此正確變成 16/24。
+> **後續(設計端已把變數與說明表一起修好)**:`Type Scale/body/L` 改成 **16**、
+> `Type Scale/Label/L` 改成 **14**,樣式 `body/L` 重新指向 `Type Scale/body/L`,
+> 說明表的 Body 三列同步改成 **L 16/24、M 14/18、S 12/16**。
 >
-> 但**樣式 `body/M` 也綁在同一個 `Type Scale/body/L` 上**,沒有一起改指向,於是被
-> 一起帶上去:
+> 中間一度只動變數沒動樣式綁定,導致樣式 `body/M` 跟著跳到 16/20(它與 `body/L`
+> 共用同一個 size 變數);設計端隨後補正。最終狀態:
 >
-> | 樣式 | size 綁定 | line-height 綁定 | 現在解析值 | 說明表 |
-> |---|---|---|---|---|
-> | `body/L` | `Type Scale/body/L` = 16 | `Line Height/H4` = 24 | 16 / 24 | ✅ |
-> | `body/M` | `Type Scale/body/L` = **16** | `Line Height/body/L` = 20 | **16 / 20** | ❌ 應 14 / 20 |
-> | `body/S` | `Type Scale/body/M` = 12 | `Line Height/body/M` = 18 | 12 / 18 | ✅ |
+> | 樣式 | Size | Line height | 對照說明表 |
+> |---|---|---|---|
+> | `body/L` | 16 | 24 | ✅ |
+> | `body/M` | 14 | **18**(原 20) | ✅ |
+> | `body/S` | 12 | **16**(原 18) | ✅ |
 >
-> 證據:`List / Setting`(493:1903)的 `body/L` 與 `Crowdedness`(15975:7322)的
-> `body/M` 現在都輸出 `--type-scale/body/l` = 16px;Typography 說明表(截圖比對)
-> 則完全沒變,仍是 L 16/24、M 14/20、S 12/18。
+> **字級沒變,變的是 M / S 的行高。** token 的 `lineHeight` 隨之更新;
+> `size` 與 `swiftRelativeTo` 維持不動。
 >
-> body/M 是全系統用最多的一級(約 25 個元件)。**token 維持 14 不動** —— 追這個值
-> 等於跟著副作用走。要讓 Figma 自洽,`body/M` 的 size 需要改指向現在值為 14 的
-> `Type Scale/Label/L`。
+> 這只影響 CSS 端——SwiftUI 端刻意不重現固定行高(見 `DSTypography.swift`:
+> 固定行高在大字級下會擠在一起,改用系統字體自己的 leading),所以
+> `DSTypography+Tokens.swift` 不受影響。
 
 ### 驗證
 
